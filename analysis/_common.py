@@ -40,7 +40,7 @@ def write_table(rows, header, name: str) -> Path:
     TABLES.mkdir(parents=True, exist_ok=True)
     p = TABLES / name
     with p.open("w", newline="") as fh:
-        wr = csv.writer(fh)
+        wr = csv.writer(fh, lineterminator="\n")
         wr.writerow(header)
         wr.writerows(rows)
     print(f"  wrote {p.relative_to(ROOT)}")
