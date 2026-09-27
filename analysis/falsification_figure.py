@@ -59,14 +59,6 @@ CELLS = [
                                 {"E": 1., "J": 0.}),
 ]
 
-# Two labelling registers. FULL is the CROI submission: readable without having
-# read the Methods. SPARSE is the original brief -- bare parameter values, with
-# every gloss in the caption -- kept so the two can be compared side by side
-# rather than argued about. Positionally aligned with CELLS.
-SPARSE_LABELS = ["all five hold", r"$\mu_E=0.04$", r"$\mu_E=0.10$",
-                 r"$\eta=0$", r"$\eta=0.3$", r"$\eta=1.8$",
-                 r"$\eta=0,\ q_J=0.15$"]
-
 # Panel B. r values at which the simulator is run; the analytic curve is smooth.
 R_POINTS = [0.35, 0.55, 0.75, 0.95, 1.20, 1.50]
 
@@ -132,7 +124,7 @@ def build(q, mus, eta):
 
 def panel_a(phi):
     rows = []
-    print(f"{'condition':<24}{'analytic':>10}{'MC':>10}{'95% CI':>18}{'z':>7}")
+    print(f"{'condition':<30}{'analytic':>10}{'MC':>10}{'95% CI':>18}{'z':>7}")
     for i, (label, q, mus, eta) in enumerate(CELLS):
         Q, pi, eta = build(q, mus, eta)
         a = plim_ratio(phi, historical_weight(Q, pi=pi, eta=eta, grid=phi.grid))
@@ -140,10 +132,14 @@ def panel_a(phi):
                          for s in seeds(i)])
         m, sem = reps.mean(), reps.std(ddof=1) / np.sqrt(len(reps))
         z = (m - a) / sem
-        print(f"{label:<24}{a:>10.4f}{m:>10.4f}"
+        print(f"{' '.join(label.split()):<30}{a:>10.4f}{m:>10.4f}"
               f"{f'{m-1.96*sem:.4f}-{m+1.96*sem:.4f}':>18}{z:>7.2f}")
         assert abs(z) < 4.44, f"{label}: t = {z:.2f} exceeds t_23 at 0.999"
-        rows.append([label, f"{a:.5f}", f"{m:.5f}", f"{sem:.6f}", f"{z:.2f}"])
+        # Flatten the label for the table. Two-line labels are a plotting
+        # concern; a literal newline inside a CSV data column is quoted
+        # correctly but reads badly for anyone using the table as data.
+        rows.append([" ".join(label.split()), f"{a:.5f}", f"{m:.5f}",
+                     f"{sem:.6f}", f"{z:.2f}"])
     return rows
 
 
@@ -176,7 +172,7 @@ def panel_b(phi):
     return out, rows
 
 
-def draw(phi, rows_a, panels_b, rows_b, sparse: bool = False):
+def draw(phi, rows_a, panels_b, rows_b):
     """
     Three axes, two panels. A is the estimator value; the narrow strip beside it
     is the same seven comparisons studentised, because at the value scale the
@@ -207,7 +203,7 @@ def draw(phi, rows_a, panels_b, rows_b, sparse: bool = False):
         gridspec_kw={"width_ratios": [1.0, 0.30, 0.92]})
     fig.get_layout_engine().set(w_pad=0.045, h_pad=0.03, wspace=0.055)
 
-    labels = SPARSE_LABELS if sparse else [r[0] for r in rows_a]
+    labels = [r[0] for r in rows_a]
     ana = np.array([float(r[1]) for r in rows_a])
     mc = np.array([float(r[2]) for r in rows_a])
     sem = np.array([float(r[3]) for r in rows_a])
@@ -226,9 +222,8 @@ def draw(phi, rows_a, panels_b, rows_b, sparse: bool = False):
     axA.set_xticks([0.85, 0.90, 0.95, 1.00])
     # Name the reference line and the band in place. A dashed line and a grey
     # rectangle are the two elements a reader cannot decode from the legend.
-    if not sparse:
-        axA.text(1.0, len(labels) - 0.33, "unbiased = 1", color=REF,
-                 fontsize=8.5, ha="center", va="bottom")
+    axA.text(1.0, len(labels) - 0.33, "unbiased = 1", color=REF,
+             fontsize=8.5, ha="center", va="bottom")
     axA.tick_params(axis="y", length=0)
     for sp in ("top", "right", "left"):
         axA.spines[sp].set_visible(False)
@@ -243,9 +238,8 @@ def draw(phi, rows_a, panels_b, rows_b, sparse: bool = False):
     axT.set_xlim(-5, 5)
     axT.set_xticks([-4, 0, 4])
     axT.set_xlabel(r"(MC $-$ analytic) / SE")
-    if not sparse:
-        axT.text(0.0, band_top + 0.12, r"$\pm2$ SE", color=REF,
-                 fontsize=8.5, ha="center", va="bottom")
+    axT.text(0.0, band_top + 0.12, r"$\pm2$ SE", color=REF,
+             fontsize=8.5, ha="center", va="bottom")
     axT.tick_params(axis="y", length=0)
     for sp in ("top", "right", "left"):
         axT.spines[sp].set_visible(False)
@@ -261,22 +255,17 @@ def draw(phi, rows_a, panels_b, rows_b, sparse: bool = False):
     for (label, rg, curve, pts, rs), ls, (tag, tx, dy) in zip(
             panels_b, ["-", (0, (5, 2))], curve_tags):
         axB.plot(rg, curve, color=INK, lw=1.3, ls=ls, zorder=3)
-        if not sparse:
-            axB.text(tx, float(np.interp(tx, rg, curve)) + dy, tag, color=INK,
-                     fontsize=9.5, ha="center", va="center")
+        axB.text(tx, float(np.interp(tx, rg, curve)) + dy, tag, color=INK,
+                 fontsize=9.5, ha="center", va="center")
         axB.errorbar(pts[:, 0], pts[:, 1], yerr=1.96 * pts[:, 2], fmt="o",
                      ms=3.0, color=MC, ecolor=MC, elinewidth=0.9, capsize=1.6,
                      capthick=0.9, zorder=4)
         axB.plot([rs], [0.0], marker="v", ms=4.2, color=REF,
                  clip_on=False, zorder=5)
-    if sparse:
-        axB.set_xlabel(r"$r$")
-        axB.set_ylabel("limiting estimation error", labelpad=1.5)
-    else:
-        # fontsize trimmed: at 10 pt this label overruns the figure's right edge,
-        # since it is centred on an axis that ends there.
-        axB.set_xlabel(r"selective attendance ratio, $r=q_1/q_0$", fontsize=9)
-        axB.set_ylabel("limiting estimation error (LEL)", labelpad=1.5)
+    # fontsize trimmed: at 10 pt this label overruns the figure's right edge,
+    # since it is centred on an axis that ends there.
+    axB.set_xlabel(r"selective attendance ratio, $r=q_1/q_0$", fontsize=9)
+    axB.set_ylabel("limiting estimation error (LEL)", labelpad=1.5)
     axB.set_xlim(0.25, 1.60)
     axB.set_xticks([0.5, 1.0, 1.5])
     for sp in ("top", "right"):
@@ -290,10 +279,6 @@ def draw(phi, rows_a, panels_b, rows_b, sparse: bool = False):
         Line2D([], [], marker="v", ls="none", color=REF, ms=4.2,
                label=r"predicted $r^{\star}$"),
     ]
-    if sparse:
-        handles[2:2] = [
-            Line2D([], [], color=INK, lw=1.3, label=r"$w\equiv1$"),
-            Line2D([], [], color=INK, lw=1.3, ls=(0, (5, 2)), label=r"$\eta=0.3$")]
     fig.legend(handles=handles, loc="outside lower center", ncol=len(handles),
                frameon=False, handletextpad=0.45, columnspacing=1.6,
                borderpad=0.0)
@@ -301,9 +286,8 @@ def draw(phi, rows_a, panels_b, rows_b, sparse: bool = False):
     for ax, ltr in ((axA, "A"), (axB, "B")):
         ax.text(0.0, 1.05, ltr, transform=ax.transAxes,
                 fontsize=9, fontweight="bold", va="bottom", ha="left")
-    stem = "croi_falsification_sparse" if sparse else "croi_falsification"
     for ext in ("png", "pdf"):
-        p = FIGURES / f"{stem}.{ext}"
+        p = FIGURES / f"croi_falsification.{ext}"
         fig.savefig(p, dpi=600 if ext == "png" else None)
         print(f"  wrote {p.name}")
     return FIGURES / "croi_falsification.png"
@@ -377,8 +361,7 @@ def main():
                     "croi_figA_census.csv")
         write_table(rows_b, ["setting", "r", "analytic", "mc_mean", "mc_sem", "z"],
                     "croi_figB_screening.csv")
-    draw(phi, rows_a, panels_b, rows_b, sparse=False)
-    draw(phi, rows_a, panels_b, rows_b, sparse=True)
+    draw(phi, rows_a, panels_b, rows_b)
     caption(rows_a, rows_b, phi)
     return 0
 
