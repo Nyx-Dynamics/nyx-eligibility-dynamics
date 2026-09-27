@@ -158,6 +158,7 @@ found while porting the prototypes.
 | `test_phi_vanishes_outside_the_window` | `np.interp` clamping $\varphi$ to $\varphi(T^*)$ past the window, which inflated simulated recent counts by 13–22% |
 | `test_simulator_targets_lambda_E_not_total_incidence` | normalising the simulator to total incidence rather than $\lambda_E$, which made every $\eta \ne 1$ look like a failure of Theorem 2 |
 | `test_cell_seeds_are_disjoint` | sharing Monte Carlo seeds across parameter cells, which once produced a spurious "systematic bias at $p = 2^{-27}$" |
+| the `T_CRIT` table in `tests/test_simulation.py` | gating an agreement test on $\lvert z\rvert$ when the standard error is estimated from a handful of replicates, so the correct reference is $t_{N-1}$; see `docs/REPRODUCE.md` §2 |
 | `test_empirical_phi_tail_is_not_flat` | assuming B.1 away rather than recording its violation |
 
 See `tests/`, `docs/REPRODUCE.md` §7, and `docs/PROVENANCE.md` §8.

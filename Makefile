@@ -3,6 +3,7 @@
 #   make verify        theorem-level test suite (primary check)
 #   make figures       everything not requiring external data
 #   make figures-full  everything, including CEPHIA-dependent outputs
+#   make croi-figure   the CROI falsification figure (slow: ~20 min, 5.7e9 draws)
 #   make all           verify + figures
 #   make clean         remove generated outputs
 
@@ -15,7 +16,8 @@ OFFLINE := reproduce_pan mortality_threshold validate_theorems frailty_mixture \
            wang_comparator eta_surface inter_test_process
 DATADEP := empirical_phi
 
-.PHONY: all verify verify-fast figures figures-full clean check-env $(OFFLINE) $(DATADEP)
+.PHONY: all verify verify-fast figures figures-full croi-figure clean check-env \
+        $(OFFLINE) $(DATADEP)
 
 all: verify figures
 
@@ -37,6 +39,13 @@ figures: $(OFFLINE)
 
 figures-full: figures $(DATADEP)
 	@echo "\nAll outputs written to $(OUT)/"
+
+# Deliberately NOT part of `figures`: 24 replicates x 15M draws x 19 cells is a
+# few billion random numbers and about twenty minutes. The theorem-level suite
+# already covers the same comparisons at lower precision; this target exists to
+# regenerate the publication figure and its caption together.
+croi-figure: check-env
+	@cd $(ANALYSIS) && $(PY) falsification_figure.py
 
 eta-sites: check-env
 	@cd $(ANALYSIS) && $(PY) eta_surface.py --sites

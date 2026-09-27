@@ -29,8 +29,16 @@ from src.pan_composition import lel
 from src.simulation import SimConfig, simulate_ratio, simulate_lel
 
 N_PER_REP = 1_500_000
-N_REP = 6
-Z_MAX = 4.0
+N_REP = 12
+
+# Critical value for the agreement gate. The replicate standard error is ESTIMATED
+# from N_REP draws, so the studentised statistic is t with N_REP-1 df, not normal.
+# At 6 replicates the two-sided 0.999 value is t_5 = 6.87 against a normal 3.29 --
+# a |z| < 4 gate would have been tighter than the sampling distribution of its own
+# denominator, and one cell did transiently exceed it during figure work at
+# 1.5e8 draws while pooling over 50 independent replicates gave z = 0.23.
+# Raising N_REP is the fix: it tightens the real resolution instead of the gate.
+T_CRIT = {6: 6.87, 10: 4.78, 12: 4.44, 20: 3.88}[N_REP]
 
 THETA = 0.8439           # NHBS 57% tested in 12 months, Poisson
 C_PURPOSE = 0.25         # PURPOSE testing-based exclusion, years
@@ -140,10 +148,10 @@ def test_monte_carlo_matches_analytic(cell, phi_gamma):
     reps = np.array([simulate_ratio(phi_gamma, Q, pi, eta, n=N_PER_REP, seed=s)
                      for s in cell_seeds(cell)])
     sem = reps.std(ddof=1) / np.sqrt(len(reps))
-    z = (reps.mean() - analytic) / sem
-    assert abs(z) < Z_MAX, (
+    t = (reps.mean() - analytic) / sem
+    assert abs(t) < T_CRIT, (
         f"{label}: analytic {analytic:.5f}, MC {reps.mean():.5f} "
-        f"(sem {sem:.5f}), z = {z:.2f}")
+        f"(sem {sem:.5f}), t = {t:.2f} on {len(reps)-1} df")
 
 
 @pytest.mark.slow
@@ -166,10 +174,10 @@ def test_monte_carlo_matches_analytic_lel(i, r, phi_gamma):
                                   theta=THETA, n=N_PER_REP, seed=s)
                      for s in cell_seeds(len(CENSUS_CELLS) + i)])
     sem = reps.std(ddof=1) / np.sqrt(len(reps))
-    z = (reps.mean() - analytic) / sem
-    assert abs(z) < Z_MAX, (
+    t = (reps.mean() - analytic) / sem
+    assert abs(t) < T_CRIT, (
         f"r={r}: analytic {analytic:.5f}, MC {reps.mean():.5f} "
-        f"(sem {sem:.5f}), z = {z:.2f}")
+        f"(sem {sem:.5f}), t = {t:.2f} on {len(reps)-1} df")
     if r == pytest.approx(np.exp(-THETA * C_PURPOSE), abs=1e-3):
         assert abs(reps.mean()) < 4 * sem + 1e-3
 
@@ -190,10 +198,10 @@ def test_monte_carlo_matches_composed_lel(phi_gamma):
                                       theta=THETA, n=N_PER_REP, seed=s)
                          for s in cell_seeds(80 + j)])
         sem = reps.std(ddof=1) / np.sqrt(len(reps))
-        z = (reps.mean() - analytic) / sem
-        assert abs(z) < Z_MAX, (
+        t = (reps.mean() - analytic) / sem
+        assert abs(t) < T_CRIT, (
             f"composed r={r}: analytic {analytic:.5f}, MC {reps.mean():.5f}, "
-            f"z = {z:.2f}")
+            f"t = {t:.2f} on {len(reps)-1} df")
 
 
 def test_u_max_matches_pan_construction():

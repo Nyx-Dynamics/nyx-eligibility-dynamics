@@ -75,9 +75,9 @@ one. Marked `slow`; excluded by `make verify-fast`.
 
 | test | asserts | tolerance |
 |---|---|---|
-| `test_monte_carlo_matches_analytic` | simulated $\hat\lambda/\lambda_E$ vs Theorem 2, 7 cells: cancellation, absorbing at $\mu=0.04$ and $0.10$, $\eta=0$, $\eta=0.3$, $\eta=1.8$, $q_J=15\%$ | $\lvert z\rvert<4$, 6 reps × 1.5 M |
-| `test_monte_carlo_matches_analytic_lel` | simulated LEL vs Pan closed form at $r \in \{0.3, 0.5, 0.809, 1.0, 1.6\}$; the zero crossing lands on $e^{-\theta c}$ without being told it | $\lvert z\rvert<4$ |
-| `test_monte_carlo_matches_composed_lel` | dynamics **and** screening together — §2.7, not a special case of either module | $\lvert z\rvert<4$ |
+| `test_monte_carlo_matches_analytic` | simulated $\hat\lambda/\lambda_E$ vs Theorem 2, 7 cells: cancellation, absorbing at $\mu=0.04$ and $0.10$, $\eta=0$, $\eta=0.3$, $\eta=1.8$, $q_J=15\%$ | $\lvert t\rvert<4.44$, 12 reps × 1.5 M |
+| `test_monte_carlo_matches_analytic_lel` | simulated LEL vs Pan closed form at $r \in \{0.3, 0.5, 0.809, 1.0, 1.6\}$; the zero crossing lands on $e^{-\theta c}$ without being told it | $\lvert t\rvert<4.44$ |
+| `test_monte_carlo_matches_composed_lel` | dynamics **and** screening together — §2.7, not a special case of either module | $\lvert t\rvert<4.44$ |
 | `test_cell_seeds_are_disjoint` | seed blocks are pairwise disjoint | exact |
 | `test_phi_vanishes_outside_the_window` | $\varphi(u)=0$ for $u>T^*$, and the clamped alternative is materially non-zero | exact |
 | `test_simulator_targets_lambda_E_not_total_incidence` | the $\sum_k\pi_k\eta_k$ conversion is present, and its omission is detectable | 3e-3 |
@@ -100,6 +100,32 @@ Three layers, so a clone with no external data still tests something real.
 
 **Expected runtime** ≈ 7 s for `make verify` (≈ 1 s for `make verify-fast`), ≈ 25 s for
 `make figures`.
+
+### The agreement gate is a *t* statistic, not a *z*
+
+The replicate standard error is **estimated** from `N_REP` draws, so the studentised
+statistic follows $t_{N_{\mathrm{rep}}-1}$, not a normal. At the original 6 replicates the
+two-sided 0.999 critical value is $t_5 = 6.87$ against a normal 3.29 — so a $\lvert z\rvert<4$
+gate was *tighter than the sampling distribution of its own denominator*, and would have failed
+spuriously at a rate far above its nominal level.
+
+This was found while building the CROI figure, where a 10-replicate block put the $\eta=0.3$
+cell at $z = 3.27$. It is not a defect in either implementation:
+
+| seed block | MC mean | sem | $z$ |
+|---|---|---|---|
+| A | 0.955392 | 0.000222 | +3.10 |
+| B | 0.955149 | 0.000390 | +1.14 |
+| C | 0.953704 | 0.000455 | −2.19 |
+| D | 0.954633 | 0.000572 | −0.12 |
+| E | 0.954873 | 0.000444 | +0.38 |
+| **pooled, 50 reps** | **0.954750** | **0.000203** | **+0.23** |
+
+Analytic value 0.954703. The estimated `sem` varies by a factor of 2.6 across blocks, which is
+what drives the apparent outlier. The fix is more replicates (12 in the suite, 24 in the
+figure) plus a $t$ critical value, not a looser gate. Increasing `nbin` was ruled out first:
+the discrepancy was flat to three figures from 240 to 3840 bins, so it was never the
+midpoint approximation in `_state_at_survey`.
 
 ### A note on the Monte Carlo test
 

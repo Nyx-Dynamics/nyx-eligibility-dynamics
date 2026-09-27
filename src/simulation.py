@@ -74,7 +74,8 @@ def _swp_time_since_test(rng, theta: float, u: np.ndarray) -> tuple[np.ndarray, 
     return s, aware
 
 
-def _state_at_survey(rng, Q, pi_eta: np.ndarray, u: np.ndarray) -> np.ndarray:
+def _state_at_survey(rng, Q, pi_eta: np.ndarray, u: np.ndarray,
+                     nbin: int = 240) -> np.ndarray:
     """
     Sample the living state at survey for individuals infected u ago.
 
@@ -90,8 +91,21 @@ def _state_at_survey(rng, Q, pi_eta: np.ndarray, u: np.ndarray) -> np.ndarray:
     w = pi_eta / pi_eta.sum()
     start = rng.choice(nstate, size=len(u), p=w)
 
-    # Bucket by (start state, duration bin) so expm is called O(bins) times, not O(n).
-    nbin = 240
+    # Bucket by (start state, duration bin) so expm is called O(bins) times, not
+    # O(n). This is a MIDPOINT approximation to P_1(u) with error O(h^2) in the bin
+    # width -- a bias rather than noise, so it does not shrink with n and is worth
+    # checking rather than assuming.
+    #
+    # It was checked. Holding seeds fixed at 1.5e8 draws, the deviation from the
+    # analytic value is flat to three significant figures from 240 bins (+6.89e-4)
+    # through 960 (+6.89e-4) to 3840 (+6.84e-4), so at this grid the bucketing
+    # contributes below 1e-5 and 240 is ample. That residual +6.9e-4 turned out to
+    # be seed noise: pooling five independent blocks gave +4.7e-5, z = 0.23. See
+    # docs/REPRODUCE.md section 2.
+    #
+    # Raise nbin if T* or the transition rates change enough to alter the
+    # curvature of P_1 over a bin; rerun that convergence check rather than
+    # guessing, since a larger nbin costs runtime linearly and bought nothing here.
     edges = np.linspace(0.0, u.max() + 1e-12, nbin + 1)
     which = np.clip(np.digitize(u, edges) - 1, 0, nbin - 1)
     mid = 0.5 * (edges[:-1] + edges[1:])
@@ -110,7 +124,7 @@ def _state_at_survey(rng, Q, pi_eta: np.ndarray, u: np.ndarray) -> np.ndarray:
 
 def simulate_ratio(phi: RecencyFunction, Q, pi, eta, n: int = 2_000_000,
                    seed: int = 0, cfg: SimConfig | None = None,
-                   screening: bool = False) -> float:
+                   screening: bool = False, nbin: int = 240) -> float:
     """
     Monte Carlo estimate of plim lambda_hat / lambda_E.
 
@@ -146,7 +160,7 @@ def simulate_ratio(phi: RecencyFunction, Q, pi, eta, n: int = 2_000_000,
 
     # --- infected -------------------------------------------------------
     u = rng.uniform(0.0, cfg.u_max, n_inf)
-    obs = _state_at_survey(rng, Q, pi_eta, u)
+    obs = _state_at_survey(rng, Q, pi_eta, u, nbin=nbin)
     s_swp, aware = _swp_time_since_test(rng, cfg.theta, u)
     keep = obs & (s_swp > cfg.c) if screening else obs
     weight = np.where(aware, cfg.r, 1.0) * cfg.q0 if screening else 1.0
@@ -178,9 +192,9 @@ def simulate_ratio(phi: RecencyFunction, Q, pi, eta, n: int = 2_000_000,
 
 def simulate_lel(phi: RecencyFunction, Q, pi, eta, r: float, c: float,
                  theta: float, n: int = 2_000_000, seed: int = 0,
-                 cfg: SimConfig | None = None) -> float:
+                 cfg: SimConfig | None = None, nbin: int = 240) -> float:
     """log of the simulated bias ratio, comparable to pan_composition.lel."""
     cfg = cfg or SimConfig()
     cfg.r, cfg.c, cfg.theta = float(r), float(c), float(theta)
     return float(np.log(simulate_ratio(phi, Q, pi, eta, n=n, seed=seed,
-                                       cfg=cfg, screening=True)))
+                                       cfg=cfg, screening=True, nbin=nbin)))

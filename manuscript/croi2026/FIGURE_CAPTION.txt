@@ -1,0 +1,40 @@
+FIGURE. Analytic results against an independent generative simulator.
+
+(A) Probability limit of the adjusted cross-sectional estimator relative to the
+incidence rate in the observable state, lambda-E, under census sampling. Open
+circles are the analytic limit; red points are Monte Carlo means over 24
+independent replicates of 15 million individuals each. Error
+bars are 95% confidence intervals and are narrower than the plotting symbols, so
+the narrow panel to the right shows the same seven comparisons studentised, with
+the shaded band at plus or minus two standard errors; this is the resolution at
+which agreement was actually tested. The dashed vertical line marks no bias.
+
+Top row: all five cancellation conditions hold (stable living-state composition,
+demographically stationary observable susceptible pool, state-invariant
+acquisition, infection-independent movement, no absorbing loss), and losses and
+returns cancel exactly at 1.000. The remaining rows break one condition at a
+time. Absorbing loss at all-cause mortality mu-E attenuates the estimate to
+0.979 at 0.04/year and 0.948 at 0.10/year. Acquisition in temporarily
+unobservable states at relative hazard eta attenuates when eta is below one
+(0.944 at eta = 0, 0.955 at eta = 0.3) and inflates when eta exceeds
+one (1.007 at eta = 1.8), so the direction of bias is set by the acquisition
+hazard rather than by occupancy. The bottom row raises unobservable occupancy to
+15% (0.853). Unless stated otherwise, jail and prison occupancies are 3% and
+5% with mean sojourns of 32 days and 2.7 years.
+
+(B) The same process composed with the Pan-Bannick-Gao survey-attendance and
+prior-testing stages. Curves are the analytic limiting estimation error against
+the selective attendance ratio r, with w = 1 (their published setting, solid) and
+with eligibility dynamics at eta = 0.3 (dashed); red points are Monte Carlo.
+Triangles mark the predicted zero-bias boundary, which is exp(-theta c) =
+0.810 in the absence of dynamics and which the simulator reproduces
+without being given that value. Background HIV testing rate theta =
+0.844/year, testing-based exclusion cutoff c = 90 days, and a gamma
+recency function with window parameter 163 days and shadow 260 days, giving
+MDRI (Omega_T*) = 151 days over the T* = 2 year window. The window
+parameter and the MDRI are different quantities and are reported separately here
+because they are easily conflated.
+
+All 19 comparisons agree within |t| = 2.20 on
+23 degrees of freedom. The simulator shares no code with the analytic
+derivation and every cell uses a disjoint block of random seeds.
