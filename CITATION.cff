@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+title: "Eligibility dynamics in cross-sectional HIV incidence estimation"
+message: "If you use this software, please cite it as below."
+type: software
+authors:
+  - family-names: Demidont
+    given-names: A. C.
+    orcid: "https://orcid.org/0000-0002-9216-8569"
+    affiliation: "Nyx Dynamics LLC"
+license: MIT
+repository-code: "https://github.com/Nyx-Dynamics/nyx-eligibility-dynamics"
+abstract: >-
+  Reproducibility package for a methods paper on eligibility dynamics in
+  cross-sectional HIV incidence estimation from recency assays. Establishes that
+  transient movement into and out of unobservable states does not bias the
+  estimator under stated stationarity and state-invariance conditions, and
+  characterises the mechanisms that break that cancellation. Supersedes the
+  analysis in Nyx-Dynamics/nyx-kassanjee-letter (Zenodo 10.5281/zenodo.20344293).
+keywords:
+  - HIV incidence
+  - recency testing algorithm
+  - cross-sectional incidence estimation
+  - eligibility dynamics
+  - counterfactual placebo

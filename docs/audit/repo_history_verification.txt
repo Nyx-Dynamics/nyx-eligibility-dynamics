@@ -1,0 +1,115 @@
+# Repository-history verification
+# Run: 2026-09-27T00:43:44Z  host: Darwin  git: 2.50.1
+
+$ git merge-base origin/main origin/master
+  fatal: no common ancestor (exit 1)
+
+$ git rev-list --max-parents=0 origin/main
+a1e892195620d460defcc8774f62796a7f0ce4cc
+
+$ git rev-list --max-parents=0 origin/master
+0ed361a408f74d791e4fa79312f189c5ebfa570a
+
+$ git ls-tree -r --name-only origin/main | wc -l
+125
+$ git ls-tree -r --name-only origin/master | wc -l
+40
+$ git ls-tree -r --name-only origin/repo-cleanup-v5 | wc -l
+40
+
+$ git rev-list --left-right --count origin/master...origin/main
+3	7
+
+$ git diff --shortstat origin/main origin/master   # negative = master lacks content
+ 148 files changed, 2518 insertions(+), 14909 deletions(-)
+
+$ git log -1 --format="%H %ci %s" v9.0
+fcef9d2387cadd2c66e979081dd249d782b52411 2026-05-22 11:05:24 -0400 v9.0: canonical refresh + COVID counterfactual + reproducibility suite — Zenodo DOI 10.5281/zenodo.20344293, JAIDS submission 2026-05-22
+$ git log -1 --format="%H %ci %s" v10.0
+b5f84df28118f885cfc8e886bdca3ee4ff37e316 2026-05-23 10:51:00 -0400 v10: pre-submission citation conversion, Vancouver bib reorder, supplement [N#] resolution
+
+$ git branch -r --contains v9.0
+  origin/HEAD -> origin/main
+  origin/main
+
+# --- follow-up: does master contain files absent from main? ---
+$ comm -23 <(master files) <(main files)
+.zenodo.json
+data/ceiling_table.csv
+data/city_gamma_table.csv
+data/city_pep_efficacy_results.csv
+data/city_prep_ceiling_v2.csv
+data/city_prep_ceiling.csv
+data/kassanjee_bias_by_pop.csv
+data/LEN_implementation.json
+data/PrEP4U_sameday_start.json
+data/purpose_2_full.json
+data/purpose_4.json
+data/sensitivity_summary.csv
+data/Table_34_cities_full.csv
+data/table_34_cities.csv
+docs/README.md
+figures/fig_phase1c_v2.png
+figures/fig_phase1c.png
+figures/figure1.pdf
+figures/figure1.png
+figures/sensitivity_attenuation.png
+LICENSE-CC-BY-4.0
+LICENSE-MIT
+manuscript/Demidont_KassanjeeBias_references.bib
+manuscript/kassanjee_bias_bib.tex
+manuscript/kassanjee_bias_final_letter_v5.pdf
+manuscript/kassanjee_bias_final_letter_v5.tex
+manuscript/kassanjee_bias_final_supplement_v5.pdf
+manuscript/kassanjee_bias_final_supplement_v5.tex
+src/build_figure.py
+src/gamma_site_function.py
+src/kassanjee_correction.py
+src/master_visualizer.py
+src/phase1c_v2_figure.py
+src/supplement_sensitivity.py
+  (count: 34)
+
+$ the 3 commits on master not in main
+0787e41 Merge pull request #1 from Nyx-Dynamics/repo-cleanup-v5
+b602d1a Repo restructure for v5 submission
+0ed361a Initial commit of nyx-kassanjee-letter analysis and visualization pipeline
+
+# --- are the 34 unique-to-master paths relocations or genuinely new content? ---
+RELOCATED (same basename exists on main):
+    data/city_gamma_table.csv
+    data/kassanjee_bias_by_pop.csv
+    data/sensitivity_summary.csv
+    data/Table_34_cities_full.csv
+    docs/README.md
+    src/gamma_site_function.py
+    src/kassanjee_correction.py
+    src/phase1c_v2_figure.py
+    src/supplement_sensitivity.py
+
+GENUINELY ABSENT FROM main (basename not on main either):
+    .zenodo.json
+    data/ceiling_table.csv
+    data/city_pep_efficacy_results.csv
+    data/city_prep_ceiling_v2.csv
+    data/city_prep_ceiling.csv
+    data/LEN_implementation.json
+    data/PrEP4U_sameday_start.json
+    data/purpose_2_full.json
+    data/purpose_4.json
+    data/table_34_cities.csv
+    figures/fig_phase1c_v2.png
+    figures/fig_phase1c.png
+    figures/figure1.pdf
+    figures/figure1.png
+    figures/sensitivity_attenuation.png
+    LICENSE-CC-BY-4.0
+    LICENSE-MIT
+    manuscript/Demidont_KassanjeeBias_references.bib
+    manuscript/kassanjee_bias_bib.tex
+    manuscript/kassanjee_bias_final_letter_v5.pdf
+    manuscript/kassanjee_bias_final_letter_v5.tex
+    manuscript/kassanjee_bias_final_supplement_v5.pdf
+    manuscript/kassanjee_bias_final_supplement_v5.tex
+    src/build_figure.py
+    src/master_visualizer.py
