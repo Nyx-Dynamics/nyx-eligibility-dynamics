@@ -41,11 +41,12 @@ N_REP = 24
 # Panel A. Order: the cancellation case first, then one mechanism at a time.
 # Labels are parameter values only -- the mechanism names live in the caption.
 CELLS = [
-    (r"all five hold",          {"J": .03, "P": .05}, {"E": 0., "J": 0., "P": 0.},
+    ("cancellation\nconditions met",
+                                {"J": .03, "P": .05}, {"E": 0., "J": 0., "P": 0.},
                                 {"E": 1., "J": 1., "P": 1.}),
-    (r"$\mu_E=0.04$",           {},                   {"E": MU_PWID},
+    (r"mortality, $\mu_E=0.04$", {},                   {"E": MU_PWID},
                                 {"E": 1.}),
-    (r"$\mu_E=0.10$",           {},                   {"E": .10},
+    (r"mortality, $\mu_E=0.10$", {},                   {"E": .10},
                                 {"E": 1.}),
     (r"$\eta=0$",               {"J": .03, "P": .05}, {"E": MU_PWID, "J": MU_CUSTODY, "P": MU_CUSTODY},
                                 {"E": 1., "J": 0., "P": 0.}),
@@ -53,9 +54,18 @@ CELLS = [
                                 {"E": 1., "J": .3, "P": .3}),
     (r"$\eta=1.8$",             {"J": .03, "P": .05}, {"E": MU_PWID, "J": MU_CUSTODY, "P": MU_CUSTODY},
                                 {"E": 1., "J": 1.8, "P": 1.8}),
-    (r"$\eta=0,\ q_J=0.15$",    {"J": .15},           {"E": MU_PWID, "J": MU_CUSTODY},
+    ("$\\eta=0,\\ q_J=0.15$\n(stress test)",
+                                {"J": .15},           {"E": MU_PWID, "J": MU_CUSTODY},
                                 {"E": 1., "J": 0.}),
 ]
+
+# Two labelling registers. FULL is the CROI submission: readable without having
+# read the Methods. SPARSE is the original brief -- bare parameter values, with
+# every gloss in the caption -- kept so the two can be compared side by side
+# rather than argued about. Positionally aligned with CELLS.
+SPARSE_LABELS = ["all five hold", r"$\mu_E=0.04$", r"$\mu_E=0.10$",
+                 r"$\eta=0$", r"$\eta=0.3$", r"$\eta=1.8$",
+                 r"$\eta=0,\ q_J=0.15$"]
 
 # Panel B. r values at which the simulator is run; the analytic curve is smooth.
 R_POINTS = [0.35, 0.55, 0.75, 0.95, 1.20, 1.50]
@@ -77,6 +87,14 @@ def load_cached():
         raise SystemExit("no cached tables; run without --redraw first")
     rows_a = [r for r in list(csv.reader(ta.open()))[1:]]
     rows_b = [r for r in list(csv.reader(tb.open()))[1:]]
+    # Row labels are presentation, not data: re-take them from CELLS so that
+    # relabelling does not require re-running the simulation. Guard the
+    # correspondence, since it is positional.
+    if len(rows_a) != len(CELLS):
+        raise SystemExit(f"cached table has {len(rows_a)} rows against "
+                         f"{len(CELLS)} cells; re-run without --redraw")
+    for row, cell in zip(rows_a, CELLS):
+        row[0] = cell[0]
     return rows_a, rows_b
 
 
@@ -158,7 +176,7 @@ def panel_b(phi):
     return out, rows
 
 
-def draw(phi, rows_a, panels_b, rows_b):
+def draw(phi, rows_a, panels_b, rows_b, sparse: bool = False):
     """
     Three axes, two panels. A is the estimator value; the narrow strip beside it
     is the same seven comparisons studentised, because at the value scale the
@@ -171,8 +189,10 @@ def draw(phi, rows_a, panels_b, rows_b):
     import matplotlib.pyplot as plt
     from matplotlib.lines import Line2D
 
+    # Typography up ~25% from the first draft: this is read at abstract-figure
+    # size, where 8 pt is legible on screen and not on a printed programme page.
     plt.rcParams.update({
-        "font.size": 8, "axes.linewidth": 0.6,
+        "font.size": 10, "axes.linewidth": 0.7,
         "xtick.direction": "out", "ytick.direction": "out",
         "xtick.major.width": 0.6, "ytick.major.width": 0.6,
         "mathtext.default": "regular",
@@ -183,11 +203,11 @@ def draw(phi, rows_a, panels_b, rows_b):
     # figure-level legend is exactly the case tight_layout warns it cannot solve,
     # and it silently overlapped the axis labels with the legend.
     fig, (axA, axT, axB) = plt.subplots(
-        1, 3, figsize=(7.4, 3.3), layout="constrained",
+        1, 3, figsize=(8.3, 3.9), layout="constrained",
         gridspec_kw={"width_ratios": [1.0, 0.30, 0.92]})
     fig.get_layout_engine().set(w_pad=0.045, h_pad=0.03, wspace=0.055)
 
-    labels = [r[0] for r in rows_a]
+    labels = SPARSE_LABELS if sparse else [r[0] for r in rows_a]
     ana = np.array([float(r[1]) for r in rows_a])
     mc = np.array([float(r[2]) for r in rows_a])
     sem = np.array([float(r[3]) for r in rows_a])
@@ -201,37 +221,62 @@ def draw(phi, rows_a, panels_b, rows_b):
     axA.errorbar(mc, y, xerr=1.96 * sem, fmt="o", ms=3.0, color=MC,
                  ecolor=MC, elinewidth=0.9, capsize=1.6, capthick=0.9, zorder=4)
     axA.set_yticks(y, labels)
-    axA.set_ylim(-0.7, len(labels) - 0.3)
+    axA.set_ylim(-0.7, len(labels) + 0.25)
     axA.set_xlabel(r"$\hat\lambda\,/\,\lambda_E$")
     axA.set_xticks([0.85, 0.90, 0.95, 1.00])
+    # Name the reference line and the band in place. A dashed line and a grey
+    # rectangle are the two elements a reader cannot decode from the legend.
+    if not sparse:
+        axA.text(1.0, len(labels) - 0.33, "unbiased = 1", color=REF,
+                 fontsize=8.5, ha="center", va="bottom")
     axA.tick_params(axis="y", length=0)
     for sp in ("top", "right", "left"):
         axA.spines[sp].set_visible(False)
 
     # ---- A, studentised strip ------------------------------------------
-    axT.axvspan(-2, 2, color=BAND, lw=0, zorder=0)
-    axT.axvline(0.0, color=REF, lw=0.7, zorder=1)
+    band_top = len(labels) - 0.45
+    axT.fill_betweenx([-0.7, band_top], -2, 2, color=BAND, lw=0, zorder=0)
+    axT.vlines(0.0, -0.7, band_top, color=REF, lw=0.7, zorder=1)
     axT.scatter(tt, y, s=14, color=MC, zorder=3)
     axT.set_yticks(y, [])
-    axT.set_ylim(-0.7, len(labels) - 0.3)
+    axT.set_ylim(-0.7, len(labels) + 0.25)
     axT.set_xlim(-5, 5)
     axT.set_xticks([-4, 0, 4])
     axT.set_xlabel(r"(MC $-$ analytic) / SE")
+    if not sparse:
+        axT.text(0.0, band_top + 0.12, r"$\pm2$ SE", color=REF,
+                 fontsize=8.5, ha="center", va="bottom")
     axT.tick_params(axis="y", length=0)
     for sp in ("top", "right", "left"):
         axT.spines[sp].set_visible(False)
 
     # ---- B: composed with screening ------------------------------------
     axB.axhline(0.0, color=REF, lw=0.7, ls=(0, (4, 3)), zorder=1)
-    for (label, rg, curve, pts, rs), ls in zip(panels_b, ["-", (0, (5, 2))]):
-        axB.plot(rg, curve, color=INK, lw=1.1, ls=ls, zorder=3)
+    # Curves labelled in place rather than through the legend, so the reader is
+    # not decoding two keys at once. The glosses ("no upstream distortion",
+    # "state-dependent acquisition") stay in the caption: at this panel width the
+    # two curves are ~12% of the axis apart at their widest, which is not enough
+    # room for a two-line annotation without overplotting the data.
+    curve_tags = [(r"$w\equiv1$", 1.38, 0.030), (r"$\eta=0.3$", 1.38, -0.038)]
+    for (label, rg, curve, pts, rs), ls, (tag, tx, dy) in zip(
+            panels_b, ["-", (0, (5, 2))], curve_tags):
+        axB.plot(rg, curve, color=INK, lw=1.3, ls=ls, zorder=3)
+        if not sparse:
+            axB.text(tx, float(np.interp(tx, rg, curve)) + dy, tag, color=INK,
+                     fontsize=9.5, ha="center", va="center")
         axB.errorbar(pts[:, 0], pts[:, 1], yerr=1.96 * pts[:, 2], fmt="o",
                      ms=3.0, color=MC, ecolor=MC, elinewidth=0.9, capsize=1.6,
                      capthick=0.9, zorder=4)
         axB.plot([rs], [0.0], marker="v", ms=4.2, color=REF,
                  clip_on=False, zorder=5)
-    axB.set_xlabel(r"$r$")
-    axB.set_ylabel("limiting estimation error", labelpad=1.5)
+    if sparse:
+        axB.set_xlabel(r"$r$")
+        axB.set_ylabel("limiting estimation error", labelpad=1.5)
+    else:
+        # fontsize trimmed: at 10 pt this label overruns the figure's right edge,
+        # since it is centred on an axis that ends there.
+        axB.set_xlabel(r"selective attendance ratio, $r=q_1/q_0$", fontsize=9)
+        axB.set_ylabel("limiting estimation error (LEL)", labelpad=1.5)
     axB.set_xlim(0.25, 1.60)
     axB.set_xticks([0.5, 1.0, 1.5])
     for sp in ("top", "right"):
@@ -242,20 +287,23 @@ def draw(phi, rows_a, panels_b, rows_b):
                ms=6.4, label="analytic"),
         Line2D([], [], marker="o", ls="none", color=MC, ms=3.4,
                label="Monte Carlo"),
-        Line2D([], [], color=INK, lw=1.1, label=r"$w\equiv1$"),
-        Line2D([], [], color=INK, lw=1.1, ls=(0, (5, 2)), label=r"$\eta=0.3$"),
         Line2D([], [], marker="v", ls="none", color=REF, ms=4.2,
                label=r"predicted $r^{\star}$"),
     ]
-    fig.legend(handles=handles, loc="outside lower center", ncol=5,
+    if sparse:
+        handles[2:2] = [
+            Line2D([], [], color=INK, lw=1.3, label=r"$w\equiv1$"),
+            Line2D([], [], color=INK, lw=1.3, ls=(0, (5, 2)), label=r"$\eta=0.3$")]
+    fig.legend(handles=handles, loc="outside lower center", ncol=len(handles),
                frameon=False, handletextpad=0.45, columnspacing=1.6,
                borderpad=0.0)
 
     for ax, ltr in ((axA, "A"), (axB, "B")):
         ax.text(0.0, 1.05, ltr, transform=ax.transAxes,
                 fontsize=9, fontweight="bold", va="bottom", ha="left")
+    stem = "croi_falsification_sparse" if sparse else "croi_falsification"
     for ext in ("png", "pdf"):
-        p = FIGURES / f"croi_falsification.{ext}"
+        p = FIGURES / f"{stem}.{ext}"
         fig.savefig(p, dpi=600 if ext == "png" else None)
         print(f"  wrote {p.name}")
     return FIGURES / "croi_falsification.png"
@@ -270,42 +318,38 @@ def caption(rows_a, rows_b, phi):
     zmax = max([abs(float(r[4])) for r in rows_a]
                + [abs(float(r[5])) for r in rows_b])
     rstar0 = boundary_no_dynamics(THETA_NHBS, C_PURPOSE)
-    txt = f"""FIGURE. Analytic results against an independent generative simulator.
+    txt = f"""FIGURE. Analytic predictions and independent Monte Carlo validation
+of eligibility-dynamic bias.
 
-(A) Probability limit of the adjusted cross-sectional estimator relative to the
-incidence rate in the observable state, lambda-E, under census sampling. Open
-circles are the analytic limit; red points are Monte Carlo means over {N_REP}
-independent replicates of {N_DRAW // 1_000_000} million individuals each. Error
-bars are 95% confidence intervals and are narrower than the plotting symbols, so
-the narrow panel to the right shows the same seven comparisons studentised, with
-the shaded band at plus or minus two standard errors; this is the resolution at
-which agreement was actually tested. The dashed vertical line marks no bias.
+(A) Estimated-to-target incidence ratio under the exact-cancellation conditions
+and selected violations. The dashed line denotes no bias. Open circles are
+analytic limits; red points are Monte Carlo means over {N_REP} independent
+replicates of {N_DRAW // 1_000_000} million individuals each, whose 95%
+confidence intervals are narrower than the plotting symbols; standardised
+Monte Carlo minus analytic discrepancies are shown at right, with the shaded band
+at plus or minus two standard errors. When all five conditions hold (stable
+living-state composition, demographically stationary observable susceptible pool,
+state-invariant acquisition, infection-independent movement, no absorbing loss),
+temporary losses and returns cancel exactly at {v[0]:.3f}. Absorbing loss at
+all-cause mortality mu-E attenuates the estimate to {v[1]:.3f} at 0.04/year and
+{v[2]:.3f} at 0.10/year. Acquisition in temporarily unobservable states at
+relative hazard eta attenuates when eta is below one ({v[3]:.3f} at eta = 0,
+{v[4]:.3f} at eta = 0.3) and inflates when eta exceeds one ({v[5]:.3f} at
+eta = 1.8), so the direction of bias is set by the acquisition hazard rather than
+by occupancy. The final row is a stress test raising unobservable occupancy to
+15% ({v[6]:.3f}); elsewhere jail and prison occupancies are 3% and 5% with mean
+sojourns of 32 days and 2.7 years.
 
-Top row: all five cancellation conditions hold (stable living-state composition,
-demographically stationary observable susceptible pool, state-invariant
-acquisition, infection-independent movement, no absorbing loss), and losses and
-returns cancel exactly at {v[0]:.3f}. The remaining rows break one condition at a
-time. Absorbing loss at all-cause mortality mu-E attenuates the estimate to
-{v[1]:.3f} at 0.04/year and {v[2]:.3f} at 0.10/year. Acquisition in temporarily
-unobservable states at relative hazard eta attenuates when eta is below one
-({v[3]:.3f} at eta = 0, {v[4]:.3f} at eta = 0.3) and inflates when eta exceeds
-one ({v[5]:.3f} at eta = 1.8), so the direction of bias is set by the acquisition
-hazard rather than by occupancy. The bottom row raises unobservable occupancy to
-15% ({v[6]:.3f}). Unless stated otherwise, jail and prison occupancies are 3% and
-5% with mean sojourns of 32 days and 2.7 years.
-
-(B) The same process composed with the Pan-Bannick-Gao survey-attendance and
-prior-testing stages. Curves are the analytic limiting estimation error against
-the selective attendance ratio r, with w = 1 (their published setting, solid) and
-with eligibility dynamics at eta = 0.3 (dashed); red points are Monte Carlo.
-Triangles mark the predicted zero-bias boundary, which is exp(-theta c) =
-{rstar0:.3f} in the absence of dynamics and which the simulator reproduces
-without being given that value. Background HIV testing rate theta =
+(B) Limiting estimation error across the screening-attendance ratio r, without
+upstream eligibility distortion (w = 1, solid) and with state-dependent
+acquisition (eta = 0.3, dashed). Triangles denote analytically predicted
+zero-bias boundaries, which the simulator reproduces without being given them;
+points are independent Monte Carlo estimates. Without dynamics the boundary is
+exp(-theta c) = {rstar0:.3f}. Background HIV testing rate theta =
 {THETA_NHBS:.3f}/year, testing-based exclusion cutoff c = 90 days, and a gamma
 recency function with window parameter 163 days and shadow 260 days, giving
-MDRI (Omega_T*) = {phi.mdri_days:.0f} days over the T* = 2 year window. The window
-parameter and the MDRI are different quantities and are reported separately here
-because they are easily conflated.
+MDRI (Omega_T*) = {phi.mdri_days:.0f} days over the T* = 2 year window; the window
+parameter and the MDRI are distinct quantities and are easily conflated.
 
 All {len(rows_a) + len(rows_b)} comparisons agree within |t| = {zmax:.2f} on
 {N_REP - 1} degrees of freedom. The simulator shares no code with the analytic
@@ -333,7 +377,8 @@ def main():
                     "croi_figA_census.csv")
         write_table(rows_b, ["setting", "r", "analytic", "mc_mean", "mc_sem", "z"],
                     "croi_figB_screening.csv")
-    draw(phi, rows_a, panels_b, rows_b)
+    draw(phi, rows_a, panels_b, rows_b, sparse=False)
+    draw(phi, rows_a, panels_b, rows_b, sparse=True)
     caption(rows_a, rows_b, phi)
     return 0
 
