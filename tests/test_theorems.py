@@ -236,3 +236,110 @@ def test_gamma_params_match_xsrecency():
     rate = 1.0 / (2 * H - W)
     assert rate == pytest.approx(1.273, abs=0.001)
     assert W * rate == pytest.approx(0.352, abs=0.001)
+
+
+# ---------------------------------------------------------------------------
+# Inter-test process vs assay basis
+# ---------------------------------------------------------------------------
+
+BASES_6 = [(97, 180), (101, 194), (130, 220), (163, 260), (182, 290), (300, 400)]
+
+
+def _six_bases():
+    from src.eligibility_dynamics import gamma_phi, default_grid
+    g = default_grid(4001)
+    return [gamma_phi(w, h, g) for w, h in BASES_6]
+
+
+def test_lel_general_reproduces_the_poisson_closed_form(phi_gamma):
+    """
+    Internal check on the general derivation: with a Poisson process, the general
+    kept-mass form must reproduce `lel` exactly. If this drifts, the general
+    expression is wrong, not the Poisson one.
+    """
+    from src.pan_composition import lel, lel_general, PoissonInterTest
+    ones = np.ones_like(phi_gamma.grid)
+    for theta in (0.5, 0.8439, 1.0, 2.0):
+        for r in (0.4, 1.0, 1.7):
+            assert lel_general(phi_gamma, ones, r, 0.25,
+                               PoissonInterTest(theta)) == pytest.approx(
+                lel(phi_gamma, ones, r=r, c=0.25, theta=theta), abs=1e-9)
+
+
+def test_boundary_closed_form_agrees_with_root_finding(phi_gamma):
+    """r_star_general is algebraic; r_star brackets numerically. They must agree."""
+    from src.pan_composition import r_star, r_star_general, PoissonInterTest
+    ones = np.ones_like(phi_gamma.grid)
+    for theta, c in ((0.5, 0.25), (1.0, 0.25), (2.0, 0.25), (1.0, 0.4)):
+        assert r_star_general(phi_gamma, ones, c, PoissonInterTest(theta)) == \
+            pytest.approx(r_star(phi_gamma, ones, theta=theta, c=c), abs=1e-6)
+
+
+def test_uniform_inter_test_boundary_is_only_approximately_phi_free():
+    """
+    Assay basis is not inter-test process. Under Poisson the boundary is exactly
+    e^{-theta c} and exactly free of phi; under Pan's Uniform[0,b] variant it is
+    neither. Invariance survives only approximately -- the record's ceiling is
+    0.6% relative spread across bases spanning MDRI 94-251 d.
+    """
+    from src.pan_composition import (r_star_general, PoissonInterTest,
+                                     UniformInterTest, boundary_no_dynamics)
+    bases = _six_bases()
+    c = 0.25
+
+    exact = np.array([r_star_general(p, np.ones_like(p.grid), c,
+                                     PoissonInterTest(1.0)) for p in bases])
+    np.testing.assert_allclose(exact, boundary_no_dynamics(1.0, c), atol=1e-9)
+    assert np.ptp(exact) < 1e-9, "Poisson invariance must be exact, not approximate"
+
+    for b, ceiling in ((3.0, 0.006), (4.0, 0.006)):
+        proc = UniformInterTest(b)
+        rs = np.array([r_star_general(p, np.ones_like(p.grid), c, proc)
+                       for p in bases])
+        rel = np.ptp(rs) / rs.mean()
+        assert 0.0 < rel <= ceiling, \
+            f"Uniform[0,{b}]: relative spread {rel:.4f} exceeds {ceiling}"
+
+
+def test_uniform_boundary_is_not_the_denominator_inclusion():
+    """
+    Guard on a false generalisation. r* = Pr(S>c) is Poisson-specific. Under
+    Uniform[0,3], P_0 = (1-c/b)^2 = 0.8403 but r* is about 0.90, so reading the
+    boundary off the denominator would understate it by six percentage points.
+    """
+    from src.pan_composition import (r_star_general, UniformInterTest,
+                                     PoissonInterTest)
+    from src.eligibility_dynamics import gamma_phi, default_grid
+    g = default_grid(4001)
+    phi = gamma_phi(163, 260, g)
+    ones = np.ones_like(g)
+    c = 0.25
+
+    for b, p0_ref in ((3.0, 0.8403), (4.0, 0.8789)):
+        proc = UniformInterTest(b)
+        assert proc.P0(c) == pytest.approx(p0_ref, abs=5e-5)
+        rs = r_star_general(phi, ones, c, proc)
+        assert rs > proc.P0(c) + 0.04, \
+            f"Uniform[0,{b}]: r* {rs:.4f} vs P_0 {proc.P0(c):.4f}"
+
+    # whereas under Poisson the two coincide exactly
+    proc = PoissonInterTest(1.0)
+    assert r_star_general(phi, ones, c, proc) == pytest.approx(proc.P0(c), abs=1e-9)
+
+
+def test_uniform_inter_test_reduces_to_its_mean_gap_only_approximately(phi_gamma):
+    """
+    Uniform[0,b] has mean gap b/2, so theta = 2/b is the comparable Poisson rate.
+    Matching the mean does NOT match the boundary -- the discrepancy is the whole
+    content of the distinction.
+    """
+    from src.pan_composition import (r_star_general, UniformInterTest,
+                                     PoissonInterTest)
+    ones = np.ones_like(phi_gamma.grid)
+    proc = UniformInterTest(3.0)
+    matched = PoissonInterTest(proc.theta_equivalent)
+    u = r_star_general(phi_gamma, ones, 0.25, proc)
+    p = r_star_general(phi_gamma, ones, 0.25, matched)
+    assert abs(u - p) > 0.05, (
+        f"uniform {u:.4f} vs mean-matched Poisson {p:.4f}: if these agreed, the "
+        "process/basis distinction would not matter")

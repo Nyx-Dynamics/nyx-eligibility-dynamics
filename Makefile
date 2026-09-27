@@ -12,7 +12,7 @@ ANALYSIS := analysis
 OUT      := outputs
 
 OFFLINE := reproduce_pan mortality_threshold validate_theorems frailty_mixture \
-           wang_comparator eta_surface
+           wang_comparator eta_surface inter_test_process
 DATADEP := empirical_phi
 
 .PHONY: all verify verify-fast figures figures-full clean check-env $(OFFLINE) $(DATADEP)

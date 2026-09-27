@@ -104,6 +104,17 @@ Stated because their absence is easy to miss and each is a place where the paper
 | **S.3(i)** | Recency result depends only on infection duration: $R \perp (S,C,Q)\mid U$ |
 | **S.3(ii)** | $\varphi(u) = \beta_{T^*}$ for $u > T^*$ (their form of B.1) |
 
+**The inter-test process is an assumption, not a nuisance detail.** Pan's main results take a
+Poisson (exponential-gap) testing process; their §S.6 also treats gaps $\mathrm{Unif}[0,b]$.
+Under Poisson the zero-bias boundary is $r^\star = e^{-\theta c}$ exactly and is exactly free
+of $\varphi$; under the uniform variant neither holds — invariance survives only to ≤0.6%
+relative spread across recency bases, and the identity $r^\star = \Pr(S>c)$ fails outright
+(Uniform[0,3] gives $P_0 = 0.8403$ against $r^\star \approx 0.90$). Matching the mean gap does
+not recover the boundary either. We claim exactness only for the Poisson case; see
+`analysis/inter_test_process.py` and `tests/test_theorems.py`. The distinction matters because
+a *rectangular recency window* is an assay basis and has nothing to do with a *uniform
+inter-test distribution*; conflating them set the predecessor manuscript's sign.
+
 **S.2(i) is where our mechanism would enter their framework if expressed as attendance** rather than as population membership. We deliberately do not do that: the two readings differ in whether the individual remains in the source population, and conflating them is what made the predecessor's stage structure unrecoverable.
 
 ---
@@ -126,12 +137,27 @@ $\eta$ is the load-bearing unmeasured parameter. It cannot be identified from st
 
 ## 8. Regression tests
 
-Two assumption errors were made during development. Both are now guarded:
+Every error made during development is guarded by a test, including the implementation errors
+found while porting the prototypes.
+
+**Assumption errors**
 
 | Test | Guards |
 |---|---|
-| `test_state_stationarity_alone_insufficient` | conflating (1) with (2) |
+| `test_state_stationarity_alone_insufficient` | conflating condition (1) with (2) |
 | `test_corollary_1_requires_demographic_stationarity` | omitting (2) from Corollary 1 |
 | `test_eta_zero_recovers_restricted_model` | validating the restricted model against an *independent* implementation rather than against itself |
+| `test_uniform_boundary_is_not_the_denominator_inclusion` | generalising $r^\star = \Pr(S>c)$ beyond the Poisson case |
+| `test_uniform_inter_test_reduces_to_its_mean_gap_only_approximately` | treating the mean gap as sufficient to characterise the testing process |
+| `test_inert_exclusion_is_refused` | reporting a boundary when $K_w = 0$ makes it undefined |
 
-See `tests/` and `docs/PROVENANCE.md` §8.
+**Implementation errors**
+
+| Test | Guards |
+|---|---|
+| `test_phi_vanishes_outside_the_window` | `np.interp` clamping $\varphi$ to $\varphi(T^*)$ past the window, which inflated simulated recent counts by 13–22% |
+| `test_simulator_targets_lambda_E_not_total_incidence` | normalising the simulator to total incidence rather than $\lambda_E$, which made every $\eta \ne 1$ look like a failure of Theorem 2 |
+| `test_cell_seeds_are_disjoint` | sharing Monte Carlo seeds across parameter cells, which once produced a spurious "systematic bias at $p = 2^{-27}$" |
+| `test_empirical_phi_tail_is_not_flat` | assuming B.1 away rather than recording its violation |
+
+See `tests/`, `docs/REPRODUCE.md` §7, and `docs/PROVENANCE.md` §8.

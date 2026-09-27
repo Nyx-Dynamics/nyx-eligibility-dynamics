@@ -40,39 +40,52 @@ population at t−u  ──P₁(u)──▶  observable source at t  ──Q─�
         └──────── historical weight w_t(u) ────────┘
 ```
 
-Substituting the full historical weight into their limiting estimation error moves the zero-bias boundary from $r^\star = e^{-\theta c}$ to $r^\star_w = e^{-\theta c}\big[1+(\Omega_{T^*}-\Omega_w)/K_w\big]$. Setting $w_t\equiv1$ recovers their expression exactly. Their boundary is independent of the recency function — exact under a Poisson testing process.
+Substituting the full historical weight into their limiting estimation error moves the zero-bias boundary from $r^\star = e^{-\theta c}$ to $r^\star_w = e^{-\theta c}\big[1+(\Omega_{T^*}-\Omega_w)/K_w\big]$. Setting $w_t\equiv1$ recovers their expression exactly. Their boundary is independent of the recency function — exactly so under a Poisson testing
+process, and only approximately under a uniform inter-test process, where $r^\star$ also
+stops equalling $\Pr(S>c)$. `analysis/inter_test_process.py` computes the difference rather
+than asserting it, because conflating an assay recency basis with an inter-test process is
+the error that set the predecessor manuscript's sign.
 
 ## Reproduction
 
 ```bash
 pip install -r requirements.txt
-make verify      # theorem-level test suite
-make figures     # figures and tables into outputs/
+make verify       # theorem-level test suite
+make verify-fast  # the same, skipping the Monte Carlo cells
+make figures      # figures and tables into outputs/
 ```
 
 `make verify` tests mathematical invariants rather than manuscript table values:
 
 ```
 $ make verify
-43 passed in 0.30s
+72 passed, 1 skipped in 6.7s
 ```
 
 Covering: Gao–Bannick recovery; exact transient cancellation across nine occupancy ×
 sojourn combinations; φ-independence of the cancellation; frailty-mixture cancellation
 over four stratifications; restricted-model recovery at η = 0 against an *independent*
 implementation; absorbing-only closed form; μ_crit as a root; Pan Table 1 recovery on all
-nine published cells; φ-freeness of the zero-bias boundary; matrix exponential against
-two- and three-state analytic forms; quadrature against the trapezoid grid; and four
-regression guards for errors made during development.
+nine published cells; φ-freeness of the zero-bias boundary, exact under Poisson and
+approximate under a uniform inter-test process; matrix exponential against two- and
+three-state analytic forms; quadrature against the trapezoid grid; recovery of a known
+recency curve by the empirical fit; and regression guards for every error made during
+development.
+
+The Monte Carlo cells compare Theorem 2 and the composed limiting estimation error against
+an **independently written generative simulator** — `src/simulation.py` imports no analytic
+expression — over seven population scenarios and seven screening configurations. The one
+skipped test needs the CEPHIA dataset, which is not redistributed.
 
 ## Layout
 
 ```
 manuscript/     manuscript.tex, supplement.tex
-src/            eligibility_dynamics.py, pan_composition.py
+src/            eligibility_dynamics.py, pan_composition.py, simulation.py
 analysis/       reproduce_pan.py, validate_theorems.py, mortality_threshold.py,
-                eta_surface.py, frailty_mixture.py, empirical_phi.py, wang_comparator.py
-tests/          theorem-level invariants (see above)
+                eta_surface.py, frailty_mixture.py, empirical_phi.py,
+                wang_comparator.py, inter_test_process.py
+tests/          test_theorems.py, test_simulation.py, test_empirical_phi.py
 data/           README.md + fixtures/ — no bundled surveillance data
 docs/           ESTIMAND.md, ASSUMPTIONS.md, REPRODUCE.md, PROVENANCE.md
 outputs/        figures/, tables/
@@ -102,4 +115,12 @@ See `CITATION.cff`.
 
 ## License
 
-Code MIT; manuscript text CC-BY-4.0.
+MIT, for everything in this repository — see [`LICENSE`](LICENSE). A single
+licence is deliberate: the theory, the implementation and the manuscript source
+here are one artifact and splitting them would only create ambiguity about which
+terms govern a derived figure.
+
+The Zenodo deposition of the derived dataset carries its own CC licence, stated
+in the deposition record rather than here. No third-party data are redistributed
+in this repository; retrieval instructions and the upstream terms are in
+[`data/README.md`](data/README.md).

@@ -59,7 +59,17 @@ class RecencyFunction:
     label: str = ""
 
     def __call__(self, u):
-        return np.interp(np.asarray(u, float), self.grid, self.values)
+        """
+        phi(u), with phi == 0 OUTSIDE [0, T*].
+
+        np.interp clamps to the endpoint values, which would return phi(T*) for
+        u > T* -- wrong under the beta_{T*} = 0 convention of Theorem 1, and a
+        silent source of inflated recent counts for any caller evaluating
+        durations beyond the recency window.
+        """
+        u = np.asarray(u, float)
+        out = np.interp(u, self.grid, self.values)
+        return np.where((u >= self.grid[0]) & (u <= self.grid[-1]), out, 0.0)
 
     @property
     def mdri_days(self) -> float:

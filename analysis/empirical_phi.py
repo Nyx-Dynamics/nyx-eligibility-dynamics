@@ -19,6 +19,7 @@ from src.eligibility_dynamics import empirical_phi, YEAR_DAYS, default_grid
 
 CANDIDATES = sorted(ROOT.glob("data/cephia_public_use_dataset_*.csv"))
 EXPECTED = ROOT / "data" / "fixtures" / "cephia_expected.json"
+RECOMPUTED = ROOT / "outputs" / "cephia_recomputed.json"
 
 
 def have_cephia() -> bool:
@@ -86,12 +87,37 @@ def main():
           + ", ".join(f"{t:.3f}" for t in tail))
     print("  declining, not flat -- Gao & Bannick Assumption B.1 is violated here.")
 
-    EXPECTED.parent.mkdir(parents=True, exist_ok=True)
-    EXPECTED.write_text(json.dumps(
-        {"mdri_days": round(ref.mdri_days, 1), "ci_lo": 161, "ci_hi": 213,
+    # Compare against the frozen expectation; do NOT overwrite it. The fixture is
+    # the recorded claim (computation_record.md section 3); this run is the
+    # observation. Overwriting would make the regression test vacuous.
+    exp = json.loads(EXPECTED.read_text())
+    tol = float(exp["mdri_tolerance_days"])
+    print(f"\n  against {EXPECTED.relative_to(ROOT)} (tolerance {tol} d):")
+    worst = 0.0
+    for e in exp["algorithms"]:
+        got = next((r for r in rows
+                    if r[0] == e["subtype"] and r[1] == e["vl_threshold"]), None)
+        if got is None:
+            print(f"    subtype {e['subtype']}, VL>{e['vl_threshold']}: not computed")
+            continue
+        d_mdri = float(got[2]) - e["mdri_days"]
+        worst = max(worst, abs(d_mdri))
+        flag = "ok " if abs(d_mdri) <= tol else "OFF"
+        print(f"    {flag} subtype {e['subtype']}, VL>{e['vl_threshold']}: "
+              f"{float(got[2]):.1f} d vs frozen {e['mdri_days']:.1f} "
+              f"({d_mdri:+.1f}); participants {got[4]} vs {e['participants']}")
+    print(f"    worst MDRI deviation {worst:.2f} d")
+
+    RECOMPUTED.parent.mkdir(parents=True, exist_ok=True)
+    RECOMPUTED.write_text(json.dumps(
+        {"algorithms": [{"subtype": r[0], "vl_threshold": r[1],
+                         "mdri_days": float(r[2]), "shadow_days": float(r[3]),
+                         "participants": r[4]} for r in rows],
          "tail_bins": [round(t, 4) for t in tail],
-         "note": "frozen expected values only; no participant rows"}, indent=2))
-    print(f"  wrote {EXPECTED.relative_to(ROOT)}")
+         "worst_mdri_deviation_days": round(worst, 3),
+         "note": "observation from this run; the frozen claim is "
+                 "data/fixtures/cephia_expected.json"}, indent=2))
+    print(f"  wrote {RECOMPUTED.relative_to(ROOT)}")
 
     import matplotlib; matplotlib.use("Agg")
     import matplotlib.pyplot as plt
