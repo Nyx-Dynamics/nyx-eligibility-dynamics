@@ -4,7 +4,7 @@ How to verify the theorems, regenerate every figure and table, and trace any num
 
 > **Implementation status: complete.** `src/` and the `analysis/` entry points are
 > implemented, and both remaining ports — the individual-level simulator and the
-> empirical-$\varphi$ fit — are now in `src/` and under test. `make verify` runs **68 tests**
+> empirical-$\varphi$ fit — are now in `src/` and under test. `make verify` runs **72 tests, 1 skipped**
 > in ≈ 7 s; `make figures` regenerates every output that does not require external data.
 > One test requires the CEPHIA CSV and skips cleanly without it.
 >
