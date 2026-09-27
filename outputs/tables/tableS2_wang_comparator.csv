@@ -1,0 +1,4 @@
+case,truth,naive,wang_reweighted,naive_bias,wang_bias,pct_removed
+same X distribution (counterfactual-placebo case),0.04000,0.03868,0.03868,-0.0329,-0.0329,0.0
+target enriched for high-removal,0.04800,0.02741,0.04620,-0.4290,-0.0375,91.3
+target enriched for low-removal,0.02800,0.04620,0.02741,+0.6501,-0.0211,96.8

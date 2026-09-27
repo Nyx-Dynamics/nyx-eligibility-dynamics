@@ -53,17 +53,17 @@ make figures     # figures and tables into outputs/
 `make verify` tests mathematical invariants rather than manuscript table values:
 
 ```
-PASS  Gao–Bannick limiting case                 w(u) ≡ 1, single state
-PASS  Pan LEL recovery                          w(u) ≡ 1, vs published Table 1
-PASS  exact transient cancellation              η = 1, μ = 0, stationary
-PASS  frailty-mixture cancellation              arbitrary stationary strata
-PASS  restricted-model recovery at η = 0        vs independent implementation
-PASS  absorbing-only closed form                s(u) = exp(−μu)
-PASS  matrix exponential == analytic solution   two-state and three-state
-PASS  quadrature == closed form                 adaptive vs trapezoid
-PASS  Monte Carlo == analytic expectation       individual-level simulator
-PASS  empirical φ implementation                vs CEPHIA reference fixture
+$ make verify
+43 passed in 0.30s
 ```
+
+Covering: Gao–Bannick recovery; exact transient cancellation across nine occupancy ×
+sojourn combinations; φ-independence of the cancellation; frailty-mixture cancellation
+over four stratifications; restricted-model recovery at η = 0 against an *independent*
+implementation; absorbing-only closed form; μ_crit as a root; Pan Table 1 recovery on all
+nine published cells; φ-freeness of the zero-bias boundary; matrix exponential against
+two- and three-state analytic forms; quadrature against the trapezoid grid; and four
+regression guards for errors made during development.
 
 ## Layout
 

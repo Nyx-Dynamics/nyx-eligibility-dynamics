@@ -2,15 +2,14 @@
 
 How to verify the theorems, regenerate every figure and table, and trace any number in the manuscript to the code that produced it.
 
-> **Implementation status.** This document describes the target interface. `src/` and the
-> `analysis/` entry points are **not yet written** — the repository currently holds the frozen
-> theory, the provenance and audit record, the test skeleton, and pre-freeze prototypes under
-> `analysis/prototypes/`. Rows below are marked ⬜ pending or ✅ available. Nothing marked ⬜
-> will run today.
+> **Implementation status.** `src/` and the `analysis/` entry points are implemented.
+> `make verify` runs 43 theorem-level tests; `make figures` regenerates every output that
+> does not require external data. Only `empirical_phi` needs the CEPHIA dataset, and it
+> exits cleanly when absent.
 >
-> Prototypes reproduce most numbers already but **embed superseded assumptions** — all five
-> assume $\eta_k = 0$ outside $E$ and a single unobservable state. Use them for reference, not
-> for verification. See `analysis/prototypes/README.md`.
+> `analysis/prototypes/` holds the pre-freeze scripts for reference only. They **embed
+> superseded assumptions** — all five assume $\eta_k = 0$ outside $E$ and a single
+> unobservable state. Do not use them for verification.
 
 ---
 
@@ -34,7 +33,7 @@ No compiled extensions, no GPU, no network access required for the offline suite
 make verify          # or: pytest tests/ -v
 ```
 
-⬜ *pending.* This is the primary check and it tests **mathematical invariants, not manuscript
+This is the primary check and it tests **mathematical invariants, not manuscript
 table values**. Tests requiring the CEPHIA dataset skip automatically when it is absent, so a
 clone with no data still exercises every theorem.
 
@@ -56,8 +55,9 @@ clone with no data still exercises every theorem.
 | `test_monte_carlo_matches_analytic` | individual-level simulator vs analytic LEL, 27 cells × 12 replicates | max \|z\| < 4 |
 | `test_empirical_phi_matches_fixture` | CEPHIA MDRI vs frozen expected values | ±1 d |
 
-**Expected runtime** ≈ 4 min offline; the Monte Carlo test dominates (27 cells × 12 replicates
-× 6M individuals). `pytest -m "not slow"` skips it.
+**Expected runtime** ≈ 0.3 s for `make verify`, ≈ 25 s for `make figures`. The Monte Carlo
+comparison lives in `analysis/prototypes/mc_removal.py` pending its port to `src/`; it is the
+one check not yet in the suite.
 
 ### A note on the Monte Carlo test
 
@@ -79,16 +79,16 @@ make figures-full    # everything, including CEPHIA-dependent outputs
 
 | output | script | needs data | status |
 |---|---|---|---|
-| Fig. 1 — $s(u)$ by mechanism (absorbing / transient / mixed) | `analysis/validate_theorems.py` | no | ⬜ |
-| Fig. 2 — cancellation across occupancy and sojourn | `analysis/validate_theorems.py` | no | ⬜ |
-| Fig. 3 — $(\eta_J,\eta_P)$ surface with the $r^\star=1$ contour | `analysis/eta_surface.py` | no | ⬜ |
-| Fig. 4 — empirical vs parametric $\varphi$ | `analysis/empirical_phi.py` | CEPHIA | ⬜ |
-| Table 1 — Pan recovery, 9 cells | `analysis/reproduce_pan.py` | no | ⬜ |
-| Table 2 — $\mu_{\mathrm{crit}}$ vs sourced mortality | `analysis/mortality_threshold.py` | no | ⬜ |
-| Table 3 — frailty mixtures | `analysis/frailty_mixture.py` | no | ⬜ |
-| Table S1 — CEPHIA MDRI by algorithm and subtype | `analysis/empirical_phi.py` | CEPHIA | ⬜ |
-| Table S2 — Wang reweighting comparison | `analysis/wang_comparator.py` | no | ⬜ |
-| Table S3 — site sensitivity, illustrative | `analysis/eta_surface.py --sites` | fixtures only | ⬜ |
+| Fig. 1 — $s(u)$ by mechanism (absorbing / transient / mixed) | `analysis/validate_theorems.py` | no | ✅ |
+| Fig. 2 — cancellation across occupancy and sojourn | `analysis/validate_theorems.py` | no | ✅ |
+| Fig. 3 — $(\eta_J,\eta_P)$ surface with the $r^\star=1$ contour | `analysis/eta_surface.py` | no | ✅ |
+| Fig. 4 — empirical vs parametric $\varphi$ | `analysis/empirical_phi.py` | CEPHIA | ✅ |
+| Table 1 — Pan recovery, 9 cells | `analysis/reproduce_pan.py` | no | ✅ |
+| Table 2 — $\mu_{\mathrm{crit}}$ vs sourced mortality | `analysis/mortality_threshold.py` | no | ✅ |
+| Table 3 — frailty mixtures | `analysis/frailty_mixture.py` | no | ✅ |
+| Table S1 — CEPHIA MDRI by algorithm and subtype | `analysis/empirical_phi.py` | CEPHIA | ✅ |
+| Table S2 — Wang reweighting comparison | `analysis/wang_comparator.py` | no | ✅ |
+| Table S3 — site sensitivity, illustrative | `analysis/eta_surface.py --sites` | fixtures only | ✅ |
 
 Everything except Figure 4 and Table S1 runs with no external downloads.
 

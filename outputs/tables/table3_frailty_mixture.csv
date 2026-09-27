@@ -1,0 +1,5 @@
+mixture,cancellation,eta0_with_mu,eta1_with_mu
+homogeneous,1.000000000,0.9442,0.9793
+20% at 3x mean,1.000000000,0.9457,0.9792
+10% at 6x mean,1.000000000,0.9491,0.9792
+5%/15%/80% at 8x/2x/resid,1.000000000,0.9500,0.9792
