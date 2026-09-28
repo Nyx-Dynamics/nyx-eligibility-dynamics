@@ -8,4 +8,4 @@ data/cephia_public_use_dataset_*.csv
 data/*.xlsx
 outputs/cephia_recomputed.json
 .idea/
-manuscript/croi2026/CROI2026_abstract.docx
+manuscript/croi2026/*.docx

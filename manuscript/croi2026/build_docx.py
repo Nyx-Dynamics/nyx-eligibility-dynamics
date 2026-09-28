@@ -5,7 +5,7 @@ Everything is read from the source files -- body.txt, FIGURE_CAPTION.txt, the
 rendered figure, README.md and CITATION.cff -- so the document cannot drift from
 what the repository actually contains. Nothing is retyped here.
 
-    python3 manuscript/croi2026/build_docx.py        # -> CROI2026_abstract.docx
+    python3 manuscript/croi2026/build_docx.py   # -> CROI2026_eligibility_dynamics.docx
 
 The abstract itself comes first and ends with the figure. Everything after the
 page break is marked as not part of the submission: it is the material a
@@ -31,7 +31,7 @@ BODY = HERE / "body.txt"
 CAPTION = HERE / "FIGURE_CAPTION.txt"
 README = HERE / "README.md"
 CITATION = ROOT / "CITATION.cff"
-OUT = HERE / "CROI2026_abstract.docx"
+OUT = HERE / "CROI2026_eligibility_dynamics.docx"
 
 TITLE = ("Temporary Loss of Eligibility Cancels Exactly in "
          "Cross-Sectional HIV Incidence Estimation")
