@@ -12,6 +12,14 @@ ROOT = Path(__file__).resolve().parents[1]
 TABLES = ROOT / "outputs" / "tables"
 FIGURES = ROOT / "outputs" / "figures"
 
+# Created on import, for every entry point. Rendered figures are not tracked, so
+# a fresh clone has no outputs/figures at all; leaving each script to mkdir for
+# itself meant the directory existed only if one of the scripts that happened to
+# do so had already run. That is a clean-tree-only failure, which is exactly the
+# kind a developer never sees.
+for _d in (TABLES, FIGURES):
+    _d.mkdir(parents=True, exist_ok=True)
+
 # Bases used throughout. 163/260 is the Pan AJE basis and is the DEFAULT for
 # empirical statements; 101/194 is the Pan arXiv basis and is used only where a
 # published number must be reproduced.
@@ -37,7 +45,6 @@ def phi_for(name: str = DEFAULT_BASIS, n: int = 2001):
 
 
 def write_table(rows, header, name: str) -> Path:
-    TABLES.mkdir(parents=True, exist_ok=True)
     p = TABLES / name
     with p.open("w", newline="") as fh:
         wr = csv.writer(fh, lineterminator="\n")

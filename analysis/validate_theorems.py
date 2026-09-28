@@ -44,7 +44,6 @@ def figure1(phi):
     ax.set_title("Historical observability weight by mechanism")
     ax.legend(fontsize=8, frameon=False)
     fig.tight_layout()
-    FIGURES.mkdir(parents=True, exist_ok=True)
     p = FIGURES / "fig1_weight_by_mechanism.png"
     fig.savefig(p, dpi=200); print(f"  wrote {p.name}")
 

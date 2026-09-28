@@ -59,7 +59,6 @@ def figure3(phi, qJ=0.03, qP=0.05):
     ax.set_title(f"Zero-bias boundary, $q_J$={qJ:.0%}, $q_P$={qP:.0%}\n"
                  "heavy contour: $r^\\star=1$")
     fig.tight_layout()
-    FIGURES.mkdir(parents=True, exist_ok=True)
     p = FIGURES / "fig3_eta_surface.png"
     fig.savefig(p, dpi=200); print(f"  wrote {p.name}")
 
