@@ -54,12 +54,50 @@ def author_line() -> str:
 
 
 def body_sections() -> list[tuple[str, str]]:
-    """[(label, prose)] from body.txt, preserving submission order."""
+    """
+    [(label, prose)] from body.txt, preserving submission order.
+
+    The heading is its own line; prose follows. A "LABEL: prose" form is also
+    accepted, since that was the earlier convention and a stale body.txt should
+    not parse into one section whose label is the entire abstract.
+    """
     out = []
     for block in re.split(r"\n\s*\n", BODY.read_text().strip()):
-        label, _, prose = block.partition(":")
-        out.append((label.strip(), " ".join(prose.split())))
+        head, _, rest = block.partition("\n")
+        if not rest.strip():
+            head, _, rest = block.partition(":")
+        out.append((head.strip().rstrip(":"), " ".join(rest.split())))
     return out
+
+
+def write_submit_txt(sections, words) -> None:
+    """
+    Regenerate SUBMIT.txt from body.txt so the paste-ready file cannot drift.
+
+    Two files: the text exactly as written, and an ASCII transliteration. The
+    Greek letters are usually safe, but lambda-hat is a base letter plus
+    COMBINING CIRCUMFLEX ACCENT (U+0302), which submission forms and programme
+    typesetting mangle more often than they render. The fallback is offered, not
+    substituted -- which of the two to paste is the submitter's call after
+    checking the portal preview.
+    """
+    verbatim = TITLE + "\n\n" + "\n\n".join(
+        f"{lab.upper()}: {prose}" for lab, prose in sections) + "\n"
+    (HERE / "SUBMIT.txt").write_text(verbatim)
+
+    ascii_map = {"\u03bb\u0302": "lambda-hat", "\u03bb": "lambda",
+                 "\u03b7": "eta", "\u2212": "-", "\u2013": "-",
+                 "\u2014": "--", "\u2019": "'", "\u00d7": "x"}
+    flat = verbatim
+    for k, v in ascii_map.items():
+        flat = flat.replace(k, v)
+    flat = flat.replace("lambda-hat/lambdaE", "lambda-hat/lambda-E")
+    (HERE / "SUBMIT_ascii.txt").write_text(flat)
+
+    left = [c for c in flat if ord(c) > 127]
+    print(f"  wrote SUBMIT.txt ({words} words) and SUBMIT_ascii.txt")
+    if left:
+        print(f"  WARNING: SUBMIT_ascii.txt still holds {sorted(set(left))}")
 
 
 def unwrap(text: str) -> str:
@@ -155,13 +193,16 @@ def para(doc, text="", *, size=11, bold=False, italic=False, align=None,
 
 
 def labelled(doc, label, prose):
-    """CROI structured-abstract paragraph: bold label, then running prose."""
+    """Structured-abstract section: bold heading on its own line, then prose."""
+    h = doc.add_paragraph()
+    h.paragraph_format.space_after = Pt(2)
+    h.paragraph_format.space_before = Pt(6)
+    r = h.add_run(label)
+    r.bold = True
+    r.font.name, r.font.size = SERIF, Pt(11)
     p = doc.add_paragraph()
     p.paragraph_format.space_after = Pt(8)
     p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-    r = p.add_run(f"{label}: ")
-    r.bold = True
-    r.font.name, r.font.size = SERIF, Pt(11)
     r = p.add_run(prose)
     r.font.name, r.font.size = SERIF, Pt(11)
     return p
@@ -219,6 +260,7 @@ def main() -> int:
 
     para(doc, f"Body: {words} words (limit 350). Figure: 1.", size=9,
          colour=GREY, space_after=0)
+    write_submit_txt(sections, words)
 
     # ---- figure --------------------------------------------------------
     doc.add_paragraph().add_run().add_break(WD_BREAK.PAGE)
