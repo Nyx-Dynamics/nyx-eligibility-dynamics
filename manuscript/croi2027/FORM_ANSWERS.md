@@ -71,24 +71,40 @@ policies "may result in the withdrawal of the abstract."
 
 ---
 
-## ⚠ Prior or Anticipated Publication — needs your call
+## Prior or Anticipated Publication — answer **Yes**, listing the Zenodo deposit
 
 > "Have any data or analyses in this abstract been published, posted as a preprint, submitted
-> for publication with publication anticipated before CROI 2027, or **otherwise made publicly
-> available**?"
+> for publication with publication anticipated before CROI 2027, or otherwise made publicly
+> available?"
 
-Facts you are answering against:
+**Yes.** Paste-ready text:
 
-- The full analysis, code and test suite are in a **public GitHub repository**,
-  `Nyx-Dynamics/nyx-eligibility-dynamics`. That is plainly "otherwise made publicly available."
-- The **predecessor** analysis — manuscript QAIV24714, submitted to JAIDS May 2026 and declined
-  after review — is archived at **Zenodo 10.5281/zenodo.20344293**. Its central empirical
-  conclusions are *not* carried forward and are explicitly superseded, but the deposit is
-  public.
-- Nothing in *this* abstract has been submitted to a journal or posted as a preprint.
+> Yes. Two items are publicly available; neither has been published in a journal nor posted as
+> a preprint.
+>
+> (1) The predecessor analysis that the present work supersedes — manuscript QAIV24714,
+> "Calibration-to-Deployment Mismatch in HIV Prevention Trials: How Structural Censoring Biases
+> Counterfactual Incidence Estimates", submitted to *JAIDS* in May 2026 and declined after
+> external review — has its software repository publicly archived at Zenodo,
+> **DOI 10.5281/zenodo.20344293** (v9.0.0, 22 May 2026, CC-BY-4.0). Its central empirical
+> conclusions are **not** carried forward into this abstract. The present work corrects and
+> supersedes them, and the correction is the reason this abstract exists.
+>
+> (2) The derivation, implementation and test suite behind this abstract are in a public
+> repository, **github.com/Nyx-Dynamics/nyx-eligibility-dynamics** (MIT). No result in this
+> abstract has been submitted to a journal or posted as a preprint.
 
-A defensible answer is **Yes**, naming the public repository and the superseded Zenodo deposit.
-It is your call, and it turns on whether a public methods repository counts for CROI's purpose.
+**Verified 29 September 2026**: the DOI resolves to `zenodo.org/records/20344293`, record is
+public, titled *"Software Repository for Calibration-to-Deployment Mismatch in HIV Prevention
+Trials…"*, version v9.0.0, published 2026-05-22, licence CC-BY-4.0.
+
+**Do not list Zenodo 10.5281/zenodo.4900634.** That is the CEPHIA public-use dataset — a
+third-party input the analysis consumes, not a publication of yours. Listing it would misstate
+what has been made public.
+
+Disclosing the superseded deposit is the right call even though its conclusions are withdrawn:
+the question asks what is publicly available, not what is still believed, and a reviewer who
+finds the predecessor independently should find it already declared.
 
 ---
 
