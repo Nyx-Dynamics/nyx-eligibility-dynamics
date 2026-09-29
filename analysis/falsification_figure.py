@@ -4,7 +4,7 @@ simulator, across the cancellation case and each symmetry failure.
 
 Design constraint from the submission: no text inside the axes beyond tick
 labels, axis labels and a legend. Everything interpretive belongs in the caption,
-which is written to manuscript/croi2026/FIGURE_CAPTION.txt by this script so the
+which is written to manuscript/croi2027/FIGURE_CAPTION.txt by this script so the
 two cannot drift apart.
 
 Panel A -- census sampling. Probability limit of the adjusted estimator relative
@@ -339,7 +339,12 @@ All {len(rows_a) + len(rows_b)} comparisons agree within |t| = {zmax:.2f} on
 {N_REP - 1} degrees of freedom. The simulator shares no code with the analytic
 derivation and every cell uses a disjoint block of random seeds.
 """
-    p = ROOT / "manuscript" / "croi2026" / "FIGURE_CAPTION.txt"
+    # POSTER_FIGURE_CAPTION.txt, not FIGURE_CAPTION.txt. The submitted caption is
+    # 92 words against a 100-word budget and is written by
+    # croi_submission_figure.py; this one is the 346-word two-panel caption for
+    # the poster, where panel B lives. Writing both to one path meant whichever
+    # script ran last silently decided what the submission claimed.
+    p = ROOT / "manuscript" / "croi2027" / "POSTER_FIGURE_CAPTION.txt"
     p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text(txt)
     print(f"  wrote {p.relative_to(ROOT)}  ({len(txt.split())} words)")
@@ -357,9 +362,9 @@ def main():
         rows_a = panel_a(phi)
         print()
         panels_b, rows_b = panel_b(phi)
-        write_table(rows_a, ["condition", "analytic", "mc_mean", "mc_sem", "z"],
+        write_table(rows_a, ["condition", "analytic", "mc_mean", "mc_sem", "t"],
                     "croi_figA_census.csv")
-        write_table(rows_b, ["setting", "r", "analytic", "mc_mean", "mc_sem", "z"],
+        write_table(rows_b, ["setting", "r", "analytic", "mc_mean", "mc_sem", "t"],
                     "croi_figB_screening.csv")
     draw(phi, rows_a, panels_b, rows_b)
     caption(rows_a, rows_b, phi)

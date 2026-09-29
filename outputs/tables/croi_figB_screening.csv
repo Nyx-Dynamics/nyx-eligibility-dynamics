@@ -1,4 +1,4 @@
-setting,r,analytic,mc_mean,mc_sem,z
+setting,r,analytic,mc_mean,mc_sem,t
 $w\equiv1$,0.35,-0.12596,-0.12533,0.000302,2.07
 $w\equiv1$,0.55,-0.06921,-0.06888,0.000275,1.18
 $w\equiv1$,0.75,-0.01551,-0.01546,0.000340,0.13

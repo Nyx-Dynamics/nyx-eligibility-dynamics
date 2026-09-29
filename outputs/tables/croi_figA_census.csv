@@ -1,4 +1,4 @@
-condition,analytic,mc_mean,mc_sem,z
+condition,analytic,mc_mean,mc_sem,t
 cancellation conditions met,1.00000,1.00031,0.000255,1.22
 "mortality, $\mu_E=0.04$",0.97857,0.97878,0.000287,0.73
 "mortality, $\mu_E=0.10$",0.94794,0.94813,0.000222,0.85

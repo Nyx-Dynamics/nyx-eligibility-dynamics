@@ -1,11 +1,11 @@
 """
-Compile the CROI 2026 submission packet into a single .docx.
+Compile the CROI 2027 submission packet into a single .docx.
 
 Everything is read from the source files -- body.txt, FIGURE_CAPTION.txt, the
 rendered figure, README.md and CITATION.cff -- so the document cannot drift from
 what the repository actually contains. Nothing is retyped here.
 
-    python3 manuscript/croi2026/build_docx.py   # -> CROI2026_eligibility_dynamics.docx
+    python3 manuscript/croi2027/build_docx.py   # -> CROI2027_eligibility_dynamics.docx
 
 The abstract itself comes first and ends with the figure. Everything after the
 page break is marked as not part of the submission: it is the material a
@@ -25,13 +25,14 @@ from docx.shared import Inches, Pt, RGBColor
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
-FIGURE = ROOT / "outputs" / "figures" / "croi_falsification.png"
+# The SUBMITTED graphic: panel A only, authored at 4x4 in, PNG.
+FIGURE = ROOT / "outputs" / "figures" / "croi_eligibility_panelA.png"
 
 BODY = HERE / "body.txt"
 CAPTION = HERE / "FIGURE_CAPTION.txt"
 README = HERE / "README.md"
 CITATION = ROOT / "CITATION.cff"
-OUT = HERE / "CROI2026_eligibility_dynamics.docx"
+OUT = HERE / "CROI2027_eligibility_dynamics.docx"
 
 TITLE = ("Temporary Loss of Eligibility Cancels Exactly in "
          "Cross-Sectional HIV Incidence Estimation")
@@ -72,32 +73,64 @@ def body_sections() -> list[tuple[str, str]]:
 
 def write_submit_txt(sections, words) -> None:
     """
-    Regenerate SUBMIT.txt from body.txt so the paste-ready file cannot drift.
+    Regenerate the paste-ready files from body.txt.
 
-    Two files: the text exactly as written, and an ASCII transliteration. The
-    Greek letters are usually safe, but lambda-hat is a base letter plus
-    COMBINING CIRCUMFLEX ACCENT (U+0302), which submission forms and programme
-    typesetting mangle more often than they render. The fallback is offered, not
-    substituted -- which of the two to paste is the submitter's call after
-    checking the portal preview.
+    FOUR SEPARATE FIELDS, no inline "BACKGROUND:" labels. CROI provides one field
+    per section and prints its own headings, so an inline label is duplicated in
+    the rendered abstract. The delimiter lines here are scaffolding: copy only
+    the text between them.
+
+    The governing limit is 2,500 CHARACTERS including spaces, not words. Word
+    counts are reported for orientation only.
+
+    Two variants. The text as written, and an ASCII transliteration: the body
+    contains eta, lambda, mu and -- the fragile one -- U+0302 COMBINING
+    CIRCUMFLEX ACCENT, which is how lambda-hat is composed. Greek letters usually
+    survive a web form; a combining mark applied to a preceding base character is
+    mangled more often, and fails by rendering wrong rather than by erroring.
     """
-    verbatim = TITLE + "\n\n" + "\n\n".join(
-        f"{lab.upper()}: {prose}" for lab, prose in sections) + "\n"
+    CHAR_LIMIT = 2500
+
+    def render(secs, note):
+        out = [f"TITLE ({len(TITLE)} characters)", TITLE, ""]
+        total = 0
+        for i, (lab, prose) in enumerate(secs, 1):
+            total += len(prose)
+            out += [f"--- FIELD {i} of {len(secs)}: {lab.upper()} "
+                    f"({len(prose)} characters) ---", prose, ""]
+        out += [f"--- TOTAL {total} of {CHAR_LIMIT} characters including spaces "
+                f"({CHAR_LIMIT - total} spare) ---", note, ""]
+        return "\n".join(out), total
+
+    verbatim, total = render(
+        sections, "Notation as written. Check the portal preview: if the hat on "
+                  "lambda is misplaced, use SUBMIT_ascii.txt.")
     (HERE / "SUBMIT.txt").write_text(verbatim)
 
-    ascii_map = {"\u03bb\u0302": "lambda-hat", "\u03bb": "lambda",
-                 "\u03b7": "eta", "\u2212": "-", "\u2013": "-",
-                 "\u2014": "--", "\u2019": "'", "\u00d7": "x"}
-    flat = verbatim
-    for k, v in ascii_map.items():
-        flat = flat.replace(k, v)
-    flat = flat.replace("lambda-hat/lambdaE", "lambda-hat/lambda-E")
+    # Order matters: the composed lambda-hat must be replaced before bare lambda.
+    ascii_map = [("\u03bb\u0302", "lambda-hat"), ("\u03bb", "lambda"),
+                 ("\u03b7", "eta"), ("\u03bc", "mu"), ("\u2212", "-"),
+                 ("\u2013", "-"), ("\u2014", "--"), ("\u2019", "'"),
+                 ("\u00d7", "x")]
+    flat_secs = []
+    for lab, prose in sections:
+        for k, v in ascii_map:
+            prose = prose.replace(k, v)
+        flat_secs.append((lab, prose.replace("lambda-hat/lambdaE",
+                                             "lambda-hat/lambda-E")))
+    flat, flat_total = render(flat_secs, "Notation transliterated to ASCII.")
     (HERE / "SUBMIT_ascii.txt").write_text(flat)
 
-    left = [c for c in flat if ord(c) > 127]
-    print(f"  wrote SUBMIT.txt ({words} words) and SUBMIT_ascii.txt")
+    left = sorted({c for c in flat if ord(c) > 127})
+    print(f"  wrote SUBMIT.txt ({total} chars of {CHAR_LIMIT}, "
+          f"{CHAR_LIMIT - total} spare; {words} words)")
+    print(f"  wrote SUBMIT_ascii.txt ({flat_total} chars)")
+    for lab, prose in sections:
+        print(f"      {lab:<12}{len(prose):>5} chars")
+    if total > CHAR_LIMIT:
+        raise SystemExit(f"over the character limit by {total - CHAR_LIMIT}")
     if left:
-        print(f"  WARNING: SUBMIT_ascii.txt still holds {sorted(set(left))}")
+        raise SystemExit(f"SUBMIT_ascii.txt still holds non-ASCII: {left}")
 
 
 def unwrap(text: str) -> str:
@@ -131,21 +164,13 @@ def is_bullets(chunk: str) -> bool:
     A bullet block starts with a marker FOLLOWED BY WHITESPACE.
 
     Testing chunk.startswith("*") also matches bold/italic markdown, which
-    silently swallowed the "**Submit:** ..." line -- it was classified as a list,
-    produced no items, and rendered as nothing at all.
+    silently swallowed a whole line once.
     """
     return bool(BULLET.match(chunk.splitlines()[0])) if chunk.strip() else False
 
 
 def md_bullets(chunk: str) -> list[str]:
-    """
-    Markdown list items, each joined into one string.
-
-    A new item starts with "-" or "*" at column 0; every other line continues
-    the item it follows. Splitting per source line instead -- which is the
-    obvious thing and is wrong -- turns one wrapped bullet into three stray
-    paragraphs in Word.
-    """
+    """Markdown list items, each joined into one string across wrapped lines."""
     items: list[str] = []
     for line in chunk.splitlines():
         if BULLET.match(line):
@@ -157,7 +182,7 @@ def md_bullets(chunk: str) -> list[str]:
 
 def demarkdown(s: str) -> str:
     """Strip the markdown a Word reader does not want to see."""
-    s = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", s)     # links -> text
+    s = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", s)
     s = re.sub(r"[`*_]", "", s)
     s = s.replace("\\", "").replace("$", "")
     return " ".join(s.split())
@@ -247,7 +272,7 @@ def main() -> int:
     style(doc)
 
     # ---- the submission ------------------------------------------------
-    para(doc, "CROI 2026 · abstract submission", size=9, colour=GREY,
+    para(doc, "CROI 2027 · abstract submission", size=9, colour=GREY,
          space_after=4)
     para(doc, TITLE, size=14, bold=True, space_after=6)
     para(doc, author_line(), size=10, italic=True, space_after=14)
@@ -258,8 +283,11 @@ def main() -> int:
     for label, prose in sections:
         labelled(doc, label, prose)
 
-    para(doc, f"Body: {words} words (limit 350). Figure: 1.", size=9,
-         colour=GREY, space_after=0)
+    chars = sum(len(prose) for _, prose in sections)
+    para(doc, f"Body: {chars:,} of 2,500 characters including spaces "
+              f"({2500 - chars} spare), across four fields. {words} words. "
+              f"Title {len(TITLE)} characters. Figure: 1.",
+         size=9, colour=GREY, space_after=0)
     write_submit_txt(sections, words)
 
     # ---- figure --------------------------------------------------------
@@ -268,21 +296,20 @@ def main() -> int:
     pic = doc.add_paragraph()
     pic.alignment = WD_ALIGN_PARAGRAPH.CENTER
     pic.paragraph_format.space_after = Pt(10)
-    pic.add_run().add_picture(str(FIGURE), width=Inches(6.5))
+    # 4 in is the authored size; reproduced here at 4.6 in so the page is not
+    # dominated by it while staying close to how a reviewer will see it.
+    pic.add_run().add_picture(str(FIGURE), width=Inches(4.6))
 
     cap = unwrap(CAPTION.read_text())
-    head, _, rest = cap.partition("\n\n")
-    p = doc.add_paragraph()
-    p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-    r = p.add_run(head)
-    r.bold = True
+    q = doc.add_paragraph()
+    q.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+    q.paragraph_format.space_after = Pt(4)
+    r = q.add_run(cap)
     r.font.name, r.font.size = SERIF, Pt(9.5)
-    for block in rest.split("\n\n"):
-        q = doc.add_paragraph()
-        q.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-        q.paragraph_format.space_after = Pt(6)
-        r = q.add_run(block)
-        r.font.name, r.font.size = SERIF, Pt(9.5)
+    para(doc, f"Caption {len(cap.split())} words; with the two legend entries "
+              f"and two in-plot annotations, {len(cap.split()) + 8} of the "
+              f"100 words the portal counts.", size=8.5, italic=True,
+         colour=GREY, space_after=0)
 
     # ---- everything below is not the submission ------------------------
     doc.add_paragraph().add_run().add_break(WD_BREAK.PAGE)
@@ -364,7 +391,7 @@ def main() -> int:
     para(doc, space_after=6)
     rule(doc)
     para(doc, "This document is generated. It is built by "
-              "manuscript/croi2026/build_docx.py from body.txt, "
+              "manuscript/croi2027/build_docx.py from body.txt, "
               "FIGURE_CAPTION.txt, README.md, CITATION.cff and the rendered "
               "figure; edits made here are overwritten on the next build, so "
               "change the sources instead.", size=9, italic=True, colour=GREY,
@@ -375,7 +402,7 @@ def main() -> int:
 
     doc.save(OUT)
     print(f"  wrote {OUT.relative_to(ROOT)}")
-    print(f"  abstract body {words} words, figure embedded at 6.5in")
+    print(f"  abstract body {words} words, {chars} chars; figure embedded at 4.6in")
     return 0
 
 

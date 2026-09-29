@@ -4,7 +4,8 @@
 #   make figures       everything not requiring external data
 #   make figures-full  everything, including CEPHIA-dependent outputs
 #   make croi-figure   the CROI falsification figure (slow: ~20 min, 5.7e9 draws)
-#   make figure-redraw restyle the CROI figure from committed tables (seconds)
+#   make figure-redraw rebuild the two-panel validation/poster figure (seconds)
+#   make submission-fig the CROI submitted graphic, panel A only, 4x4in PNG
 #   make docx          compile the CROI submission packet to a single .docx
 #   make all           verify + figures
 #   make clean         remove generated outputs
@@ -18,7 +19,7 @@ OFFLINE := reproduce_pan mortality_threshold validate_theorems frailty_mixture \
            wang_comparator eta_surface inter_test_process
 DATADEP := empirical_phi
 
-.PHONY: all verify verify-fast figures figures-full croi-figure figure-redraw docx clean check-env \
+.PHONY: all verify verify-fast figures figures-full croi-figure figure-redraw submission-fig docx clean check-env \
         $(OFFLINE) $(DATADEP)
 
 all: verify figures
@@ -55,12 +56,18 @@ croi-figure: check-env
 figure-redraw: check-env
 	@cd $(ANALYSIS) && $(PY) falsification_figure.py --redraw
 
-# Reads body.txt, FIGURE_CAPTION.txt, README.md, CITATION.cff and the figure.
-# Depends on figure-redraw so the embedded plot always matches the committed
-# numbers; run croi-figure instead when the numbers themselves must change.
-docx: figure-redraw
+# The submitted graphic. Separate from figure-redraw: that one is the two-panel
+# validation figure that now belongs to the poster, this one is panel A alone,
+# authored at 4x4 in as PNG because the portal accepts PNG or JPEG only.
+submission-fig: check-env
+	@cd $(ANALYSIS) && $(PY) croi_submission_figure.py
+
+# Reads body.txt, FIGURE_CAPTION.txt, README.md, CITATION.cff and the submitted
+# figure. Depends on both figure targets so neither the embedded plot nor the
+# caption can lag the committed numbers.
+docx: figure-redraw submission-fig
 	@$(PY) -c "import docx" || { echo "pip install python-docx"; exit 1; }
-	@$(PY) manuscript/croi2026/build_docx.py
+	@$(PY) manuscript/croi2027/build_docx.py
 
 eta-sites: check-env
 	@cd $(ANALYSIS) && $(PY) eta_surface.py --sites

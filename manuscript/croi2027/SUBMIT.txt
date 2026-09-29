@@ -1,11 +1,17 @@
-Background
+TITLE (89 characters)
+Temporary Loss of Eligibility Cancels Exactly in Cross-Sectional HIV Incidence Estimation
+
+--- FIELD 1 of 4: BACKGROUND (405 characters) ---
 Cross-sectional recency assays are increasingly used to estimate counterfactual placebo incidence in HIV prevention trials when placebo arms are infeasible or unethical. Eligibility is defined at survey, yet individuals may move temporarily out of the observable population between HIV acquisition and sampling. Whether such movement itself biases incidence estimation, and in which direction, is unknown.
 
-Methods
+--- FIELD 2 of 4: METHODS (579 characters) ---
 We refined the Gao-Bannick eligibility indicator A(t) as the observable state of a finite-state process with temporarily unobservable states and absorbing loss. We derived the expected recent-infection count allowing acquisition in every living state and the estimator probability limit as an integral against a historical observability weight w(u), then composed it with the Pan-Bannick-Gao screening/prior-testing model. Analytic results were cross-checked by matrix exponentials and adaptive quadrature and independently validated with a generative individual-level simulator.
 
-Results
-Temporary eligibility loss did not itself induce bias. Under stable living-state composition, a demographically stationary observable susceptible pool, state-invariant acquisition, infection-independent movement, and no absorbing loss, losses and returns cancelled exactly: λ̂/λE=1 to machine precision across 9 occupancy-by-sojourn combinations and multiple recency functions, including unobservable occupancy to 15%. Cancellation also held within each stationary frailty stratum and therefore under arbitrary mixtures of movement propensity. Absorbing mortality of 0.040/y attenuated estimates by 2.1% (λ̂/λE=0.979); moving the composed zero-bias boundary above 1 required 0.085/y. State-dependent acquisition changed both magnitude and direction (0.944 at η=0; 1.007 at η=1.8). Setting w(u)=1 recovered the published Pan-Bannick-Gao limiting expression exactly.
+--- FIELD 3 of 4: RESULTS (871 characters) ---
+Temporary eligibility loss did not itself induce bias. Under stable living-state composition, a demographically stationary observable susceptible pool, state-invariant acquisition, infection-independent movement, and no absorbing loss, losses and returns cancelled exactly: λ̂/λE=1 to machine precision across 9 occupancy-by-sojourn combinations and multiple recency functions, including unobservable occupancy to 15%. Cancellation also held within each stationary frailty stratum and therefore under arbitrary mixtures of movement propensity. Absorbing mortality of 0.040/y attenuated estimates by 2.1% (λ̂/λE=0.979); moving the composed zero-bias boundary r* above 1 required μ_E=0.085/y. State-dependent acquisition changed both magnitude and direction (0.944 at η=0; 1.007 at η=1.8). Setting w(u)=1 recovered the published Pan-Bannick-Gao limiting expression exactly.
 
-Conclusions
+--- FIELD 4 of 4: CONCLUSIONS (415 characters) ---
 Temporary, bidirectional loss of eligibility is not inherently biasing. Exact cancellation holds under identifiable symmetry conditions; potential bias arises only when at least one condition fails. Absorbing and temporary loss are therefore not interchangeable. State-specific acquisition is the primary symmetry-breaking parameter, while occupancy and sojourn govern effect magnitude once that symmetry is broken.
+
+--- TOTAL 2270 of 2500 characters including spaces (230 spare) ---
+Notation as written. Check the portal preview: if the hat on lambda is misplaced, use SUBMIT_ascii.txt.
