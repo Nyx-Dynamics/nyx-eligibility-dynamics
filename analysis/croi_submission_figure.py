@@ -13,9 +13,22 @@ Laid out at 4 x 4 in, NOT rescaled from the 7.4 in render. Rescaling a 10 pt
 label into a 4-inch reproduction leaves roughly 4.8 pt on the page; type here is
 sized so that nothing falls below 7 pt at final size.
 
-Panel B is dropped deliberately -- it is the composed screening model, a second
-analysis with a second vocabulary (theta, c, the attendance ratio), and it is
-where both borderline comparisons live. See manuscript/croi2027/README.md.
+ONE panel by default. CROI rule 4 admits a second panel "only if both panels
+represent the same analysis (eg, same graph type, axes, and analysis)". The
+studentised discrepancy strip shares the rows, the data and the graph type with
+the value scale, but NOT the x-axis -- one is a ratio near 1, the other is in
+standard errors. That is a defensible reading either way, and the penalty for
+losing the argument is severe and one-sided: a non-compliant graphic is removed,
+cannot be replaced, is not seen by reviewers, and does not appear in the eBook.
+So the submitted figure is the value scale alone, and the agreement it used to
+show graphically is stated numerically in the caption instead.
+
+Pass --with-strip to rebuild the two-panel version for the poster, where the rule
+does not apply.
+
+Panel B -- the composed screening model -- is dropped for the same rule plus its
+own reasons: a second vocabulary the 100-word budget cannot carry, and both
+borderline comparisons live there. See manuscript/croi2027/README.md.
 
 Numbers come from outputs/tables/croi_figA_census.csv and are never recomputed
 here; run `falsification_figure.py --redraw` if that table is missing.
@@ -87,20 +100,20 @@ def load():
 #   "the direction of bias is set by" -> "bias direction is set by"      (-2)
 # The 97-word original is preserved in manuscript/croi2027/README.md.
 CAPTION = (
-    "Analytic predictions and independent Monte Carlo validation. Rows give five "
-    "exact-cancellation conditions and single-condition failures; the dashed line "
-    "marks no bias. Monte Carlo means over 24 replicates of 15 million "
-    "individuals; 95% intervals are narrower than the symbols; standardised "
-    "discrepancies appear at right. Losses and returns cancel exactly at {v0:.3f}. "
-    "Absorbing mortality attenuates the estimate; acquisition in temporarily "
-    "unobservable states attenuates below eta=1 and inflates above it, so bias "
-    "direction is set by acquisition hazard, not occupancy. All seven comparisons "
-    "agree within |t|={tmax:.2f} on 23 df; simulator and derivation share no code."
+    "Analytic predictions and independent Monte Carlo validation. Rows give the "
+    "five exact-cancellation conditions and single-condition failures; the dashed "
+    "line marks no bias. Monte Carlo means are over 24 replicates of 15 million "
+    "individuals, with 95% intervals narrower than the plotting symbols. Losses "
+    "and returns cancel exactly at {v0:.3f}. Absorbing mortality attenuates the "
+    "estimate; acquisition in temporarily unobservable states attenuates below "
+    "eta=1 and inflates above it, so the direction of bias is set by acquisition "
+    "hazard, not occupancy. All seven comparisons agree within |t|={tmax:.2f} on "
+    "23 df; simulator and derivation share no code."
 )
 WORD_LIMIT = 100
 
 
-def write_caption(ana, tt):
+def write_caption(ana, tt, with_strip: bool):
     """
     Caption with its numbers taken from the table, and the word budget enforced.
 
@@ -108,22 +121,30 @@ def write_caption(ana, tt):
     cancellation value or a worst-case |t| that the plotted data contradict.
     """
     txt = CAPTION.format(v0=ana[0], tmax=np.abs(tt).max())
-    counted = [txt, *LEGEND, ANN_UNBIASED, ANN_BAND.replace("$\\pm$", "+/-")]
+    # CROI rule 3 counts titles, legends, labels and footnotes, EXCLUDING x- and
+    # y-axis labels and row or column headers. So the row headers and both axis
+    # labels are free, and the caption, the legend and the in-plot annotations
+    # are not.
+    counted = [txt, *LEGEND, ANN_UNBIASED]
+    if with_strip:
+        counted.append(ANN_BAND.replace("$\\pm$", "+/-"))
     n = sum(len(x.split()) for x in counted)
     if n > WORD_LIMIT:
         raise SystemExit(f"counted text is {n} words, limit {WORD_LIMIT}")
     out = FIGURES.parent.parent / "manuscript" / "croi2027" / "FIGURE_CAPTION.txt"
     out.write_text(txt + "\n")
     print(f"  wrote {out.relative_to(ROOT)}")
-    print(f"  words: caption {len(txt.split())}, "
+    print(f"  words counted by CROI rule 3: caption {len(txt.split())}, "
           f"legend {sum(len(x.split()) for x in LEGEND)}, "
-          f"annotations {len((ANN_UNBIASED + ' x x').split()) - 2 + 2}, "
-          f"total {n} of {WORD_LIMIT}")
+          f"annotations {n - len(txt.split()) - sum(len(x.split()) for x in LEGEND)}"
+          f"; total {n} of {WORD_LIMIT}")
     return n
 
 
 def main():
-    banner("CROI 2027 submitted graphic (panel A only)")
+    with_strip = "--with-strip" in sys.argv
+    banner("CROI 2027 submitted graphic"
+           + (" (two panels -- POSTER ONLY)" if with_strip else ""))
     ana, mc, sem, tt = load()
 
     import matplotlib
@@ -131,9 +152,11 @@ def main():
     import matplotlib.pyplot as plt
     from matplotlib.lines import Line2D
 
-    # Point sizes are final-size points: the canvas IS 4 in, so no rescaling
-    # happens at export and these are what the reviewer sees.
-    F_TICK, F_AXIS, F_LEG, F_ANN = 7.2, 7.4, 7.2, 7.0
+    # Final-size points: the canvas IS 4 in, so nothing is rescaled at export and
+    # these are what a reviewer sees. Dropping the strip frees width, so the type
+    # is larger here than in the two-panel build.
+    F_TICK, F_AXIS, F_LEG, F_ANN = (
+        (7.2, 7.4, 7.2, 7.0) if with_strip else (8.4, 8.6, 8.4, 8.0))
     assert min(F_TICK, F_AXIS, F_LEG, F_ANN) >= MIN_PT
 
     plt.rcParams.update({
@@ -144,67 +167,82 @@ def main():
     })
     INK, MC, REF, BAND = "#1a1a1a", "#c1272d", "#8c8c8c", "#dcdcdc"
 
-    fig, (axV, axT) = plt.subplots(
-        1, 2, figsize=CANVAS_IN, layout="constrained",
-        gridspec_kw={"width_ratios": [1.0, 0.40]})
+    if with_strip:
+        fig, (axV, axT) = plt.subplots(
+            1, 2, figsize=CANVAS_IN, layout="constrained",
+            gridspec_kw={"width_ratios": [1.0, 0.40]})
+    else:
+        fig, axV = plt.subplots(figsize=CANVAS_IN, layout="constrained")
+        axT = None
     fig.get_layout_engine().set(w_pad=0.03, h_pad=0.03, wspace=0.05)
 
     n = len(ROW_HEADERS)
     y = np.arange(n)[::-1]
     top = n - 0.42
 
-    # ---- value scale ---------------------------------------------------
     axV.vlines(1.0, -0.7, top, color=REF, lw=0.7, ls=(0, (3.5, 2.5)), zorder=1)
-    axV.scatter(ana, y, s=30, facecolors="none", edgecolors=INK,
-                linewidths=0.8, zorder=3)
-    axV.errorbar(mc, y, xerr=1.96 * sem, fmt="o", ms=2.4, color=MC, ecolor=MC,
-                 elinewidth=0.8, capsize=1.3, capthick=0.8, zorder=4)
-    axV.text(1.0, top + 0.10, ANN_UNBIASED, color=REF, fontsize=F_ANN,
-             ha="center", va="bottom")
+    axV.scatter(ana, y, s=42 if not with_strip else 30, facecolors="none",
+                edgecolors=INK, linewidths=0.9, zorder=3)
+    axV.errorbar(mc, y, xerr=1.96 * sem, fmt="o", ms=3.0 if not with_strip else 2.4,
+                 color=MC, ecolor=MC, elinewidth=0.8, capsize=1.3, capthick=0.8,
+                 zorder=4)
+    # Right-aligned just inside the line, not centred on it: the axis ends at
+    # 1.022 and a centred label overruns the canvas, which at 4 in is a clipped
+    # word rather than a cosmetic overhang.
+    axV.text(0.997, top + 0.10, ANN_UNBIASED, color=REF, fontsize=F_ANN,
+             ha="right", va="bottom")
     axV.set_yticks(y, ROW_HEADERS)
     axV.set_ylim(-0.7, n + 0.30)
     axV.set_xlim(0.835, 1.022)
     axV.set_xticks([0.85, 0.90, 0.95, 1.00])
     axV.set_xticklabels(["0.85", "0.90", "0.95", "1.00"])
     axV.set_xlabel(X_VALUE, fontsize=F_AXIS, labelpad=2)
-    axV.tick_params(axis="y", length=0, pad=1.5)
+    axV.tick_params(axis="y", length=0, pad=2.0)
     axV.tick_params(axis="x", labelsize=F_TICK)
     for sp in ("top", "right", "left"):
         axV.spines[sp].set_visible(False)
 
-    # ---- studentised discrepancy strip ---------------------------------
-    axT.fill_betweenx([-0.7, top], -2, 2, color=BAND, lw=0, zorder=0)
-    axT.vlines(0.0, -0.7, top, color=REF, lw=0.7, zorder=1)
-    axT.scatter(tt, y, s=11, color=MC, zorder=3)
-    axT.text(0.0, top + 0.10, ANN_BAND, color=REF, fontsize=F_ANN,
-             ha="center", va="bottom")
-    axT.set_yticks(y, [])
-    axT.set_ylim(-0.7, n + 0.30)
-    axT.set_xlim(-4.6, 4.6)
-    axT.set_xticks([-3, 0, 3])
-    axT.set_xticklabels(["$-$3", "0", "3"])
-    axT.set_xlabel(X_STRIP, fontsize=F_AXIS, labelpad=2)
-    axT.tick_params(axis="y", length=0)
-    axT.tick_params(axis="x", labelsize=F_TICK)
-    for sp in ("top", "right", "left"):
-        axT.spines[sp].set_visible(False)
+    if axT is not None:
+        axT.fill_betweenx([-0.7, top], -2, 2, color=BAND, lw=0, zorder=0)
+        axT.vlines(0.0, -0.7, top, color=REF, lw=0.7, zorder=1)
+        axT.scatter(tt, y, s=11, color=MC, zorder=3)
+        axT.text(0.0, top + 0.10, ANN_BAND, color=REF, fontsize=F_ANN,
+                 ha="center", va="bottom")
+        axT.set_yticks(y, [])
+        axT.set_ylim(-0.7, n + 0.30)
+        axT.set_xlim(-4.6, 4.6)
+        axT.set_xticks([-3, 0, 3])
+        axT.set_xticklabels(["$-$3", "0", "3"])
+        axT.set_xlabel(X_STRIP, fontsize=F_AXIS, labelpad=2)
+        axT.tick_params(axis="y", length=0)
+        axT.tick_params(axis="x", labelsize=F_TICK)
+        for sp in ("top", "right", "left"):
+            axT.spines[sp].set_visible(False)
 
     fig.legend(
         handles=[Line2D([], [], marker="o", ls="none", mfc="none", mec=INK,
-                        mew=0.8, ms=5.0, label=LEGEND[0]),
-                 Line2D([], [], marker="o", ls="none", color=MC, ms=2.8,
+                        mew=0.9, ms=5.6, label=LEGEND[0]),
+                 Line2D([], [], marker="o", ls="none", color=MC, ms=3.2,
                         label=LEGEND[1])],
         loc="outside lower center", ncol=2, frameon=False, fontsize=F_LEG,
-        handletextpad=0.4, columnspacing=1.6, borderpad=0.0)
+        handletextpad=0.4, columnspacing=1.8, borderpad=0.0)
 
-    fig.savefig(OUT, dpi=EXPORT_DPI, format="png")
+    out = (FIGURES / "croi_eligibility_panelA_withstrip.png" if with_strip
+           else OUT)
+    fig.savefig(out, dpi=EXPORT_DPI, format="png")
     w, h = fig.get_size_inches()
-    print(f"  wrote {OUT.relative_to(ROOT)}")
+    print(f"  wrote {out.relative_to(ROOT)}")
     print(f"  canvas {w:.1f} x {h:.1f} in at {EXPORT_DPI} dpi "
           f"= {int(w*EXPORT_DPI)} x {int(h*EXPORT_DPI)} px")
     print(f"  smallest type {min(F_TICK, F_AXIS, F_LEG, F_ANN):.1f} pt at "
           f"final size (floor {MIN_PT:.0f} pt)")
-    write_caption(ana, tt)
+    print(f"  panels: {2 if with_strip else 1}"
+          + ("  <-- CROI rule 4 risk; poster only" if with_strip else
+             "  (CROI rule 4: single panel, no ambiguity)"))
+    print(f"  data cells if read as table-based (rule 5/6): "
+          f"{n * (3 if with_strip else 2)} of 64")
+    if not with_strip:
+        write_caption(ana, tt, with_strip)
     return 0
 
 
