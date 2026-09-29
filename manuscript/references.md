@@ -1,0 +1,104 @@
+# Paper A — References (draft rev. 1)
+
+Assembled for the split. The predecessor manuscript's bibliography
+(`Demidont_KassanjeeBias_references.bib`) lives on that repository's `master`
+branch and covers only part of this list — every item in §1 below except
+Kassanjee, and almost nothing in §2, entered during the recomputation.
+
+**All 13 DOIs and 3 PMIDs below were resolved against Crossref or Europe PMC on
+29 September 2026**, not transcribed from the working notes. Two year
+discrepancies surfaced and are recorded at the end.
+
+---
+
+## 1. Estimator and design literature
+
+1. **Kassanjee R, McWalter TA, Bärnighausen T, Welte A.** A new general biomarker-based incidence estimator. *Epidemiology* 2012;23(5):721–728. doi:[10.1097/EDE.0b013e3182576c07](https://doi.org/10.1097/EDE.0b013e3182576c07)
+
+2. **Gao F, Bannick M.** Statistical considerations for cross-sectional HIV incidence estimation based on recency test. *Statistics in Medicine* 2022;41(8):1446–1461. doi:[10.1002/sim.9296](https://doi.org/10.1002/sim.9296)
+   *The framework this paper refines. Assumption C is the point of contact.*
+
+3. **Pan J, Bannick M, Gao F.** Estimating HIV cross-sectional incidence using recency tests from a non-representative sample. *American Journal of Epidemiology* 2026. doi:[10.1093/aje/kwag075](https://doi.org/10.1093/aje/kwag075)
+   *Screening-stage selection; the limiting estimation error composed with in §2.7 and recovered in §4.1.*
+
+4. **Wang Q, Duerr A, Gao F.** Addressing population heterogeneity for HIV incidence estimation based on recency test. *Statistics in Medicine* 2025;44(18–19). doi:[10.1002/sim.70216](https://doi.org/10.1002/sim.70216)
+   *Covariate transport by reweighting; compared in §4.8.*
+
+5. **Bannick M, Donnell D, Hayes R, et al.** An enhanced cross-sectional HIV incidence estimator that incorporates prior HIV test results. *Statistics in Medicine* 2024;43(17):3125–3139. doi:[10.1002/sim.10112](https://doi.org/10.1002/sim.10112)
+   *PT-RITA. Repairs misclassification rather than selection; see Discussion.*
+
+6. **Klock E, Wilson E, Fernandez RE, et al.** Validation of population-level HIV-1 incidence estimation by cross-sectional incidence assays in the HPTN 071 (PopART) trial. *Journal of the International AIDS Society* 2021;24(12). doi:[10.1002/jia2.25830](https://doi.org/10.1002/jia2.25830)
+
+7. **Gao F, Dasgupta S, Pasalar S, et al.** Comparing approaches for estimating counterfactual HIV incidence among populations with high vulnerability to HIV in Lima, Peru: a multi-study comparative analysis. *Journal of the International AIDS Society* 2026;29(9). doi:[10.1002/jia2.70204](https://doi.org/10.1002/jia2.70204)
+   *Motivates the counterfactual-placebo application in §1.*
+
+---
+
+## 2. Empirical parameters
+
+8. **Degenhardt L, Hickman M, Altice FL, et al.** The global epidemiology of injecting drug use, HIV, viral hepatitis and tuberculosis among people who are incarcerated: a multistage systematic review. *International Journal of Drug Policy* 2026;150:105062. doi:[10.1016/j.drugpo.2025.105062](https://doi.org/10.1016/j.drugpo.2025.105062). PMC13058553
+   *§3.5, Route B: IDU prevalence among incarcerated in North America, 13.4% (95% CI 10.3–16.8).*
+
+9. **Bradley H, Hall EW, Asher A, et al.** Estimated number of people who inject drugs in the United States. *Clinical Infectious Diseases* 2023;76(1):96–102. doi:[10.1093/cid/ciac543](https://doi.org/10.1093/cid/ciac543)
+   *§3.5: denominator of 3.70 M US PWID.*
+
+10. **Feder KA, Sun J, Rudolph JE, et al.** Mortality by cause of death during year 1 of the COVID-19 pandemic in a cohort of older adults from Baltimore, Maryland who have injected drugs. *International Journal of Drug Policy* 2022;109:103842. doi:[10.1016/j.drugpo.2022.103842](https://doi.org/10.1016/j.drugpo.2022.103842)
+   *§3.4: ALIVE all-cause mortality, 37.2 and 39.6 per 1,000 person-years.*
+
+11. **Sun J, Mehta SH, Astemborski J, et al.** Mortality among people who inject drugs: a prospective cohort followed over three decades in Baltimore, MD, USA. *Addiction* 2022;117(3):646–655. doi:[10.1111/add.15659](https://doi.org/10.1111/add.15659)
+    *§3.4: age-standardised trend, 23 → 45 per 1,000 person-years, 1988–2018.*
+
+12. **Tempalski B, Pouget ER, Cleland CM, et al.** Trends in the population prevalence of people who inject drugs in US metropolitan areas 1992–2007. *PLoS ONE* 2013;8(6):e64789. doi:[10.1371/journal.pone.0064789](https://doi.org/10.1371/journal.pone.0064789). PMID 23755143
+    *§3.8: catchment demographic stability, ρ ≈ 0.*
+
+13. **Gough E, Kempf MC, Graham L, et al.** HIV and hepatitis B and C incidence rates in US correctional populations and high risk groups: a systematic review and meta-analysis. *BMC Public Health* 2010;10:777. doi:[10.1186/1471-2458-10-777](https://doi.org/10.1186/1471-2458-10-777). PMID 21176146, PMC3016391
+    *§3.9: the only directly relevant evidence on η. Overlay band, never a fitted value.*
+
+14. **Centers for Disease Control and Prevention.** HIV infection and HIV-associated behaviors among persons who inject drugs — 23 metropolitan statistical areas, United States, 2018. *MMWR Morbidity and Mortality Weekly Report* 2021;70(42):1459–1465. PMID 34673746
+    *§3.3: 57% tested in the preceding 12 months, giving θ = −ln(0.43) = 0.844 y⁻¹. Also §3.5, Route A: past-12-month incarceration 21.0% and 43.3%.*
+
+15. **Centers for Disease Control and Prevention.** HIV transmission among male inmates in a state prison system — Georgia, 1992–2005. *MMWR Morbidity and Mortality Weekly Report* 2006;55(15):421–426. PMID 16628181
+    *§3.9: 88 documented seroconversions during incarceration; establishes η_P > 0.*
+
+---
+
+## 3. Data sources and software
+
+16. **CEPHIA public-use dataset.** Consortium for the Evaluation and Performance of HIV Incidence Assays. Zenodo. doi:[10.5281/zenodo.4900634](https://doi.org/10.5281/zenodo.4900634)
+    *§3.2: recency function re-estimation. Not redistributed with this work.*
+
+17. **`XSRecency`** — R package implementing cross-sectional recency estimators. *§3.2 and §4.1: the gamma parameterisation and the MDRI fitting procedure follow it. Cite the release used; note that `createRitaCephia` changed its unit contract between tag 0.2.0 and `main`.*
+
+18. **Bureau of Justice Statistics.** *Jail Inmates in 2023.* US Department of Justice. *§3.5–3.6: mean 32 d in custody; adult jail incarceration rate by age; all-adult rate 253 per 100,000.*
+
+19. **Bureau of Justice Statistics.** *Prisoners* series. US Department of Justice. *§3.5–3.6: adult imprisonment rate 453 per 100,000; mean time served ≈2.7 y.*
+
+20. **Bureau of Justice Statistics.** *Mortality in Local Jails* (`mlj0019st`) and *Mortality in State and Federal Prisons* (`msfp0119st`), 2019. *§3.7: 167, 330 and 259 deaths per 100,000.*
+
+21. **Bureau of Justice Statistics.** *HIV in Prisons* (`hivp20st`). *Cited only to establish that the incarcerated population is not predominantly PWID, so HIV prevalence cannot substitute for injection prevalence in §3.5.*
+
+22. **US Census Bureau.** Population Estimates Program, vintage 2019, county characteristics (`cc-est2019-alldata`). *§3.10: county-specific 15–64 to 18+ ratios, 0.834–0.908.*
+
+23. **Vera Institute of Justice.** *Incarceration Trends* county-level jail and prison populations. *§3.10: the 2019 anchor and post-2019 jail trajectories. County prison series ends at 2019.*
+
+24. **ClinicalTrials.gov.** PURPOSE 4: NCT06101342. *§3.10 and §4.7: the nine US site counties and the ≥18 age frame. A phase 2 pharmacokinetics and safety trial; no efficacy estimate is corrected or commented on.*
+
+25. **Demidont AC.** Software repository for *Calibration-to-deployment mismatch in HIV prevention trials*. Zenodo 2026. doi:[10.5281/zenodo.20344293](https://doi.org/10.5281/zenodo.20344293)
+    *The superseded predecessor analysis. Cited for provenance; its central empirical conclusions are not carried forward. Disclosed under prior publication.*
+
+---
+
+## Verification notes
+
+Two dates in the working notes were wrong in the drafts' favour, and both are now stated as the print year:
+
+| item | working note | Crossref | used |
+|---|---|---|---|
+| Bradley | 2023 | issued 2022, **print 2023**, 76(1):96–102 | 2023 |
+| Sun | 2022 | issued 2021, **print 2022**, 117(3):646–655 | 2022 |
+
+Online-first and print years differ for both; the volume numbers confirm the print year.
+
+**Items 17–24 are grey literature, datasets and software** and carry no DOI. They need the exact report edition, NCJ number where applicable, and an access date before submission. `docs/audit/computation_record.md` Appendix C records that the four BJS folders could not be opened locally, and that neither the *Survey of Prison Inmates 2016* (NCJ 252641) nor the 2007–2009 drug-use report contains an injection-route variable — which is why item 8 supplies that quantity instead.
+
+**Not cited and deliberately so.** The BJS jail drug-intoxication figure of 184 per 100,000 appears in a page summary and exceeds the all-cause rate, so it is almost certainly a count rather than a rate. It is not used anywhere and should not be cited without checking the underlying table.
