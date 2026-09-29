@@ -1,5 +1,5 @@
-TITLE (89 characters)
-Temporary Loss of Eligibility Cancels Exactly in Cross-Sectional HIV Incidence Estimation
+TITLE (82 characters)
+Temporary Loss of Eligibility and Bias in Cross-Sectional HIV Incidence Estimation
 
 --- FIELD 1 of 4: BACKGROUND (405 characters) ---
 Cross-sectional recency assays are increasingly used to estimate counterfactual placebo incidence in HIV prevention trials when placebo arms are infeasible or unethical. Eligibility is defined at survey, yet individuals may move temporarily out of the observable population between HIV acquisition and sampling. Whether such movement itself biases incidence estimation, and in which direction, is unknown.

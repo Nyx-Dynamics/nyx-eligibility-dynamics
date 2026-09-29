@@ -41,9 +41,22 @@ the wrong default.
 
 ## Title
 
-**Submit:** *Temporary Loss of Eligibility Cancels Exactly in Cross-Sectional HIV Incidence Estimation*
+**Submit:** *Temporary Loss of Eligibility and Bias in Cross-Sectional HIV Incidence Estimation*
+— 82 characters against a 255 limit.
 
-Eleven words. Three changes from the draft title:
+**The assertive title was withdrawn against CROI's own rule.** The submission form states:
+"Enter a concise, descriptive title that identifies the subject of the research **without
+stating the results or conclusions**." *Cancels Exactly* states the result, which was the
+entire point of recommending it. The rule is explicit and the earlier reasoning below —
+written before the form was available — is therefore superseded on that point. It is kept
+because its other two arguments still hold, and because the record of why the title changed is
+worth more than a tidy file.
+
+The replacement keeps the subject and the key noun phrase, names bias as the thing studied,
+and asserts nothing. Both alternates below are also compliant; option B, the question form, is
+the most unambiguously so.
+
+Superseded reasoning follows. Eleven words. Three changes from the draft title:
 
 - **"Temporary" for "Transient."** The whole point is a contrast with *absorbing* loss, and
   "temporary" carries that to a clinical reader without a definition. "Transient" also has a
@@ -90,6 +103,44 @@ window and shadow, the attendance ratio) is a second set of definitions the read
 and the 100-word budget cannot carry it. And both borderline comparisons live there: panel A
 alone is all seven within |t| = 1.22. Methods already states the composition with
 Pan-Bannick-Gao, so the work is disclosed.
+
+### Verified against CROI's own documents
+
+Both the submission form and *Common Reasons for Removal of Tables, Figures, Or Other Graphics*
+were read directly. What they confirmed and what they changed:
+
+| rule | status |
+|---|---|
+| PNG or JPEG only | ✅ PNG |
+| 2,500 characters **total** across the four sections; graphics excluded | ✅ 2,270 |
+| No section headings in the text — the system adds them | ✅ four fields, no inline labels |
+| Title ≤ 255 characters | ✅ 82 |
+| Title must not state results or conclusions | ⚠️ **forced a title change**; see above |
+| Legible at 4 × 4 in | ✅ authored at that size, minimum 8.0 pt |
+| Title, legend and description ≤ 100 words, excluding axis labels and row/column headers | ✅ 98 |
+| ≤ 64 data cells if read as table-based | ✅ 14 |
+| One figure, at most two panels, same analysis | ✅ **one panel** |
+
+**The removal guidance is blunter than the rule it enforces.** Its first line: *"The number 1
+reason for figures being removed is that the submitter included more than 1 separate figure.
+For example: including 2 separate figures, and labeling them 'panel A' and 'panel B' is not
+acceptable as it counts as 2 separate figures."* It also removes figures with more than two
+panels, *"including instances where more than 1 distinct panel is included under an 'A' or 'B'
+header."*
+
+That retrospectively condemns the two-panel A/B figure this packet carried two days ago: the
+census model and the composed screening model under A and B headers are the named example of
+the number-one removal reason. Dropping panel B was necessary, not conservative.
+
+It also settles the discrepancy strip, which was the genuinely arguable case. Each graphic is
+judged by a **blinded three-person panel**, escalated to a fourth reviewer when they do not
+reach consensus. A design that needs an argument is a design that can lose one, so the strip is
+gone too and the figure is a single unambiguous panel.
+
+One further criterion worth naming: figures are removed for *"text used to extend the character
+limit of the abstract system."* Our row headers are dense, and they are free under the word
+count. They name the seven plotted conditions and nothing else — they are data labels, not
+overflow prose — but that is the line they sit near, and it is a reason not to add more.
 
 ### The 100-word budget
 

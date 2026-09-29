@@ -34,7 +34,10 @@ README = HERE / "README.md"
 CITATION = ROOT / "CITATION.cff"
 OUT = HERE / "CROI2027_eligibility_dynamics.docx"
 
-TITLE = ("Temporary Loss of Eligibility Cancels Exactly in "
+# CROI's title field requires a title that "identifies the subject of the
+# research without stating the results or conclusions", so the assertive
+# "Cancels Exactly" form was withdrawn. 82 characters against a 255 limit.
+TITLE = ("Temporary Loss of Eligibility and Bias in "
          "Cross-Sectional HIV Incidence Estimation")
 
 SERIF, GREY = "Times New Roman", RGBColor(0x59, 0x59, 0x59)
