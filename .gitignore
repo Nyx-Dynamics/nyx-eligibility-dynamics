@@ -19,3 +19,9 @@ data/eligibility_references/
 data/pdfs/
 outputs/manuscript/
 manuscript/PaperA_draft.docx
+*.tar
+*.tar.gz
+manuscript/*.aux
+manuscript/*.log
+manuscript/*.out
+manuscript/PaperA.pdf

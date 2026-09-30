@@ -68,9 +68,9 @@ The contribution is structural. It replaces a question that cannot be answered u
 
 ---
 
-**Working title:** When eligibility dynamics bias cross-sectional HIV incidence estimation
+**Title:** Temporary Loss of Eligibility and Bias in Cross-Sectional HIV Incidence Estimation
 
-Notation follows Gao & Bannick (*Stat Med* 2022;41:1446–61) throughout. Their eligibility indicator is refined, not replaced. Rev. 2 (26 Sep 2026): general historical composition in Theorem 2; $w_t(u)$ propagated into §2.7; Corollary 5 asymptotics corrected; FRR and Wang claims narrowed; dimensional ambiguity removed; proofs added. Rev. 3 (26 Sep 2026): sampling factor $\kappa_t$ added to Theorem 1; demographic stationarity separated from state stationarity in Corollaries 1–2; Remark 1 double-counting claim narrowed; failure-mode count scoped and M4 split; implications 1 and 3 reworded; $w_t$ removed from the transition arrow; Remark 5 stated in terms of $\Omega_w$ rather than pointwise $w_t$. Rev. 4 (26 Sep 2026): neutral sampling named in Theorem 1's hypothesis; $\beta_{T^*}=0$ inherited explicitly in Theorem 2. **Frozen.**
+Notation follows Gao & Bannick (*Stat Med* 2022;41:1446–61) throughout. Their eligibility indicator is refined, not replaced. Rev. 2 (26 Sep 2026): general historical composition in Theorem 2; $w_t(u)$ propagated into §2.7; Corollary 5 asymptotics corrected; FRR and Wang claims narrowed; dimensional ambiguity removed; proofs added. Rev. 3 (26 Sep 2026): sampling factor $\kappa_t$ added to Theorem 1; demographic stationarity separated from state stationarity in Corollaries 1–2; Remark 1 double-counting claim narrowed; failure-mode count scoped and M4 split; implications 1 and 3 reworded; $w_t$ removed from the transition arrow; Remark 5 stated in terms of $\Omega_w$ rather than pointwise $w_t$. Rev. 4 (26 Sep 2026): neutral sampling named in Theorem 1's hypothesis; $\beta_{T^*}=0$ inherited explicitly in Theorem 2. Rev. 5 (30 Sep 2026): unfrozen and aligned with the positioning settled for §§1, 3 and 5 — Remark 4a states the $\varphi$-independence of Corollary 2 explicitly, and §2.1 states the additive-extension claim in the form the rest of the paper uses.
 
 ---
 
@@ -80,7 +80,7 @@ Notation follows Gao & Bannick (*Stat Med* 2022;41:1446–61) throughout. Their 
 
 Let $T$ be the calendar time of HIV infection and $t$ the calendar time of cross-sectional sampling, and write $U = t-T$ for infection duration. Following Gao & Bannick, let $A(t)$ indicate eligibility at $t$ — whether the individual would be eligible for inclusion in a cross-sectional survey of the target population, a minimum requirement being that they are alive.
 
-We refine $A(t)$ rather than redefine it. Let $Z(t)$ be a stochastic process on
+We refine $A(t)$ rather than redefine it. The estimand, the recency function and the assumptions of the established framework are retained unchanged; the only new primitive is the process $Z(t)$ below, and setting that process inert recovers the existing results exactly (Corollary 1). The extension is therefore additive rather than alternative, and it is an extension in the formal treatment of eligibility — not in assay calibration, which Remark 4a shows is not load-bearing here. Let $Z(t)$ be a stochastic process on
 
 $$
 \mathcal{S} = \mathcal{L}\cup\{X\}, \qquad \mathcal{L}=\{E, O_1,\dots,O_m\},
@@ -259,6 +259,10 @@ Conditions (1) and (2) are distinct and both are required. State-stationarity fi
 
 **Movement into and out of temporarily unobservable states does not, by itself, bias the estimator.** The loss of individuals infected in $E$ and unobservable at $t$ is offset exactly by individuals infected while unobservable who have returned to $E$ by $t$. Stationarity suffices — detailed balance is not required — so the result concerns transient or bidirectional movement, not reversibility.
 
+**Remark 4a (the cancellation does not depend on the assay).** Corollary 2 gives $\hat\lambda/\lambda_E=1$ whenever $w_t\equiv1$, and $w_t$ is a property of the population process alone: it contains no assay quantity. The conclusion therefore holds for **every admissible recency function** — any $\varphi$ satisfying A.1–A.2 or B.1–B.2 — and for every value of $\Omega_{T^*}$. No mean duration of recent infection is load-bearing for the result.
+
+This matters for what must be defended. A claim resting on a particular calibration inherits every dispute about that calibration, and the recency literature has two distinct lineages whose values differ by roughly forty per cent (§3.2). Corollary 2 is insulated from that disagreement by construction: $\varphi$ enters Theorem 2 only through $\Omega_w/\Omega_{T^*}$, which is unity when $w_t\equiv1$ regardless of the shape of $\varphi$. Where $\varphi$ does matter is in the *magnitude* of departures once a condition fails, and in the boundary of §2.7 — and even there Remark 5 shows the boundary itself is $\varphi$-free under a Poisson testing process.
+
 **Corollary 3 (unobserved heterogeneity in movement propensity).** *Let the population comprise latent strata $z$ with weights $w_z$, each satisfying conditions (1)–(5) of Corollary 2 with its own stationary $\boldsymbol\pi_z$, generator $Q_z$ and incidence $\lambda_z$. Then*
 
 $$
@@ -418,7 +422,7 @@ One construction was rejected. Jail incarceration peaks at ages 25–34 (480 per
 
 ### 3.6 Return rates
 
-$\beta_k$ is the rate of return from unobservable state $k$ to $E$, the reciprocal of mean sojourn. BJS *Jail Inmates in 2023* gives a mean 32 d in custody for July 2022–June 2023 (36 d male, 19 d female; 43 d in jails with average daily population $\ge$2,500), so $\beta_J=365.25/32=11.4\ \mathrm{y}^{-1}$. BJS *Time Served in State Prison, 2018* gives mean time served from initial admission to initial release of 2.7 y, so $\beta_P=0.37\ \mathrm{y}^{-1}$.
+$\beta_k$ is the rate of return from unobservable state $k$ to $E$, the reciprocal of mean sojourn. BJS *Jail Inmates in 2023* gives a mean 32 d in custody for July 2022–June 2023 (36 d male, 19 d female; 43 d in jails with average daily population $\ge 2{,}500$), so $\beta_J=365.25/32=11.4\ \mathrm{y}^{-1}$. BJS *Time Served in State Prison, 2018* gives mean time served from initial admission to initial release of 2.7 y, so $\beta_P=0.37\ \mathrm{y}^{-1}$.
 
 That mean carries a caveat the exponential sojourn does not capture. The median time served is 1.3 y against a mean of 2.7 y, whereas an exponential with mean 2.7 y has median 1.87 y. The true distribution is therefore more right-skewed than exponential: more short stays and a longer tail than the model represents. This does not affect Corollary 2, which requires stationarity rather than exponential sojourns, and Corollary 3 admits arbitrary stationary mixtures. It does mean that where sojourn length enters the magnitude of an effect (Corollary 5), a single-exponential prison state is an approximation, and a two-component mixture would represent the release distribution better.
 
@@ -754,7 +758,7 @@ discrepancies surfaced and are recorded at the end.
 18. **CEPHIA public-use dataset.** Consortium for the Evaluation and Performance of HIV Incidence Assays. Zenodo. doi:[10.5281/zenodo.4900634](https://doi.org/10.5281/zenodo.4900634)
     *§3.2: recency function re-estimation. Not redistributed with this work.*
 
-19. **`XSRecency`** — R package implementing cross-sectional recency estimators. *§3.2 and §4.1: the gamma parameterisation and the MDRI fitting procedure follow it. Cite the release used; note that `createRitaCephia` changed its unit contract between tag 0.2.0 and `main`.*
+19. **Bannick M, Gao F.** *XSRecency: cross-sectional incidence estimation.* R package, MIT. github.com/mbannick/XSRecency; release 0.2.0, 21 August 2023, commit `2811002`; `main` at `7c1243c5`, 7 July 2025. Companion simulation code: github.com/mbannick/RITA-plus-sims, release `v081723`. *§3.2 and §4.1. Two contract details were read from the 0.2.0 source rather than assumed. `get.gamma.params` (`R/phi-functions.R`) is byte-identical in 0.2.0 and `main` — shape = W/(2H−W), rate = 1/(2H−W) — so our implementation matches either, and `tests/test_gamma_params_match_xsrecency` asserts it. `createRitaCephia` (`R/get-rita-data.R`) did change: 0.2.0 documents `ui` as infection duration in days with no conversion, `main` documents years and divides by 365.25 at line 207. Our procedure works in years and matches `main`; following the 0.2.0 vignette against `main` would double-convert.*
 
 20. **Zeng Z.** *Jail Inmates in 2023 – Statistical Tables.* Bureau of Justice Statistics, US Department of Justice; April 2025. NCJ 309965. *§3.5–3.6: mean 32 d in custody July 2022–June 2023; adult jail incarceration rate by age; all-adult rate 253 per 100,000.*
 
@@ -872,7 +876,9 @@ Online-first and print years differ for both; the volume numbers confirm the pri
 
 ### Status
 
-Proofs are written for Theorems 1–2 and Corollaries 2–3. Corollaries 1, 4 and 5 follow by direct substitution and need at most two lines each. **§2 is frozen.** No further modelling, surveillance variable, simulation or theoretical extension is required by the main argument.
+Proofs are written for Theorems 1–2 and Corollaries 2–3. Corollaries 1, 4 and 5 follow by direct substitution and need at most two lines each. No further modelling, surveillance variable, simulation or theoretical extension is required by the main argument.
+
+§2 was frozen at rev. 4 and unfrozen at rev. 5 to add Remark 4a and the additive-extension statement in §2.1, both of which bring it into line with the positioning settled later for §§1, 3 and 5. The mathematics is unchanged: no theorem, corollary, assumption or proof was altered.
 
 ### From `section3_parameterisation.md`
 

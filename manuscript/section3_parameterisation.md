@@ -75,7 +75,7 @@ One construction was rejected. Jail incarceration peaks at ages 25–34 (480 per
 
 ### 3.6 Return rates
 
-$\beta_k$ is the rate of return from unobservable state $k$ to $E$, the reciprocal of mean sojourn. BJS *Jail Inmates in 2023* gives a mean 32 d in custody for July 2022–June 2023 (36 d male, 19 d female; 43 d in jails with average daily population $\ge$2,500), so $\beta_J=365.25/32=11.4\ \mathrm{y}^{-1}$. BJS *Time Served in State Prison, 2018* gives mean time served from initial admission to initial release of 2.7 y, so $\beta_P=0.37\ \mathrm{y}^{-1}$.
+$\beta_k$ is the rate of return from unobservable state $k$ to $E$, the reciprocal of mean sojourn. BJS *Jail Inmates in 2023* gives a mean 32 d in custody for July 2022–June 2023 (36 d male, 19 d female; 43 d in jails with average daily population $\ge 2{,}500$), so $\beta_J=365.25/32=11.4\ \mathrm{y}^{-1}$. BJS *Time Served in State Prison, 2018* gives mean time served from initial admission to initial release of 2.7 y, so $\beta_P=0.37\ \mathrm{y}^{-1}$.
 
 That mean carries a caveat the exponential sojourn does not capture. The median time served is 1.3 y against a mean of 2.7 y, whereas an exponential with mean 2.7 y has median 1.87 y. The true distribution is therefore more right-skewed than exponential: more short stays and a longer tail than the model represents. This does not affect Corollary 2, which requires stationarity rather than exponential sojourns, and Corollary 3 admits arbitrary stationary mixtures. It does mean that where sojourn length enters the magnitude of an effect (Corollary 5), a single-exponential prison state is an approximation, and a two-component mixture would represent the release distribution better.
 

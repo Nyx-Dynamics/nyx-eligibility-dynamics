@@ -9,6 +9,7 @@
 #   make docx          compile the CROI submission packet to a single .docx
 #   make manuscript    assemble Paper A figures/tables under final numbers
 #   make draft         concatenate the sections into one readable draft
+#   make tex           convert the sections to LaTeX and build PaperA.pdf
 #   make check-refs    verify every figure and table is present and cited
 #   make all           verify + figures
 #   make clean         remove generated outputs
@@ -22,7 +23,7 @@ OFFLINE := reproduce_pan mortality_threshold validate_theorems frailty_mixture \
            wang_comparator eta_surface inter_test_process
 DATADEP := empirical_phi
 
-.PHONY: all verify verify-fast figures figures-full croi-figure figure-redraw submission-fig docx manuscript draft check-refs \
+.PHONY: all verify verify-fast figures figures-full croi-figure figure-redraw submission-fig docx manuscript draft tex check-refs \
         clean check-env \
         $(OFFLINE) $(DATADEP)
 
@@ -83,6 +84,18 @@ manuscript: check-env
 # Lifts each file's drafting notes out of the body and collects them at the end.
 draft: check-env
 	@cd $(ANALYSIS) && $(PY) assemble_draft.py --docx
+
+# Pandoc does the conversion; build_tex.py decides what it is handed, strips the
+# drafting notes, and writes the main file. Compiles twice for cross-references.
+tex: check-env
+	@cd $(ANALYSIS) && $(PY) build_tex.py
+	@cd manuscript && pdflatex -interaction=nonstopmode PaperA.tex >/dev/null \
+	  && pdflatex -interaction=nonstopmode PaperA.tex >/dev/null || true
+	@cd manuscript && $(PY) -c "from pathlib import Path; \
+	  L=Path('PaperA.log').read_text(encoding='utf8',errors='replace').split(chr(10)); \
+	  e=[l for l in L if l.startswith('!')]; \
+	  o=[l for l in L if 'Output written' in l]; \
+	  print('  errors:', len(e)); print(' ', o[0] if o else 'NO PDF')"
 
 # Non-zero exit if any numbered item is missing or uncited. Suitable for CI.
 check-refs: check-env

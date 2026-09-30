@@ -74,7 +74,7 @@ discrepancies surfaced and are recorded at the end.
 18. **CEPHIA public-use dataset.** Consortium for the Evaluation and Performance of HIV Incidence Assays. Zenodo. doi:[10.5281/zenodo.4900634](https://doi.org/10.5281/zenodo.4900634)
     *§3.2: recency function re-estimation. Not redistributed with this work.*
 
-19. **`XSRecency`** — R package implementing cross-sectional recency estimators. *§3.2 and §4.1: the gamma parameterisation and the MDRI fitting procedure follow it. Cite the release used; note that `createRitaCephia` changed its unit contract between tag 0.2.0 and `main`.*
+19. **Bannick M, Gao F.** *XSRecency: cross-sectional incidence estimation.* R package, MIT. github.com/mbannick/XSRecency; release 0.2.0, 21 August 2023, commit `2811002`; `main` at `7c1243c5`, 7 July 2025. Companion simulation code: github.com/mbannick/RITA-plus-sims, release `v081723`. *§3.2 and §4.1. Two contract details were read from the 0.2.0 source rather than assumed. `get.gamma.params` (`R/phi-functions.R`) is byte-identical in 0.2.0 and `main` — shape = W/(2H−W), rate = 1/(2H−W) — so our implementation matches either, and `tests/test_gamma_params_match_xsrecency` asserts it. `createRitaCephia` (`R/get-rita-data.R`) did change: 0.2.0 documents `ui` as infection duration in days with no conversion, `main` documents years and divides by 365.25 at line 207. Our procedure works in years and matches `main`; following the 0.2.0 vignette against `main` would double-convert.*
 
 20. **Zeng Z.** *Jail Inmates in 2023 – Statistical Tables.* Bureau of Justice Statistics, US Department of Justice; April 2025. NCJ 309965. *§3.5–3.6: mean 32 d in custody July 2022–June 2023; adult jail incarceration rate by age; all-adult rate 253 per 100,000.*
 
