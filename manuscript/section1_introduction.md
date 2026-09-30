@@ -16,6 +16,14 @@ What determines bias is not whether people leave but whether the flow is symmetr
 
 Two features of the existing formalism make the question easy to get wrong, and both are worth stating at the outset. First, the recency function used by Gao and Bannick conditions on eligibility at survey and therefore carries no eligibility-survival component, whereas Kassanjee's original formulation embeds one. Eligibility dynamics must consequently enter *once*, explicitly, through a population process — and a treatment that both models the transitions and deflates the recency window has counted the same mechanism twice. Second, the population process operates upstream of, and composes with rather than replaces, the survey-attendance and prior-testing selection formalised by Pan and colleagues. Collapsing custody, mortality, attendance and testing-based exclusion into a single structural hazard makes double-counting nearly unavoidable; we keep the stages separate as an explicit modelling rule.
 
+### Where this sits in the literature
+
+The line from the Kassanjee estimator through Gao and Bannick's formalisation has been extended in three directions: prior-test information, covariate transport for population heterogeneity, and selection arising from survey attendance and prior-testing exclusion. Each of these takes eligibility at survey as a primitive — a time-indexed indicator whose value is given. We extend the same line by modelling the dynamics of that indicator.
+
+The move is stated simply. Gao and Bannick define eligibility $A(t)$ as an indicator; we retain their estimand, their recency function and their assumptions, and refine $A(t)$ as the observable marginal of a stochastic state process $Z(t)$. That permits eligibility to evolve between infection and sampling, and yields the conditions under which such movement cancels exactly and the mechanisms by which it does not. This is an additive extension rather than an alternative framework: the existing results are recovered as the special case in which the process is inert.
+
+We emphasise that the extension is in the formal treatment of eligibility, not in the assay calibration. The principal result holds for any admissible recency function, so no particular mean duration of recent infection is load-bearing; §3.2 records the calibration families the empirical evaluation spans and why they are not to be read as independent support for one another.
+
 ### Contributions
 
 We refine the eligibility indicator rather than replace it, writing $A(t)=\mathbb{1}\{Z(t)=E\}$ for a process $Z$ on a finite state space comprising an observable state, temporarily unobservable living states permitting return, and an absorbing state. Within that refinement:

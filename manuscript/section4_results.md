@@ -18,7 +18,7 @@ The same limit reproduces Gao & Bannick's Theorem 2 when $\mathcal{L}=\{E\}$ and
 
 ### 4.2 Exact cancellation
 
-Under the five conditions of Corollary 2, $\hat\lambda/\lambda_E=1$ to machine precision. On a 4001-point quadrature grid the deviation is $0.0$; on the coarser 1201-point grid used during development it is $2.2\times10^{-16}$. The result held across nine combinations of stationary occupancy and mean sojourn, spanning $q\in\{0.01,0.03,0.15\}$ and sojourns from 32 d to 2.7 y, and across three recency functions of materially different shape — the two published gamma bases and an empirically fitted CEPHIA curve, spanning $\Omega_{T^*}$ from 94 d to 251 d. Cancellation is a property of the flow balance, not of the assay.
+Under the five conditions of Corollary 2, $\hat\lambda/\lambda_E=1$ to machine precision. On a 4001-point quadrature grid the deviation is $0.0$; on the coarser 1201-point grid used during development it is $2.2\times10^{-16}$. The result held across nine combinations of stationary occupancy and mean sojourn, spanning $q\in\{0.01,0.03,0.15\}$ and sojourns from 32 d to 2.7 y, and across three recency functions of materially different shape. Cancellation is a property of the flow balance, not of the assay: Corollary 2 gives $\hat\lambda/\lambda_E=1$ for any admissible $\varphi$, and the numerical evaluation confirms rather than establishes it.
 
 Two features of the result are worth isolating because each is a plausible objection that does not hold.
 
@@ -66,7 +66,7 @@ $$
 
 and setting $w_t\equiv1$ recovers their expression exactly (§4.1). The composed boundary is therefore an eligibility-dynamics correction to a quantity they derived, not a replacement for it.
 
-Under a Poisson inter-test process the no-dynamics boundary is exactly free of the recency function. Evaluated over six gamma bases spanning $\Omega_{T^*}$ from 94 d to 251 d, $r^\star$ is $0.8098$ on every basis, with spread $0.0$ (Table S4). The invariance is provable and follows from memorylessness rather than from any property of the estimator.
+Under a Poisson inter-test process the no-dynamics boundary is exactly free of the recency function. Evaluated over six gamma bases spanning $\Omega_{T^*}$ from 94 d to 251 d — a range encompassing the principal LAg calibration regimes considered here, both the Duong-type algorithms without a viral-load criterion and the CEPHIA-derived algorithms with one (§3.2) — $r^\star$ is $0.8098$ on every basis, with spread $0.0$ (Table S4). The invariance is provable and follows from memorylessness rather than from any property of the estimator.
 
 That exactness does not extend to other testing processes, and the distinction matters because a *rectangular recency window* is a property of the assay while a *uniform inter-test distribution* is a property of testing behaviour. Under the uniform variant of Pan et al., invariance survives only approximately: relative spread across the same six bases is 0.37% for gaps $\mathrm{Unif}[0,3]$ and 0.18% for $\mathrm{Unif}[0,4]$. Two generalisations fail outright. The identity $r^\star=\Pr(S>c)$ is specific to the Poisson case: under $\mathrm{Unif}[0,3]$, $P_0=0.8403$ while $r^\star\approx0.902$. And matching the mean gap does not recover the boundary — the mean-matched Poisson rate $\theta=2/b$ gives $r^\star=0.847$ against the uniform process's 0.902.
 
