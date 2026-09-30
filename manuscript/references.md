@@ -5,7 +5,7 @@ Assembled for the split. The predecessor manuscript's bibliography
 branch and covers only part of this list — every item in §1 below except
 Kassanjee, and almost nothing in §2, entered during the recomputation.
 
-**All 15 DOIs and 3 PMIDs below were resolved against Crossref or Europe PMC on
+**All 17 DOIs and 3 PMIDs below were resolved against Crossref or Europe PMC on
 29 September 2026**, and the entries added from the reference archive were checked
 against the PDFs themselves, not transcribed from the working notes. Two year
 discrepancies surfaced and are recorded at the end.
@@ -88,9 +88,15 @@ discrepancies surfaced and are recorded at the end.
 
 25. **Vera Institute of Justice.** *Incarceration Trends* county-level jail and prison populations. *§3.10: the 2019 anchor and post-2019 jail trajectories. County prison series ends at 2019.*
 
-26. **ClinicalTrials.gov.** PURPOSE 4: NCT06101342. *§3.10 and §4.7: the nine US site counties and the ≥18 age frame. A phase 2 pharmacokinetics and safety trial; no efficacy estimate is corrected or commented on.*
+26. **Kelley CF, Acevedo-Quiñones M, Agwu AL, et al.** Twice-yearly lenacapavir for HIV prevention in men and gender-diverse persons. *New England Journal of Medicine* 2025;392(13):1261–1276. doi:[10.1056/NEJMoa2411858](https://doi.org/10.1056/NEJMoa2411858)
+    *PURPOSE 2 (NCT04925752). §3.2, §3.3 and §5.3: the protocol and statistical analysis plan supply the three-month testing exclusion, the adopted assay parameters (MDRI 184 d, FRR 1.5%, ODn ≤1.5 with VL >75, T = 2 y), and the plan's own statement that prior testing in the preceding 3–12 months would underestimate the background rate.*
 
-27. **Demidont AC.** Software repository for *Calibration-to-deployment mismatch in HIV prevention trials*. Zenodo 2026. doi:[10.5281/zenodo.20344293](https://doi.org/10.5281/zenodo.20344293)
+27. **Parkin N, Gao F, Grebe E, et al.** Facilitating next-generation pre-exposure prophylaxis clinical trials using HIV recent infection assays: a consensus statement from the Forum HIV Prevention Trial Design Project. *Clinical Pharmacology and Therapeutics* 2023;114(1):29–40. doi:[10.1002/cpt.2830](https://doi.org/10.1002/cpt.2830)
+    *The RAWG recommendations from which the T = 2 y default derives.*
+
+28. **ClinicalTrials.gov.** PURPOSE 4: NCT06101342. *§3.10 and §4.7: the nine US site counties and the ≥18 age frame. A phase 2 pharmacokinetics and safety trial; no efficacy estimate is corrected or commented on.*
+
+29. **Demidont AC.** Software repository for *Calibration-to-deployment mismatch in HIV prevention trials*. Zenodo 2026. doi:[10.5281/zenodo.20344293](https://doi.org/10.5281/zenodo.20344293)
     *The superseded predecessor analysis. Cited for provenance; its central empirical conclusions are not carried forward. Disclosed under prior publication.*
 
 ---
