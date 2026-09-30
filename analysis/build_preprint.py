@@ -126,11 +126,9 @@ PaperA_draft.docx       the same text as .docx, for co-author comment
 
 BEFORE POSTING
 --------------
-DISCLOSURES.md has three items marked with a warning that need your decision:
-funding, competing interests, and authorship. The AI-use and prior-publication
-declarations are already written in full -- the latter names the superseded
-Zenodo deposit (doi:10.5281/zenodo.20344293), which is public and should be
-declared whether or not the form insists.
+DISCLOSURES.md is complete: AI use, prior publication, CRediT contributions,
+funding (none), competing interests and data availability. Nothing in it is
+left for you to fill in. Paste each section into the corresponding field.
 
 Two figures and one table are absent because they need the CEPHIA dataset, which
 is not redistributed. They are Figure S2 and Table S1, cited in §3.2. Either
