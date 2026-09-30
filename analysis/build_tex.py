@@ -130,7 +130,7 @@ def main():
         (TEX / f"{stem}.tex").write_text(tex)
         print(f"  {fname:<32} -> tex/{stem}.tex  ({len(tex.splitlines())} lines)")
 
-    for src, dst in [("captions.md", "captions"), ("references.md", "references")]:
+    for src, dst in [("references.md", "references")]:
         p = M / src
         if p.exists():
             (TEX / f"{dst}.tex").write_text(to_tex(strip_notes(p.read_text())))
@@ -171,11 +171,15 @@ def main():
 % pandoc's longtable column specs use \\real{{}} from calc; without it every
 % table raises "Missing number" and typesets at zero width.
 \\usepackage{{caption}}
+\\captionsetup{{labelformat=empty,justification=raggedright,singlelinecheck=false}}
 \\usepackage{{etoolbox}}
 \\makeatletter
 \\patchcmd\\longtable{{\\par}}{{\\if@noskipsec\\mbox{{}}\\fi\\par}}{{}}{{}}
 \\makeatother
 \\usepackage{{graphicx}}
+% Resolves figures both here (pdflatex runs in manuscript/) and in a flat
+% submission bundle where the figures sit beside the .tex file.
+\\graphicspath{{{{../outputs/manuscript/}}{{./}}}}
 \\usepackage[hidelinks]{{hyperref}}
 \\usepackage{{csquotes}}
 
@@ -213,7 +217,10 @@ def main():
 \\input{{tex/supplement}}
 
 \\clearpage
-\\input{{tex/captions}}
+\\input{{tex/figures}}
+
+\\clearpage
+\\input{{tex/tables}}
 
 \\clearpage
 \\input{{tex/references}}

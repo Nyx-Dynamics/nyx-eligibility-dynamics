@@ -67,6 +67,26 @@ def main():
         else:
             missing.append(src.name)
 
+    # A SINGLE self-contained .tex: every \input expanded inline and every figure
+    # referenced by bare filename, so the bundle compiles in place. Submission
+    # systems take a flat upload; a main file plus an inputs directory is a
+    # reliable way to have half the manuscript silently go missing.
+    main = M / "PaperA.tex"
+    if main.exists():
+        tex = main.read_text()
+        for inc in re.findall(r"\\input\{tex/([a-z]+)\}", tex):
+            part = (M / "tex" / f"{inc}.tex")
+            body = part.read_text() if part.exists() else f"% MISSING {inc}\n"
+            tex = tex.replace(f"\\input{{tex/{inc}}}", body)
+        # figures sit beside the .tex in the bundle, so drop the repo path
+        tex = tex.replace("\\graphicspath{{../outputs/manuscript/}{./}}",
+                          "\\graphicspath{{./}}")
+        (OUT / "PaperA.tex").write_text(tex)
+        copied.append("PaperA.tex")
+        n_in = len(re.findall(r"\\input\{", tex))
+        if n_in:
+            missing.append(f"PaperA.tex still has {n_in} unexpanded \\input")
+
     # manuscript, in the three forms a form might ask for
     take(M / "PaperA.pdf")
     take(M / "PaperA_draft.md")
@@ -95,6 +115,85 @@ def main():
         # writes S3a and S3b, not S3A.
         return f"{kind.capitalize()} {num[:1].upper()}{num[1:]}"
 
+    # Everything a submission form asks for, in one file, so the fields can be
+    # filled without opening the manuscript.
+    disc = (M / "DISCLOSURES.md").read_text()
+    def section(name):
+        i = disc.find(f"## {name}")
+        if i < 0:
+            return "(not found)"
+        j = disc.find("\n## ", i + 1)
+        return disc[disc.find("\n", i) + 1: j if j > 0 else len(disc)].strip()
+
+    meta = f"""SUBMISSION METADATA
+{TITLE}
+{VERSION}, {DATE}
+
+Prepared from github.com/Nyx-Dynamics/nyx-eligibility-dynamics at {head()}.
+
+
+TITLE
+{TITLE}
+
+TYPE
+Methods / statistical methodology. Not a clinical study; no human subjects, no
+new data collection.
+
+AUTHOR
+A. C. Demidont
+Nyx Dynamics LLC
+ORCID 0000-0002-9216-8569
+Sole author.
+
+ABSTRACT
+See abstract.txt ({len(abstract.split())} words). Paste that file.
+
+KEYWORDS
+{keywords}
+
+SUBJECT AREA
+Public health and healthcare / epidemiology; statistics and probability.
+Secondary: HIV prevention trial methodology.
+
+
+DECLARATIONS
+Paste each block into the corresponding field.
+
+-- Funding --
+{section("Funding")}
+
+-- Competing interests --
+{section("Competing interests")}
+
+-- Author contributions (CRediT) --
+{section("Author contributions")}
+
+-- Use of artificial intelligence --
+{section("Use of artificial intelligence")}
+
+-- Prior and related publication --
+{section("Prior and related publication")}
+
+-- Data availability --
+{section("Data availability")}
+
+-- Licence --
+{section("Licence")}
+
+
+FILES TO UPLOAD
+PaperA.pdf          the compiled manuscript, if a PDF is accepted
+PaperA.tex          self-contained source; every input expanded, figures by
+                    bare filename, compiles in this directory as it stands
+references.bib      29 entries
+figure_*.pdf        5 figures, vector; .png alongside at 200-600 dpi
+table_*.csv         8 tables, also typeset inside the manuscript
+
+The .tex needs no directory structure. Keep the figures beside it.
+"""
+    (OUT / "metadata.txt").write_text(meta)
+    copied.append("metadata.txt")
+
     figs = sorted((p.stem for p in OUT.glob("figure_*.pdf")),
                   key=lambda s_: (s_.split("_")[1].startswith("s"), s_))
     tabs = sorted((p.stem for p in OUT.glob("table_*.csv")),
@@ -113,9 +212,13 @@ with `make preprint`; edits made in this directory are overwritten.
 
 UPLOAD
 ------
-PaperA.pdf              the typeset manuscript, with all {len(figs)} figures and {len(tabs)} tables in place
+PaperA.pdf              the typeset manuscript: {len(figs)} figures and {len(tabs)} tables
+                        typeset in place, verified by compiling the bundle alone
 abstract.txt            title, abstract and keywords, for pasting into the form
 references.bib          29 entries
+
+PaperA.tex              self-contained source, compiles in this directory as it stands
+metadata.txt            every field the form asks for
 
 Separate files, if the form wants them individually:
 

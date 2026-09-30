@@ -90,6 +90,7 @@ draft: check-env
 # Pandoc does the conversion; build_tex.py decides what it is handed, strips the
 # drafting notes, and writes the main file. Compiles twice for cross-references.
 tex: check-env
+	@cd $(ANALYSIS) && $(PY) build_floats.py
 	@cd $(ANALYSIS) && $(PY) build_tex.py
 	@cd manuscript && pdflatex -interaction=nonstopmode PaperA.tex >/dev/null \
 	  && pdflatex -interaction=nonstopmode PaperA.tex >/dev/null || true
