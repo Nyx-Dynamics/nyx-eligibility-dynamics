@@ -128,32 +128,6 @@ Absorbing loss also displaces the composed zero-bias boundary of §2.7. Without 
 
 State-dependent acquisition is the mechanism by which temporarily unobservable states re-enter as a bias source despite Corollary 2, and it is the parameter to which the composed boundary is most sensitive. Because \(\eta\) is not identifiable from available data (§3.9), it is swept over its plausible range rather than fixed. Holding occupancy and sojourn at the values above and varying a common relative hazard \(\eta\) in the unobservable states, the boundary falls monotonically from \(r^\star=1.047\) at \(\eta=0\) through 1.008 at \(\eta=0.25\) to 0.894 at \(\eta=1\) (Table S3a). Figure S1 separates the jail and prison hazards, showing the \(r^\star=1\) contour over the \((\eta_J,\eta_P)\) surface; the two cannot be collapsed because their sojourns differ by a factor of thirty. The break-even value --- the \(\eta\) at which \(r^\star\) crosses unity --- lies between 0.25 and 0.50.
 
-\begin{table}[htbp]
-  \centering
-  \small
-  \caption*{\textbf{Table S3a.} Zero-bias boundary against a common relative acquisition hazard $\eta$.}
-  \label{tab:table_s3a}
-  \begin{tabular}{lrr}
-    \toprule
-    $\eta$ & $r^\star$ & $r^\star>1$ \\
-    \midrule
-    0.00 & 1.0474 & 1 \\
-    0.05 & 1.0393 & 1 \\
-    0.25 & 1.0075 & 1 \\
-    0.50 & 0.9686 & 0 \\
-    0.75 & 0.9307 & 0 \\
-    1.00 & 0.8937 & 0 \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=\textwidth]{figure_s1.pdf}
-  \caption*{\textbf{Figure S1.} Zero-bias boundary over the $(\eta_J,\eta_P)$ surface at $q_J=3\%$, $q_P=5\%$, with the $r^\star=1$ contour.}
-  \label{fig:figure_s1}
-\end{figure}
-
 The direction of bias is set by \(\eta\) and not by occupancy. Under the census limit with mortality, \(\hat\lambda/\lambda_E=0.944\) at \(\eta=0\), \(0.955\) at \(\eta=0.3\), and \(1.007\) at \(\eta=1.8\): acquisition suppressed relative to the observable state attenuates the estimate, acquisition elevated inflates it. Reporting occupancy alone therefore cannot establish that an estimate is biased, or in which direction.
 
 \(\eta\) is the load-bearing unmeasured parameter of this analysis. It cannot be identified from state-level surveillance, which would require studies comparing acquisition during custody with acquisition during community person-time in the same population. The only directly relevant estimate we located is Gough et al.~(2010), reporting HIV incidence of 0.08 per 100 person-years during continuous incarceration against 1.14--2.78 per 100 person-years in comparable community populations, implying \(0<\eta\ll1\) for continuous custody. That estimate is old, is specific to continuous incarceration rather than to short jail stays, and no contemporary estimate specific to people who inject drugs exists. We therefore present \(\eta\) as a sensitivity axis with any literature range overlaid rather than fitted, and make no claim about its value in any real population.
@@ -169,23 +143,6 @@ r^\star_w = e^{-\theta c}\Big[1+(\Omega_{T^*}-\Omega_w)/K_w\Big] ,
 and setting \(w_t\equiv1\) recovers their expression exactly (§4.1). The composed boundary is therefore an eligibility-dynamics correction to a quantity they derived, not a replacement for it.
 
 Under a Poisson inter-test process the no-dynamics boundary is exactly free of the recency function. Evaluated over six gamma bases spanning \(\Omega_{T^*}\) from 94 d to 251 d --- a range encompassing the principal LAg calibration regimes considered here, both the Duong-type algorithms without a viral-load criterion and the CEPHIA-derived algorithms with one (§3.2) --- \(r^\star\) is \(0.8098\) on every basis, with spread \(0.0\) (Table S4). The invariance is provable and follows from memorylessness rather than from any property of the estimator.
-
-\begin{table}[htbp]
-  \centering
-  \small
-  \caption*{\textbf{Table S4.} Boundary invariance across recency bases, by inter-test process.}
-  \label{tab:table_s4}
-  \begin{tabular}{lrrrrrr}
-    \toprule
-    inter-test model & $P_0$ & $r^\star$ min & $r^\star$ max & spread & relative spread & invariance \\
-    \midrule
-    Exponential, theta=1 & 0.7788 & 0.7788 & 0.7788 & 0.00000 & 0.00000 & exact (provable) \\
-    Exponential, theta=0.844 (NHBS) & 0.8098 & 0.8098 & 0.8098 & 0.00000 & 0.00000 & exact (provable) \\
-    Uniform[0,3] & 0.8403 & 0.9002 & 0.9035 & 0.00332 & 0.00369 & approximate, 0.37\% \\
-    Uniform[0,4] & 0.8789 & 0.9287 & 0.9304 & 0.00171 & 0.00184 & approximate, 0.18\% \\
-    \bottomrule
-  \end{tabular}
-\end{table}
 
 That exactness does not extend to other testing processes, and the distinction matters because a \emph{rectangular recency window} is a property of the assay while a \emph{uniform inter-test distribution} is a property of testing behaviour. Under the uniform variant of Pan et al., invariance survives only approximately: relative spread across the same six bases is 0.37\% for gaps \(\mathrm{Unif}[0,3]\) and 0.18\% for \(\mathrm{Unif}[0,4]\). Two generalisations fail outright. The identity \(r^\star=\Pr(S>c)\) is specific to the Poisson case: under \(\mathrm{Unif}[0,3]\), \(P_0=0.8403\) while \(r^\star\approx0.902\). And matching the mean gap does not recover the boundary --- the mean-matched Poisson rate \(\theta=2/b\) gives \(r^\star=0.847\) against the uniform process's 0.902.
 

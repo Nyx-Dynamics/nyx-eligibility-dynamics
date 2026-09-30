@@ -71,8 +71,12 @@ def main():
     # referenced by bare filename, so the bundle compiles in place. Submission
     # systems take a flat upload; a main file plus an inputs directory is a
     # reliable way to have half the manuscript silently go missing.
-    main = M / "PaperA.tex"
-    if main.exists():
+    for src_name, out_name in (("PaperA.tex", "PaperA.tex"),
+                               ("Supplement.tex", "Supplement.tex")):
+        main = M / src_name
+        if not main.exists():
+            missing.append(src_name)
+            continue
         tex = main.read_text()
         for inc in re.findall(r"\\input\{tex/([a-z]+)\}", tex):
             part = (M / "tex" / f"{inc}.tex")
@@ -81,14 +85,15 @@ def main():
         # figures sit beside the .tex in the bundle, so drop the repo path
         tex = tex.replace("\\graphicspath{{../outputs/manuscript/}{./}}",
                           "\\graphicspath{{./}}")
-        (OUT / "PaperA.tex").write_text(tex)
-        copied.append("PaperA.tex")
+        (OUT / out_name).write_text(tex)
+        copied.append(out_name)
         n_in = len(re.findall(r"\\input\{", tex))
         if n_in:
-            missing.append(f"PaperA.tex still has {n_in} unexpanded \\input")
+            missing.append(f"{out_name} still has {n_in} unexpanded \\input")
 
     # manuscript, in the three forms a form might ask for
     take(M / "PaperA.pdf")
+    take(M / "Supplement.pdf")
     take(M / "PaperA_draft.md")
     take(M / "PaperA_draft.docx")
     take(M / "references.bib")
@@ -194,6 +199,7 @@ The .tex needs no directory structure. Keep the figures beside it.
     (OUT / "metadata.txt").write_text(meta)
     copied.append("metadata.txt")
 
+    supp_pages = "4"
     figs = sorted((p.stem for p in OUT.glob("figure_*.pdf")),
                   key=lambda s_: (s_.split("_")[1].startswith("s"), s_))
     tabs = sorted((p.stem for p in OUT.glob("table_*.csv")),
@@ -218,6 +224,8 @@ abstract.txt            title, abstract and keywords, for pasting into the form
 references.bib          29 entries
 
 PaperA.tex              self-contained source, compiles in this directory as it stands
+Supplement.pdf          supplementary material, {supp_pages} pages
+Supplement.tex          self-contained source for the supplement
 metadata.txt            every field the form asks for
 
 Separate files, if the form wants them individually:
