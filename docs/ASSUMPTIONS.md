@@ -21,7 +21,7 @@ These are not ours. They are the conditions under which the snapshot and adjuste
 
 **Assumption C is the point of contact.** Gao & Bannick state it holds approximately "when only a small proportion of the subjects move in and out of the eligible population in a time span of $c$," and hold it fixed throughout their numerical work. For the adjusted estimator $c = T^* = 2$ years. Our $Z(t)$ process is a model for what happens when C fails.
 
-**B.1 is violated in real data.** The empirical CEPHIA recency curve does not have a flat tail: the test-recent proportion falls from 9.9% at 730–1095 days to 5.8% at 1095–1825 days to zero beyond. Gao & Bannick's own §3.6 quantifies the cost. We record this rather than assume it away; see `tests/test_empirical_phi_tail_is_not_flat`.
+**B.1 is violated in real data, and the direction depends on treatment status.** Among treatment-naive, non-elite-controller CEPHIA visits the test-recent proportion falls 4.6% → 3.3% → 0 across 730–1095, 1095–1825 and >1825 d. Across all visits it *rises* in the final bin, 19.4% → 16.9% → 30.8%, because ART drives LAg ODn back down and treated individuals re-enter the recent category at long duration. Neither is flat. Gao & Bannick's own §3.6 quantifies the cost. We record this rather than assume it away; see `tests/test_empirical_phi_tail_is_not_flat`.
 
 ---
 
@@ -125,7 +125,7 @@ Recorded so a reader need not discover them independently.
 
 | Assumption | Status | Evidence |
 |---|---|---|
-| **B.1** (flat FRR tail) | violated in CEPHIA | test-recent proportion 9.9% → 5.8% → 0 across 730–1095, 1095–1825, >1825 d |
+| **B.1** (flat FRR tail) | violated in CEPHIA, both directions | 4.6% → 3.3% → 0 untreated; 19.4% → 16.9% → 30.8% across all visits |
 | **C** (restricted = unrestricted) | violated by construction in populations with material eligibility movement | the reason this paper exists |
 | **E.3** ($Q_1 = Q_0$) | plausibly violated | diagnosis may alter engagement and movement; untested |
 | **(3)** ($\eta_k = 1$) | violated; magnitude unclear | Gough et al. 2010: 0.08 vs 1.14–2.78 per 100 PY, so $0 < \eta \ll 1$ for continuous incarceration. No contemporary PWID-specific estimate exists |

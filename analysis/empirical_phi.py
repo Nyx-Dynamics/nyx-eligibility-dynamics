@@ -30,7 +30,8 @@ def load(csv_path):
     import pandas as pd
     cols = ["cephia_panel", "assay", "assay_result_field", "assay_result_value",
             "hiv_subtype", "days_since_eddi", "viral_load_closest_to_visit",
-            "participant_identifier"]
+            "participant_identifier", "treatment_naive_at_visit",
+            "designated_as_elite_controller_at_visit"]
     d = pd.read_csv(csv_path, usecols=cols, low_memory=False)
     d = d[(d.cephia_panel == "CEPHIA 1 Evaluation Panel")
           & (d.assay == "LAg-Sedia")
@@ -50,16 +51,32 @@ def fit(d, subtype="C", vl_threshold=75, max_u=5.0, degree=3):
     return phi, int(s.participant_identifier.nunique())
 
 
-def binned_recency(d, edges=(730, 1095, 1825, 3650), vl_threshold=None):
-    """Raw test-recent proportion by duration bin. The tail is NOT flat."""
-    out = []
-    rec = (d.odn <= 1.5)
+def binned_recency(d, edges=(730, 1095, 1825, 3650), vl_threshold=None,
+                   treatment_naive=None):
+    """
+    Raw test-recent proportion by duration bin, for a STATED subset.
+
+    The subset is not a detail. Assumption B.1 concerns the false-recency rate of
+    untreated infection, and antiretroviral treatment drives LAg ODn back down,
+    so treated individuals re-enter the "recent" category at long durations. The
+    tail therefore has opposite shapes depending on who is included, and quoting
+    one without naming the subset is how a wrong number survives.
+
+    treatment_naive=True  restricts to treatment-naive, non-elite-controller
+    visits; None uses every visit in the frame.
+    """
+    f = d
+    if treatment_naive is True:
+        f = f[(f.treatment_naive_at_visit == True)                      # noqa: E712
+              & (f.designated_as_elite_controller_at_visit != True)]    # noqa: E712
+    rec = (f.odn <= 1.5)
     if vl_threshold is not None:
-        rec &= (d.viral_load_closest_to_visit > vl_threshold)
+        rec &= (f.viral_load_closest_to_visit > vl_threshold)
+    out = []
     for lo, hi in zip(edges[:-1], edges[1:]):
-        m = (d.days_since_eddi > lo) & (d.days_since_eddi <= hi)
+        m = (f.days_since_eddi > lo) & (f.days_since_eddi <= hi)
         out.append(float(rec[m].mean()) if m.any() else float("nan"))
-    return out
+    return out, int(len(f))
 
 
 def main():
@@ -82,10 +99,25 @@ def main():
     write_table(rows, ["subtype", "vl_threshold", "mdri_days", "shadow_days",
                        "participants"], "tableS1_cephia_mdri.csv")
 
-    tail = binned_recency(d)
-    print(f"\n  raw tail (730-1095, 1095-1825, 1825-3650 d): "
-          + ", ".join(f"{t:.3f}" for t in tail))
-    print("  declining, not flat -- Gao & Bannick Assumption B.1 is violated here.")
+    naive, n_naive = binned_recency(d, treatment_naive=True)
+    allv, n_all = binned_recency(d)
+    fmt = lambda t: ", ".join(f"{x:.3f}" for x in t)
+    print(f"\n  raw test-recent proportion, 730-1095 / 1095-1825 / 1825-3650 d")
+    print(f"    treatment-naive, non-elite-controller (n={n_naive}): {fmt(naive)}")
+    print(f"    all visits in frame            (n={n_all}): {fmt(allv)}")
+
+    def verdict(t):
+        if all(t[i] > t[i + 1] for i in range(len(t) - 1)):
+            return "declines monotonically"
+        if t[-1] > t[-2]:
+            return "RISES in the final bin"
+        return "neither monotone nor flat"
+    print(f"    untreated: {verdict(naive)}; all visits: {verdict(allv)}")
+    print("  Either way the tail is not flat, so Gao & Bannick's Assumption B.1")
+    print("  does not hold in these data. The direction of the violation depends")
+    print("  on treatment status: ART drives ODn back down, so treated visits")
+    print("  re-enter the recent category at long duration.")
+    tail = naive
 
     # Compare against the frozen expectation; do NOT overwrite it. The fixture is
     # the recorded claim (computation_record.md section 3); this run is the
@@ -113,7 +145,9 @@ def main():
         {"algorithms": [{"subtype": r[0], "vl_threshold": r[1],
                          "mdri_days": float(r[2]), "shadow_days": float(r[3]),
                          "participants": r[4]} for r in rows],
-         "tail_bins": [round(t, 4) for t in tail],
+         "tail_bins_treatment_naive": [round(t, 4) for t in naive],
+         "tail_bins_all_visits": [round(t, 4) for t in allv],
+         "n_treatment_naive": n_naive, "n_all_visits": n_all,
          "worst_mdri_deviation_days": round(worst, 3),
          "note": "observation from this run; the frozen claim is "
                  "data/fixtures/cephia_expected.json"}, indent=2))

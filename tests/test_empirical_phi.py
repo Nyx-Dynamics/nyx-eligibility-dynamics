@@ -111,19 +111,34 @@ def test_frozen_cephia_fixture_is_self_consistent(cephia_expected):
 def test_empirical_phi_tail_is_not_flat(cephia_expected):
     """
     Gao & Bannick Assumption B.1 requires phi constant at beta_{T*} beyond T*.
-    In CEPHIA the test-recent proportion declines strictly to zero. Recorded in
-    ASSUMPTIONS.md section 7 as a known violation rather than assumed away.
+
+    Neither CEPHIA subset is flat, and they fail in OPPOSITE directions: among
+    treatment-naive visits the test-recent proportion declines to zero, while
+    across all visits it rises in the final bin because ART drives LAg ODn back
+    down and treated individuals re-enter the recent category at long duration.
+
+    An earlier fixture recorded 0.099, 0.058, 0 at n=4184 for the untreated
+    subset. Those values do not reproduce from the public-use dataset by any
+    subset tried; the qualitative claim does. The test now asserts the shape of
+    each subset separately rather than a single sequence.
     """
     tail = cephia_expected["tail_bins"]
-    props = tail["proportion_test_recent"]
     edges = tail["edges_days"]
-    assert len(props) == len(edges) - 1
-    assert all(edges[i] > T_STAR * YEAR_DAYS * 0.99 for i in range(len(edges) - 1))
-    assert all(props[i] > props[i + 1] for i in range(len(props) - 1)), \
-        f"tail must be strictly declining, got {props}"
-    assert props[-1] == pytest.approx(0.0, abs=1e-9)
+    assert all(e > T_STAR * YEAR_DAYS * 0.99 for e in edges[:-1])
+
+    naive = tail["treatment_naive"]["proportion_test_recent"]
+    assert len(naive) == len(edges) - 1
+    assert all(naive[i] > naive[i + 1] for i in range(len(naive) - 1)), \
+        f"untreated tail must decline, got {naive}"
+    assert naive[-1] == pytest.approx(0.0, abs=1e-9)
+
+    allv = tail["all_visits"]["proportion_test_recent"]
+    assert allv[-1] > allv[-2], \
+        f"all-visit tail must rise in the final bin, got {allv}"
+
     # a flat tail would be consistent with a single constant beta_{T*}
-    assert max(props) - min(props) > 0.05
+    for props in (naive, allv):
+        assert max(props) - min(props) > 0.02
 
 
 @pytest.mark.slow
@@ -149,8 +164,14 @@ def test_empirical_phi_matches_fixture(local_cephia_csv, cephia_expected):
              f"{phi.mdri_days:.1f} d vs frozen {e['mdri_days']:.1f} d")
         assert n == e["participants"]
 
-    props = binned_recency(d)
-    assert all(props[i] > props[i + 1] for i in range(len(props) - 1))
+    naive, n_naive = binned_recency(d, treatment_naive=True)
+    allv, n_all = binned_recency(d)
+    exp = cephia_expected["tail_bins"]
+    for got, key in ((naive, "treatment_naive"), (allv, "all_visits")):
+        want = exp[key]["proportion_test_recent"]
+        assert got == pytest.approx(want, abs=0.002), f"{key}: {got} vs {want}"
+    assert n_naive == exp["treatment_naive"]["n_visits"]
+    assert n_all == exp["all_visits"]["n_visits"]
 
 
 def test_cephia_phi_differs_materially_from_the_parametric_bases(cephia_expected):
