@@ -9,3 +9,11 @@ data/*.xlsx
 outputs/cephia_recomputed.json
 .idea/
 manuscript/croi2027/*.docx
+
+# Reference PDFs and publisher supplements: local research material, never
+# committed. Publisher supplements are usually not redistributable, and this
+# repository is public. The bibliography in manuscript/references.bib is the
+# citable record; the PDFs behind it are not ours to publish.
+*.zip
+data/eligibility_references/
+data/pdfs/

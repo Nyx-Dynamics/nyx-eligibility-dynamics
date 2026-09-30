@@ -5,8 +5,9 @@ Assembled for the split. The predecessor manuscript's bibliography
 branch and covers only part of this list — every item in §1 below except
 Kassanjee, and almost nothing in §2, entered during the recomputation.
 
-**All 13 DOIs and 3 PMIDs below were resolved against Crossref or Europe PMC on
-29 September 2026**, not transcribed from the working notes. Two year
+**All 14 DOIs and 3 PMIDs below were resolved against Crossref or Europe PMC on
+29 September 2026**, and the entries added from the reference archive were checked
+against the PDFs themselves, not transcribed from the working notes. Two year
 discrepancies surfaced and are recorded at the end.
 
 ---
@@ -36,59 +37,78 @@ discrepancies surfaced and are recorded at the end.
 
 ## 2. Empirical parameters
 
-8. **Degenhardt L, Hickman M, Altice FL, et al.** The global epidemiology of injecting drug use, HIV, viral hepatitis and tuberculosis among people who are incarcerated: a multistage systematic review. *International Journal of Drug Policy* 2026;150:105062. doi:[10.1016/j.drugpo.2025.105062](https://doi.org/10.1016/j.drugpo.2025.105062). PMC13058553
+8. **Duong YT, Kassanjee R, Welte A, et al.** Recalibration of the limiting antigen avidity EIA to determine mean duration of recent infection in divergent HIV-1 subtypes. *PLoS ONE* 2015;10(2):e0114947. doi:[10.1371/journal.pone.0114947](https://doi.org/10.1371/journal.pone.0114947)
+   *§3.2: independent MDRI. By binomial regression over >250 seroconversion panels, 130 d (118–142) at ODn ≤1.5 with PFR 1.6%; by subtype 129 d (B), 122 d (AE), 109 d (A&D), 152 d (C). The subtype-C value sits on the Ω_T\* = 151 d of the basis adopted here, from a different panel and method.*
+
+9. **Degenhardt L, Hickman M, Altice FL, et al.** The global epidemiology of injecting drug use, HIV, viral hepatitis and tuberculosis among people who are incarcerated: a multistage systematic review. *International Journal of Drug Policy* 2026;150:105062. doi:[10.1016/j.drugpo.2025.105062](https://doi.org/10.1016/j.drugpo.2025.105062). PMC13058553
    *§3.5, Route B: IDU prevalence among incarcerated in North America, 13.4% (95% CI 10.3–16.8).*
 
-9. **Bradley H, Hall EW, Asher A, et al.** Estimated number of people who inject drugs in the United States. *Clinical Infectious Diseases* 2023;76(1):96–102. doi:[10.1093/cid/ciac543](https://doi.org/10.1093/cid/ciac543)
+10. **Bradley H, Hall EW, Asher A, et al.** Estimated number of people who inject drugs in the United States. *Clinical Infectious Diseases* 2023;76(1):96–102. doi:[10.1093/cid/ciac543](https://doi.org/10.1093/cid/ciac543)
    *§3.5: denominator of 3.70 M US PWID.*
 
-10. **Feder KA, Sun J, Rudolph JE, et al.** Mortality by cause of death during year 1 of the COVID-19 pandemic in a cohort of older adults from Baltimore, Maryland who have injected drugs. *International Journal of Drug Policy* 2022;109:103842. doi:[10.1016/j.drugpo.2022.103842](https://doi.org/10.1016/j.drugpo.2022.103842)
+11. **Feder KA, Sun J, Rudolph JE, et al.** Mortality by cause of death during year 1 of the COVID-19 pandemic in a cohort of older adults from Baltimore, Maryland who have injected drugs. *International Journal of Drug Policy* 2022;109:103842. doi:[10.1016/j.drugpo.2022.103842](https://doi.org/10.1016/j.drugpo.2022.103842)
    *§3.4: ALIVE all-cause mortality, 37.2 and 39.6 per 1,000 person-years.*
 
-11. **Sun J, Mehta SH, Astemborski J, et al.** Mortality among people who inject drugs: a prospective cohort followed over three decades in Baltimore, MD, USA. *Addiction* 2022;117(3):646–655. doi:[10.1111/add.15659](https://doi.org/10.1111/add.15659)
+12. **Sun J, Mehta SH, Astemborski J, et al.** Mortality among people who inject drugs: a prospective cohort followed over three decades in Baltimore, MD, USA. *Addiction* 2022;117(3):646–655. doi:[10.1111/add.15659](https://doi.org/10.1111/add.15659)
     *§3.4: age-standardised trend, 23 → 45 per 1,000 person-years, 1988–2018.*
 
-12. **Tempalski B, Pouget ER, Cleland CM, et al.** Trends in the population prevalence of people who inject drugs in US metropolitan areas 1992–2007. *PLoS ONE* 2013;8(6):e64789. doi:[10.1371/journal.pone.0064789](https://doi.org/10.1371/journal.pone.0064789). PMID 23755143
+13. **Tempalski B, Pouget ER, Cleland CM, et al.** Trends in the population prevalence of people who inject drugs in US metropolitan areas 1992–2007. *PLoS ONE* 2013;8(6):e64789. doi:[10.1371/journal.pone.0064789](https://doi.org/10.1371/journal.pone.0064789). PMID 23755143
     *§3.8: catchment demographic stability, ρ ≈ 0.*
 
-13. **Gough E, Kempf MC, Graham L, et al.** HIV and hepatitis B and C incidence rates in US correctional populations and high risk groups: a systematic review and meta-analysis. *BMC Public Health* 2010;10:777. doi:[10.1186/1471-2458-10-777](https://doi.org/10.1186/1471-2458-10-777). PMID 21176146, PMC3016391
+14. **Gough E, Kempf MC, Graham L, et al.** HIV and hepatitis B and C incidence rates in US correctional populations and high risk groups: a systematic review and meta-analysis. *BMC Public Health* 2010;10:777. doi:[10.1186/1471-2458-10-777](https://doi.org/10.1186/1471-2458-10-777). PMID 21176146, PMC3016391
     *§3.9: the only directly relevant evidence on η. Overlay band, never a fitted value.*
 
-14. **Centers for Disease Control and Prevention.** HIV infection and HIV-associated behaviors among persons who inject drugs — 23 metropolitan statistical areas, United States, 2018. *MMWR Morbidity and Mortality Weekly Report* 2021;70(42):1459–1465. PMID 34673746
+15. **Handanagic S, Finlayson T, Burnett JC, Broz D, Wejnert C; National HIV Behavioral Surveillance Study Group.** HIV infection and HIV-associated behaviors among persons who inject drugs — 23 metropolitan statistical areas, United States, 2018. *MMWR Morbidity and Mortality Weekly Report* 2021;70(42):1459–1465. PMID 34673746
     *§3.3: 57% tested in the preceding 12 months, giving θ = −ln(0.43) = 0.844 y⁻¹. Also §3.5, Route A: past-12-month incarceration 21.0% and 43.3%.*
 
-15. **Centers for Disease Control and Prevention.** HIV transmission among male inmates in a state prison system — Georgia, 1992–2005. *MMWR Morbidity and Mortality Weekly Report* 2006;55(15):421–426. PMID 16628181
+16. **Centers for Disease Control and Prevention.** HIV transmission among male inmates in a state prison system — Georgia, 1992–2005. *MMWR Morbidity and Mortality Weekly Report* 2006;55(15):421–426. PMID 16628181
     *§3.9: 88 documented seroconversions during incarceration; establishes η_P > 0.*
 
 ---
 
 ## 3. Data sources and software
 
-16. **CEPHIA public-use dataset.** Consortium for the Evaluation and Performance of HIV Incidence Assays. Zenodo. doi:[10.5281/zenodo.4900634](https://doi.org/10.5281/zenodo.4900634)
+17. **CEPHIA public-use dataset.** Consortium for the Evaluation and Performance of HIV Incidence Assays. Zenodo. doi:[10.5281/zenodo.4900634](https://doi.org/10.5281/zenodo.4900634)
     *§3.2: recency function re-estimation. Not redistributed with this work.*
 
-17. **`XSRecency`** — R package implementing cross-sectional recency estimators. *§3.2 and §4.1: the gamma parameterisation and the MDRI fitting procedure follow it. Cite the release used; note that `createRitaCephia` changed its unit contract between tag 0.2.0 and `main`.*
+18. **`XSRecency`** — R package implementing cross-sectional recency estimators. *§3.2 and §4.1: the gamma parameterisation and the MDRI fitting procedure follow it. Cite the release used; note that `createRitaCephia` changed its unit contract between tag 0.2.0 and `main`.*
 
-18. **Bureau of Justice Statistics.** *Jail Inmates in 2023.* US Department of Justice. *§3.5–3.6: mean 32 d in custody; adult jail incarceration rate by age; all-adult rate 253 per 100,000.*
+19. **Bureau of Justice Statistics.** *Jail Inmates in 2023.* US Department of Justice. *§3.5–3.6: mean 32 d in custody; adult jail incarceration rate by age; all-adult rate 253 per 100,000.*
 
-19. **Bureau of Justice Statistics.** *Prisoners* series. US Department of Justice. *§3.5–3.6: adult imprisonment rate 453 per 100,000; mean time served ≈2.7 y.*
+20. **Bureau of Justice Statistics.** *Prisoners* series. US Department of Justice. *§3.5–3.6: adult imprisonment rate 453 per 100,000; mean time served ≈2.7 y.*
 
-20. **Bureau of Justice Statistics.** *Mortality in Local Jails* (`mlj0019st`) and *Mortality in State and Federal Prisons* (`msfp0119st`), 2019. *§3.7: 167, 330 and 259 deaths per 100,000.*
+21. **Bureau of Justice Statistics.** *Mortality in Local Jails* (`mlj0019st`) and *Mortality in State and Federal Prisons* (`msfp0119st`), 2019. *§3.7: 167, 330 and 259 deaths per 100,000.*
 
-21. **Bureau of Justice Statistics.** *HIV in Prisons* (`hivp20st`). *Cited only to establish that the incarcerated population is not predominantly PWID, so HIV prevalence cannot substitute for injection prevalence in §3.5.*
+22. **Bureau of Justice Statistics.** *HIV in Prisons* (`hivp20st`). *Cited only to establish that the incarcerated population is not predominantly PWID, so HIV prevalence cannot substitute for injection prevalence in §3.5.*
 
-22. **US Census Bureau.** Population Estimates Program, vintage 2019, county characteristics (`cc-est2019-alldata`). *§3.10: county-specific 15–64 to 18+ ratios, 0.834–0.908.*
+23. **US Census Bureau.** Population Estimates Program, vintage 2019, county characteristics (`cc-est2019-alldata`). *§3.10: county-specific 15–64 to 18+ ratios, 0.834–0.908.*
 
-23. **Vera Institute of Justice.** *Incarceration Trends* county-level jail and prison populations. *§3.10: the 2019 anchor and post-2019 jail trajectories. County prison series ends at 2019.*
+24. **Vera Institute of Justice.** *Incarceration Trends* county-level jail and prison populations. *§3.10: the 2019 anchor and post-2019 jail trajectories. County prison series ends at 2019.*
 
-24. **ClinicalTrials.gov.** PURPOSE 4: NCT06101342. *§3.10 and §4.7: the nine US site counties and the ≥18 age frame. A phase 2 pharmacokinetics and safety trial; no efficacy estimate is corrected or commented on.*
+25. **ClinicalTrials.gov.** PURPOSE 4: NCT06101342. *§3.10 and §4.7: the nine US site counties and the ≥18 age frame. A phase 2 pharmacokinetics and safety trial; no efficacy estimate is corrected or commented on.*
 
-25. **Demidont AC.** Software repository for *Calibration-to-deployment mismatch in HIV prevention trials*. Zenodo 2026. doi:[10.5281/zenodo.20344293](https://doi.org/10.5281/zenodo.20344293)
+26. **Demidont AC.** Software repository for *Calibration-to-deployment mismatch in HIV prevention trials*. Zenodo 2026. doi:[10.5281/zenodo.20344293](https://doi.org/10.5281/zenodo.20344293)
     *The superseded predecessor analysis. Cited for provenance; its central empirical conclusions are not carried forward. Disclosed under prior publication.*
 
 ---
 
 ## Verification notes
+
+**Verified against the supplied PDFs (30 September 2026).** Three checks were run against the
+reference archive rather than against metadata:
+
+- **Degenhardt Table 1, North America row** reads 13·4 (10·3, 16·8) and 246,500 (190,500,
+  308,500) — confirming §3.5 Route B exactly as written. The regional supplement tables carry
+  several nearby values for other outcomes (13·0, 13·6) and for the United States alone (13·1);
+  these are not the quantity cited and should not be substituted for it.
+- **The Degenhardt supplement records a methodological caveat worth carrying**: for most regions
+  a prevalence ratio was pooled only where two or more countries had estimates, but North
+  America and Australasia were exceptions where a single country sufficed. The North American
+  figure is correspondingly less well supported than its interval suggests.
+- **Handanagic 2021 authorship** was corrected from a corporate CDC attribution to the named
+  authors after reading the article's own byline.
+
+
 
 Two dates in the working notes were wrong in the drafts' favour, and both are now stated as the print year:
 
