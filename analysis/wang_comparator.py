@@ -1,15 +1,33 @@
 """
 Table S2: can covariate reweighting absorb the eligibility weight?
 
-Wang, Duerr & Gao (Stat Med 2025;44:e70216) transport incidence across
-populations differing in baseline covariates X by reweighting. Their method is
-highly effective at the COMPOSITION component -- and removes none of the
-within-stratum duration component, because that is present in every stratum.
+Wang, Duerr & Gao (Stat Med 2025) transport incidence between populations
+differing in baseline covariates X by reweighting. Their estimator is
 
-The case that matters for a counterfactual-placebo design is the first row: when
-the target population is drawn from the same screened pool, the distributions
-coincide on the movement-relevant axis and reweighting removes exactly nothing.
-The mechanisms are composable, not competing.
+    lambda_0 = sum_i w_i pos_i (rpos_i - beta)
+             / sum_i w_i (1 - pos_i) (Omega - beta T),
+
+with w_i the predicted probability of trial membership from a logistic
+regression on covariates, fitted among the HIV-negative. Structure checked
+against their own implementation (github.com/qii-wang/
+HIV-incidence-recency-heterogeneity, Simulation/Internal target population),
+not inferred from the paper text.
+
+Two features of that structure drive everything below. The weight multiplies the
+numerator AND the denominator, so it cancels wherever it is constant. And it is a
+function of measured covariates only, so it moves mass BETWEEN strata and can do
+nothing WITHIN one.
+
+The model here is the stratified idealisation of exactly that: reweighting can
+replace the sampled composition g by the target composition h, but each stratum
+keeps its own duration factor D_x. Where the two compositions coincide -- the
+counterfactual-placebo case, in which the target population IS the trial
+population -- the weight is constant, cancels, and reweighting removes exactly
+nothing.
+
+This is a statement about which problem each method solves, not a deficiency:
+D_x < 1 in every stratum, so no weighted average of them reaches 1, and no
+estimator that reweights on X alone could make it.
 """
 from _common import banner, phi_for, write_table
 import numpy as np

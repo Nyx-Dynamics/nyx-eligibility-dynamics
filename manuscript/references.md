@@ -26,7 +26,7 @@ discrepancies surfaced and are recorded at the end.
    *Screening-stage selection; the limiting estimation error composed with in §2.7 and recovered in §4.1.*
 
 5. **Wang Q, Duerr A, Gao F.** Addressing population heterogeneity for HIV incidence estimation based on recency test. *Statistics in Medicine* 2025;44(18–19). doi:[10.1002/sim.70216](https://doi.org/10.1002/sim.70216)
-   *Covariate transport by reweighting; compared in §S3. Funded by NIH (R01AI177078, R01DA032106, R37AI029168) and Gilead (ISR-US-20-10990), per its acknowledgements — recorded because the comparison in §S3 is with a method whose development was partly industry-funded, not because it bears on the method's validity.*
+   *Covariate transport by reweighting; compared in §S3. Implementation at github.com/qii-wang/HIV-incidence-recency-heterogeneity; the estimator structure used in §S3 was read from that code, not inferred from the paper. Funded by NIH (R01AI177078, R01DA032106, R37AI029168) and Gilead (ISR-US-20-10990), per its acknowledgements — recorded because the comparison in §S3 is with a method whose development was partly industry-funded, not because it bears on the method's validity.*
 
 6. **Bannick M, Donnell D, Hayes R, et al.** An enhanced cross-sectional HIV incidence estimator that incorporates prior HIV test results. *Statistics in Medicine* 2024;43(17):3125–3139. doi:[10.1002/sim.10112](https://doi.org/10.1002/sim.10112)
    *PT-RITA. Repairs misclassification rather than selection; see Discussion.*
