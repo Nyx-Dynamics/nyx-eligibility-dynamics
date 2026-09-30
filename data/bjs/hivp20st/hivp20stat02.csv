@@ -1,0 +1,45 @@
+﻿Bureau of Justice Statistics,,,
+Filename: hivp20stat02.csv,,,
+"Appendix Table 2. Estimates for figure 2: AIDS-related deaths and mortality rate among state prisoners, 1991–2019",,,
+"Report title: HIV in Prisons, 2020 – Statistical Tables NCJ 302601",,,
+"Data source: Bureau of Justice Statistics, National Prisoner Statistics, 1991–2000; and Mortality in Correctional Institutions, 2001–2019",,,
+"Author: Laura M. Maruschak, BJS Statistician",,,
+Refer questions to: askbjs@usdoj.gov 202-307-0765,,,
+Date of version: 5/26/22,,,
+,,,
+"Appendix 2. Estimates for figure 2: AIDS-related deaths and mortality rate among state prisoners, 1991–2019",,,
+Year,Number/a,"Rate per 100,000 state prisoners/b",State prison population/c
+1991,520,71,"735,198"
+1992,648,83,"778,569"
+1993,761,89,"854,844"
+1994,955,104,"920,962"
+1995,"1,010",100,"1,006,085"
+1996,907,86,"1,059,336"
+1997,538,48,"1,109,616"
+1998,350,30,"1,158,594"
+1999,242,20,"1,224,404"
+2000,185,15,"1,248,414"
+2001,275,23,"1,187,763"
+2002,241,20,"1,199,949"
+2003,209,17,"1,225,659"
+2004,147,12,"1,239,656"
+2005,156,12,"1,252,436"
+2006,132,10,"1,297,240"
+2007,120,9,"1,321,731"
+2008,99,7,"1,327,026"
+2009,98,7,"1,326,547"
+2010,73,6,"1,320,585"
+2011,57,4,"1,290,212"
+2012,74,6,"1,262,102"
+2013,52,4,"1,269,828"
+2014,64,5,"1,260,159"
+2015,45,4,"1,243,520"
+2016,31,3,"1,228,822"
+2017,37,3,"1,210,947"
+2018,22,2,"1,191,342"
+2019,17,1,"1,164,770"
+"Note: AIDS-related deaths were based on the jurisdiction population from 1991 to 2000 and the custody population from 2001 to 2019. Use caution when comparing 2001 to 2019 data to prior years. Jurisdiction refers to the legal authority of state and federal correctional officials over a prisoner, regardless of where the prisoner is held. Custody refers to the physical custody of state or federal prisons, regardless of sentence length or which authority has jurisdiction over the prisoner. Data for 2020 are unavailable because BJS ceased collection of mortality data in state and local correctional facilities after the 2019 reference year. See Methodology.",,,
+a/Includes persons who died of illness and were identified as HIV-positive or having AIDS at the time of death.,,,
+"b/Rates are calculated using midyear jurisdiction counts for 1991 to 2000 and midyear custody counts for 2001 to 2010. Midyear population counts were unavailable after 2010, so 2011 to 2019 rates are calculated using yearend custody counts, which include prisoners held in private facilities.",,,
+"c/Includes midyear jurisdiction counts for 1991 to 2000, midyear custody counts for 2001 to 2010, and yearend custody counts for 2011 to 2019, which include prisoners held in private facilities. Counts may differ from those in past reports.",,,
+"Source: Bureau of Justice Statistics, National Prisoner Statistics, 1991–2000; and Mortality in Correctional Institutions, 2001–2019.",,,

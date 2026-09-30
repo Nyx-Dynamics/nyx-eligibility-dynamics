@@ -1,0 +1,43 @@
+﻿Bureau of Justice Statistics,,
+Filename: hivp20stf02.csv,,
+"Figure 2. AIDS-related deaths and mortality rate among state prisoners, 1991–2019",,
+"Report title: HIV in Prisons, 2020 – Statistical Tables NCJ 302601",,
+"Data source: Bureau of Justice Statistics, National Prisoner Statistics, 1991–2000; and Mortality in Correctional Institutions, 2001–2019",,
+"Author: Laura M. Maruschak, BJS Statistician",,
+Refer questions to: askbjs@usdoj.gov 202-307-0765,,
+Date of version: 5/26/22,,
+,,
+"Figure 2. AIDS-related deaths and mortality rate among state prisoners, 1991–2019",,
+Year,Number*,"Rate per 100,000 state prisoners"
+1991,520,71
+1992,648,83
+1993,761,89
+1994,955,104
+1995,"1,010",100
+1996,907,86
+1997,538,48
+1998,350,30
+1999,242,20
+2000,185,15
+2001,275,23
+2002,241,20
+2003,209,17
+2004,147,12
+2005,156,12
+2006,132,10
+2007,120,9
+2008,99,7
+2009,98,7
+2010,73,6
+2011,57,4
+2012,74,6
+2013,52,4
+2014,64,5
+2015,45,4
+2016,31,3
+2017,37,3
+2018,22,2
+2019,17,1
+"Note: AIDS-related deaths were based on the jurisdiction population from 1991 to 2000 and the custody population from 2001 to 2019. Use caution when comparing data from 2001 to 2019 to prior years. Jurisdiction refers to the legal authority of state and federal correctional officials over a prisoner, regardless of where the prisoner is held. Custody refers to the physical custody of state or federal prisons, regardless of sentence length or which authority has jurisdiction over the prisoner. Data for 2020 are unavailable because BJS ceased collection of mortality data in state and local correctional facilities after the 2019 reference year. See Methodology. See appendix table 2 for estimates. Figure excludes AIDS-related deaths among federal prisons because data were not provided to BJS prior to 1999. See appendix table 3 for AIDS-related deaths in federal prisons.",,
+*Includes persons who died of illness and were identified as HIV-positive or having AIDS at the time of death.,,
+"Source: Bureau of Justice Statistics, National Prisoner Statistics, 1991–2000; and Mortality in Correctional Institutions, 2001–2019.",,

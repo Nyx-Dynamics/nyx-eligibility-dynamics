@@ -1,0 +1,46 @@
+﻿Bureau of Justice Statistics,,,,,
+Filename: hivp20stat01.csv,,,,,
+"Appendix Table 1. Estimates for figure 1: Persons living with HIV and rate of HIV per 100,000 persons in the custody of state and federal correctional authorities, yearend 1991–2020",,,,,
+"Report title: HIV in Prisons, 2020 – Statistical Tables NCJ 302601",,,,,
+"Data source: Bureau of Justice Statistics, National Prisoner Statistics, 1991–2020",,,,,
+"Author: Laura M. Maruschak, BJS Statistician",,,,,
+Refer questions to: askbjs@usdoj.gov 202-307-0765,,,,,
+Date of version: 5/26/22,,,,,
+,,,,,
+"Appendix Table 1. Estimates for figure 1: Persons living with HIV and rate of HIV per 100,000 persons in the custody of state and federal correctional authorities, yearend 1991–2020",,,,,
+,Number,,,,
+Yearend,Total/a,Federal,State/a,"Rate per 100,000 state and federal prisoners/b",State and federal prison population/c
+1991,"17,680",630,"17,050","2,231","792,517"
+1992,"21,020",867,"20,150","2,471","850,547"
+1993,"21,820",959,"20,860","2,399","909,380"
+1994,"23,050",964,"22,090","2,329","989,991"
+1995,"24,520",822,"23,690","2,273","1,078,411"
+1996,"24,300",947,"23,350","2,155","1,127,755"
+1997,"24,430","1,030","23,400","2,075","1,177,613"
+1998,"25,980","1,066","24,910","2,122","1,224,358"
+1999,"25,940","1,156","24,790","2,136","1,214,578"
+2000,"25,510","1,302","24,210","2,078","1,227,857"
+2001,"24,230","1,520","22,710","1,945","1,245,869"
+2002,"24,120","1,547","22,570","1,882","1,281,681"
+2003,"23,920","1,631","22,290","1,831","1,306,743"
+2004,"23,160","1,680","21,480","1,739","1,331,933"
+2005,"22,920","1,592","21,320","1,707","1,342,845"
+2006,"22,720","1,530","21,190","1,649","1,377,613"
+2007,"22,000","1,679","20,320","1,581","1,391,960"
+2008,"21,780","1,538","20,240","1,560","1,396,406"
+2009,"21,050","1,590","19,460","1,506","1,398,139"
+2010,"20,290","1,578","18,710","1,453","1,396,373"
+2011,"19,750","1,610","18,140","1,434","1,376,867"
+2012,"19,170","1,601","17,570","1,426","1,344,796"
+2013,"19,000","1,608","17,390","1,407","1,349,823"
+2014,"17,720","1,564","16,160","1,379","1,341,069"
+2015,"17,160","1,536","15,620","1,304","1,315,896"
+2016,"15,750","1,492","14,260","1,215","1,296,028"
+2017,"15,090","1,508","13,580","1,178","1,279,259"
+2018,"14,920","1,554","13,360","1,185","1,258,448"
+2019,"14,180","1,477","12,710","1,153","1,229,855"
+2020,"11,940","1,144","10,790","1,153","1,035,394"
+"a/Between one and four jurisdictions did not report the number of persons living with HIV in each year of the 30-year period from 1991 to 2020. Data were imputed for those jurisdictions not reporting data using various methods; therefore, numbers presented are estimates. Estimates were rounded to the nearest 10 after unrounded counts were added. See Methodology.",,,,,
+b/Based on unrounded estimates of the number of prisoners who were known to be HIV-positive or had confirmed AIDS.,,,,,
+c/Yearend custody counts were used to calculate rates for all jurisdictions except New Mexico and Colorado. Custody counts exclude prisoners held in private facilities and local jails. See Methodology.,,,,,
+"Source: Bureau of Justice Statistics, National Prisoner Statistics, 1991–2020.",,,,,

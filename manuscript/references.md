@@ -76,13 +76,13 @@ discrepancies surfaced and are recorded at the end.
 
 19. **`XSRecency`** — R package implementing cross-sectional recency estimators. *§3.2 and §4.1: the gamma parameterisation and the MDRI fitting procedure follow it. Cite the release used; note that `createRitaCephia` changed its unit contract between tag 0.2.0 and `main`.*
 
-20. **Bureau of Justice Statistics.** *Jail Inmates in 2023.* US Department of Justice. *§3.5–3.6: mean 32 d in custody; adult jail incarceration rate by age; all-adult rate 253 per 100,000.*
+20. **Zeng Z.** *Jail Inmates in 2023 – Statistical Tables.* Bureau of Justice Statistics, US Department of Justice; April 2025. NCJ 309965. *§3.5–3.6: mean 32 d in custody July 2022–June 2023; adult jail incarceration rate by age; all-adult rate 253 per 100,000.*
 
 21. **Bureau of Justice Statistics.** *Prisoners* series. US Department of Justice. *§3.5–3.6: adult imprisonment rate 453 per 100,000; mean time served ≈2.7 y.*
 
-22. **Bureau of Justice Statistics.** *Mortality in Local Jails* (`mlj0019st`) and *Mortality in State and Federal Prisons* (`msfp0119st`), 2019. *§3.7: 167, 330 and 259 deaths per 100,000.*
+22. **Carson EA.** *Mortality in Local Jails, 2000–2019 – Statistical Tables.* Bureau of Justice Statistics; December 2021. NCJ 301368. And *Mortality in State and Federal Prisons, 2001–2019 – Statistical Tables.* Bureau of Justice Statistics; December 2021. NCJ 300953. *§3.7: 167, 330 and 259 deaths per 100,000. Source tables are committed under `data/bjs/`.*
 
-23. **Bureau of Justice Statistics.** *HIV in Prisons* (`hivp20st`). *Cited only to establish that the incarcerated population is not predominantly PWID, so HIV prevalence cannot substitute for injection prevalence in §3.5.*
+23. **Maruschak LM.** *HIV in Prisons, 2020 – Statistical Tables.* Bureau of Justice Statistics; May 2022. NCJ 302601. *Cited only to establish that the incarcerated population is not predominantly PWID, so HIV prevalence cannot substitute for injection prevalence in §3.5. Source tables committed under `data/bjs/`.*
 
 24. **US Census Bureau.** Population Estimates Program, vintage 2019, county characteristics (`cc-est2019-alldata`). *§3.10: county-specific 15–64 to 18+ ratios, 0.834–0.908.*
 

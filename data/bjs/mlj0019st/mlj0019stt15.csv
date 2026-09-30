@@ -1,0 +1,21 @@
+Bureau of Justice Statistics,,,,,,,,,,,,,,,,,,,,,
+Filename: mlj0019stt15.csv,,,,,,,,,,,,,,,,,,,,,
+"Table 15. Number of deaths of local jail inmates, by size of jurisdiction, 2000–2019",,,,,,,,,,,,,,,,,,,,,
+"Report title: Mortality in Local Jails, 2000–2019 – Statistical Tables   NCJ 301368",,,,,,,,,,,,,,,,,,,,,
+"Data source: Bureau of Justice Statistics, Mortality in Correctional Institutions, 2000–2019",,,,,,,,,,,,,,,,,,,,,
+"Author: E. Ann Carson, Ph.D., BJS Statistician",,,,,,,,,,,,,,,,,,,,,
+Refer questions to: askbjs@usdoj.gov 202-307-0765,,,,,,,,,,,,,,,,,,,,,
+Date of version: 12/1/2021,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,
+"Table 15. Number of deaths of local jail inmates, by size of jurisdiction, 2000–2019",,,,,,,,,,,,,,,,,,,,,
+Jail jurisdiction size (average daily population),,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019
+,Total,903,942,969,"1,001","1,021","1,045","1,094","1,099",959,961,918,888,960,987,"1,053","1,096","1,076","1,103","1,138","1,200"
+49 or fewer inmates,,63,76,79,78,70,68,68,46,47,49,60,51,66,60,68,61,59,51,40,50
+50–99,,66,70,63,58,56,66,63,61,46,55,45,51,60,61,70,54,60,58,62,66
+100–249,,80,111,103,104,101,103,106,116,108,121,122,116,89,138,115,141,150,156,158,164
+250–499,,87,98,110,111,117,107,109,127,111,111,95,125,144,129,153,157,150,133,181,169
+500–999,,139,139,98,133,107,145,133,130,121,120,121,133,148,151,158,185,180,194,197,238
+"1,000–2,499",,186,167,195,233,258,226,228,251,238,237,237,207,234,205,263,268,264,293,298,293
+"2,500 or more",,282,280,321,284,312,330,387,368,286,268,234,186,218,243,226,230,213,218,201,220
+"Note: Data may have been revised from previously published statistics. Details may not sum to totals due to rounding or missing data. In 2000, the average daily population was estimated by taking the average of January 1 and December 31 inmate population counts. See Methodology.",,,,,,,,,,,,,,,,,,,,,
+"Source: Bureau of Justice Statistics, Mortality in Correctional Institutions, 2000–2019.",,,,,,,,,,,,,,,,,,,,,

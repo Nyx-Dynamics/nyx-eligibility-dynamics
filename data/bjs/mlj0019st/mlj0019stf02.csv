@@ -1,0 +1,35 @@
+Bureau of Justice Statistics,,,
+Filename: mlj0019stf02.csv,,,
+"Figure 2. Mortality rate per 100,000 local jail inmates, by cause of death, 2000–2019",,,
+"Report title: Mortality in Local Jails, 2000–2019 – Statistical Tables   NCJ 301368",,,
+"Data source: Bureau of Justice Statistics, Mortality in Correctional Institutions, 2000–2019",,,
+"Author: E. Ann Carson, Ph.D., BJS Statistician",,,
+Refer questions to: askbjs@usdoj.gov 202-307-0765,,,
+Date of version: 12/1/2021,,,
+,,,
+"Figure 2. Mortality rate per 100,000 local jail inmates, by cause of death, 2000–2019",,,
+,Mortality rate,,
+,Illness,Suicide,Drug/alcohol intoxication
+2000,86,48,6
+2001,76,49,9
+2002,76,47,8
+2003,74,43,13
+2004,74,42,11
+2005,68,39,11
+2006,78,36,11
+2007,78,36,10
+2008*,57,29,6
+2009,66,41,9
+2010,65,42,7
+2011,59,43,10
+2012,71,40,8
+2013,68,46,10
+2014,69,50,13
+2015,73,52,13
+2016,75,47,16
+2017,72,43,21
+2018,71,46,25
+2019,77,49,26
+"Note: Data may have been revised from previously published statistics. Mortality rates are per 100,000 inmates held in the custody of local jails. Mortality rates for 2001–2019 are based on the annual number of deaths and the average daily population (ADP). In 2000, the ADP was estimated by taking the average of January 1 and December 31 inmate population counts. See Methodology. See table 3 for rates.",,,
+"*In 2008, a high number of illness cases were missing cause of death information and were classified as missing.",,,
+"Source: Bureau of Justice Statistics, Mortality in Correctional Institutions, 2000–2019.",,,

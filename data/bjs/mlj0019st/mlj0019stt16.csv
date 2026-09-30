@@ -1,0 +1,21 @@
+Bureau of Justice Statistics,,,,,,,,,,,,,,,,,,,,,
+Filename: mlj0019stt16.csv,,,,,,,,,,,,,,,,,,,,,
+"Table 16. Mortality rate per 100,000 local jail inmates, by size of jurisdiction, 2000–2019",,,,,,,,,,,,,,,,,,,,,
+"Report title: Mortality in Local Jails, 2000–2019 – Statistical Tables   NCJ 301368",,,,,,,,,,,,,,,,,,,,,
+"Data source: Bureau of Justice Statistics, Mortality in Correctional Institutions, 2000–2019",,,,,,,,,,,,,,,,,,,,,
+"Author: E. Ann Carson, Ph.D., BJS Statistician",,,,,,,,,,,,,,,,,,,,,
+Refer questions to: askbjs@usdoj.gov 202-307-0765,,,,,,,,,,,,,,,,,,,,,
+Date of version: 12/1/2021,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,
+"Table 16. Mortality rate per 100,000 local jail inmates, by size of jurisdiction, 2000–2019",,,,,,,,,,,,,,,,,,,,,
+Jail jurisdiction size (average daily population),,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019
+,Total,151,148,145,146,143,141,142,141,123,128,125,123,129,138,144,154,150,151,156,167
+49 or fewer inmates,,229,285,319,322,295,298,299,210,222,236,285,241,308,299,336,295,294,257,209,264
+50–99,,170,180,155,142,134,169,161,164,119,146,125,144,166,172,189,147,166,160,175,193
+100–249,,105,134,120,118,112,110,113,127,119,132,129,123,95,149,119,142,143,151,155,163
+250–499,,115,114,122,116,121,110,113,118,106,108,96,123,129,126,138,145,136,115,146,143
+500–999,,142,139,96,127,99,120,104,108,96,99,94,105,114,118,122,145,134,143,142,163
+"1,000–2,499",,154,126,136,147,166,139,131,133,124,132,133,121,129,120,151,156,157,169,174,179
+"2,500 or more",,175,164,177,161,157,161,178,172,139,138,135,109,127,148,140,156,148,151,143,161
+"Note: Data may have been revised from previously published statistics. Mortality rates are per 100,000 inmates held in the custody of local jails. Mortality rates for 2001–2019 are based on the annual number of deaths and the average daily population (ADP). In 2000, the ADP was estimated by taking the average of January 1 and December 31 inmate population counts. See Methodology.",,,,,,,,,,,,,,,,,,,,,
+"Source: Bureau of Justice Statistics, Mortality in Correctional Institutions, 2000–2019.",,,,,,,,,,,,,,,,,,,,,

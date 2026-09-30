@@ -1,0 +1,34 @@
+Bureau of Justice Statistics,,,
+Filename: mlj0019stf01.csv,,,
+"Figure 1. Mortality rate per 100,000 local jail inmates, by legal status, 2000–2019",,,
+"Report title: Mortality in Local Jails, 2000–2019 – Statistical Tables   NCJ 301368",,,
+"Data source: Bureau of Justice Statistics, Annual Survey of Jails, 2000–2018; Census of Jails, 2019; and Mortality in Correctional Institutions, 2000–2019",,,
+"Author: E. Ann Carson, Ph.D., BJS Statistician",,,
+Refer questions to: askbjs@usdoj.gov 202-307-0765,,,
+Date of version: 12/1/2021,,,
+,,,
+"Figure 1. Mortality rate per 100,000 local jail inmates, by legal status, 2000–2019",,,
+,Legal status,,
+,All jail inmates,Unconvicted inmates,Convicted inmates
+2000,151,187,98
+2001,148,183,95
+2002,145,179,91
+2003,146,177,94
+2004,143,182,80
+2005,141,174,82
+2006,142,177,81
+2007,141,175,83
+2008,123,154,70
+2009,128,149,87
+2010,125,148,81
+2011,123,152,78
+2012,129,155,87
+2013,138,168,84
+2014,144,172,95
+2015,154,183,100
+2016,150,172,102
+2017,151,172,104
+2018,156,173,116
+2019,167,192,112
+"Note: Data may have been revised from previously published statistics. Mortality rates are per 100,000 inmates held in the custody of local jails. Mortality rates for 2001–2019 are based on the annual number of deaths and the average daily population (ADP). In 2000, the ADP was estimated by taking the average of January 1 and December 31 inmate population counts. See Methodology. See table 7 for rates.",,,
+"Source: Bureau of Justice Statistics, Annual Survey of Jails, 2000–2018; Census of Jails, 2019; and Mortality in Correctional Institutions, 2000–2019.",,,

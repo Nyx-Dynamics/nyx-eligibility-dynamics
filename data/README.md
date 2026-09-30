@@ -2,6 +2,13 @@
 
 No participant-level or licensed data are redistributed here.
 
+**One exception, and it is not an exception to that rule.** `data/bjs/` holds 102 BJS
+statistical tables as published CSVs. They are US Government works in the public domain,
+aggregate rather than participant-level, and each file carries its own citation block naming
+the report, NCJ number, author and version date. They are committed so that §3.7 can be
+checked against its source rather than against a summary. Publisher PDFs and supplements are
+**not** committed and are gitignored; see `manuscript/references.md`.
+
 ## Retrieval
 
 **CEPHIA public-use dataset** — Zenodo 10.5281/zenodo.4900634. Place the CSV at

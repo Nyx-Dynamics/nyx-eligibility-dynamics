@@ -1,0 +1,30 @@
+Bureau of Justice Statistics,,,,,
+Filename: mlj0019stt08.csv,,,,,
+"Table 8. Number of deaths of local jail inmates and mortality rate per 100,000 local jail inmates, by cause of death, 2000–19",,,,,
+"Report title: Mortality in Local Jails, 2000–2019 – Statistical Tables   NCJ 301368",,,,,
+"Data source: Bureau of Justice Statistics, Mortality in Correctional Institutions, 2000–19",,,,,
+"Author: E. Ann Carson, Ph.D., BJS Statistician",,,,,
+Refer questions to: askbjs@usdoj.gov 202-307-0765,,,,,
+Date of version: 12/1/2021,,,,,
+,,,,,
+"Table 8. Number of deaths of local jail inmates and mortality rate per 100,000 local jail inmates, by cause of death, 2000–19",,,,,
+Cause of death,,Number,Percent,,"Mortality rate per 100,000 local jail inmates"
+,All causes,"20,413",100,%,142
+Illness,,"10,261",50.3,%,71
+,Heart disease,"4,842",23.7,,34
+,AIDS-related/a,621,3,,4
+,Cancer,742,3.6,,5
+,Respiratory disease,584,2.9,,4
+,Liver disease,481,2.4,,3
+,All other illnesses/b,"2,991",14.7,,21
+Suicide,,"6,217",30.5,%,43
+Drug/alcohol intoxication,,"1,742",8.5,%,12
+Accident,,515,2.5,%,4
+Homicide/c,,469,2.3,%,3
+Other/unknown,,686,3.4,%,5
+Missing,,523,2.6,%,4
+"Note: Details may not sum to totals due to rounding. Mortality rates are per 100,000 inmates held in the custody of local jails. Mortality rates for 2001–2019 are based on the annual number of deaths and the average daily population (ADP). In 2000, the ADP was estimated by taking the average of January 1 and December 31 inmate population counts. Data may have been revised from previously statistics. See Methodology.",,,,,
+a/Includes persons who died of illness and were identified as HIV-positive or having AIDS at the time of death.,,,,,
+"b/Includes other specified illnesses (such as cerebrovascular disease, influenza, and other nonleading natural causes of death) and unspecified illnesses.",,,,,
+"c/Includes homicides committed by other inmates, incidental to the use of force by staff, and resulting from assaults sustained prior to incarceration.",,,,,
+"Source: Bureau of Justice Statistics, Mortality in Correctional Institutions, 2000–19.",,,,,
