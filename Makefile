@@ -8,6 +8,7 @@
 #   make submission-fig the CROI submitted graphic, panel A only, 4x4in PNG
 #   make docx          compile the CROI submission packet to a single .docx
 #   make manuscript    assemble Paper A figures/tables under final numbers
+#   make draft         concatenate the sections into one readable draft
 #   make check-refs    verify every figure and table is present and cited
 #   make all           verify + figures
 #   make clean         remove generated outputs
@@ -21,7 +22,7 @@ OFFLINE := reproduce_pan mortality_threshold validate_theorems frailty_mixture \
            wang_comparator eta_surface inter_test_process
 DATADEP := empirical_phi
 
-.PHONY: all verify verify-fast figures figures-full croi-figure figure-redraw submission-fig docx manuscript check-refs \
+.PHONY: all verify verify-fast figures figures-full croi-figure figure-redraw submission-fig docx manuscript draft check-refs \
         clean check-env \
         $(OFFLINE) $(DATADEP)
 
@@ -77,6 +78,11 @@ docx: figure-redraw submission-fig
 # which live in one place so a renumbering is a single edit.
 manuscript: check-env
 	@cd $(ANALYSIS) && $(PY) assemble_manuscript.py
+
+# Sections are written and frozen separately; a reader needs one document.
+# Lifts each file's drafting notes out of the body and collects them at the end.
+draft: check-env
+	@cd $(ANALYSIS) && $(PY) assemble_draft.py --docx
 
 # Non-zero exit if any numbered item is missing or uncited. Suitable for CI.
 check-refs: check-env
