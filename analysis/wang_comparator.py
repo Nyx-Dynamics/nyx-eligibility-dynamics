@@ -10,8 +10,8 @@ differing in baseline covariates X by reweighting. Their estimator is
 with w_i the predicted probability of trial membership from a logistic
 regression on covariates, fitted among the HIV-negative. Structure checked
 against their own implementation (github.com/qii-wang/
-HIV-incidence-recency-heterogeneity, Simulation/Internal target population),
-not inferred from the paper text.
+HIV-incidence-recency-heterogeneity at commit 0581bb6, 24 Feb 2025,
+Simulation/Internal target population), not inferred from the paper text.
 
 Two features of that structure drive everything below. The weight multiplies the
 numerator AND the denominator, so it cancels wherever it is constant. And it is a
