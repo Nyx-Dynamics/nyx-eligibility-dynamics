@@ -15,7 +15,8 @@ import json, sys
 from pathlib import Path
 from _common import banner, write_table, FIGURES, ROOT, phi_for
 import numpy as np
-from src.eligibility_dynamics import empirical_phi, YEAR_DAYS, default_grid
+from src.eligibility_dynamics import (empirical_phi, YEAR_DAYS, T_STAR,
+                                      default_grid)
 
 CANDIDATES = sorted(ROOT.glob("data/cephia_public_use_dataset_*.csv"))
 EXPECTED = ROOT / "data" / "fixtures" / "cephia_expected.json"
@@ -51,7 +52,10 @@ def fit(d, subtype="C", vl_threshold=75, max_u=5.0, degree=3):
     return phi, int(s.participant_identifier.nunique())
 
 
-def binned_recency(d, edges=(730, 1095, 1825, 3650), vl_threshold=None,
+EDGES = (730, 1095, 1825, 3650)
+
+
+def binned_recency(d, edges=EDGES, vl_threshold=None,
                    treatment_naive=None):
     """
     Raw test-recent proportion by duration bin, for a STATED subset.
@@ -153,18 +157,60 @@ def main():
                  "data/fixtures/cephia_expected.json"}, indent=2))
     print(f"  wrote {RECOMPUTED.relative_to(ROOT)}")
 
-    import matplotlib; matplotlib.use("Agg")
+    import matplotlib
+    matplotlib.use("Agg")
     import matplotlib.pyplot as plt
-    fig, ax = plt.subplots(figsize=(6.2, 4.2))
-    ax.plot(ref.grid, ref.values, lw=2, label=f"CEPHIA empirical (subtype C, VL>75)")
+
+    # Two panels of the same analysis: the fitted recency function, and the raw
+    # tail that shows Assumption B.1 failing. The tail belongs here rather than
+    # in prose because its two subsets fail in opposite directions, which a
+    # sentence conveys poorly and a plot conveys at a glance.
+    fig, (axA, axB) = plt.subplots(1, 2, figsize=(9.4, 4.0), layout="constrained")
+
+    axA.plot(ref.grid, ref.values, lw=2,
+             label="CEPHIA empirical\n(subtype C, ODn$\\leq$1.5, VL>75)")
     for nm in ("pan_aje", "pan_arxiv"):
-        p = phi_for(nm)
-        ax.plot(p.grid, p.values, lw=1.2, ls="--", label=p.label)
-    ax.set_xlabel("infection duration $u$ (years)"); ax.set_ylabel(r"$\varphi(u)$")
-    ax.set_title("Empirical vs parametric recency functions")
-    ax.legend(fontsize=8, frameon=False); fig.tight_layout()
+        q = phi_for(nm)
+        axA.plot(q.grid, q.values, lw=1.2, ls="--", label=q.label)
+    axA.set_xlabel("infection duration $u$ (years)")
+    axA.set_ylabel(r"$\varphi(u)$")
+    axA.legend(fontsize=8, frameon=False)
+    axA.set_title("Fitted against parametric bases", fontsize=10)
+    for sp in ("top", "right"):
+        axA.spines[sp].set_visible(False)
+
+    # Categorical positions, not day-centres. The bins are 365, 730 and 1825 days
+    # wide, so bars scaled to bin width make the last one dominate the panel and
+    # overrun the axis. Width here carries no information; height does.
+    import numpy as np
+    x = np.arange(len(naive))
+    axB.bar(x - 0.19, naive, width=0.36, color="#1f77b4",
+            label=f"treatment-naive (n={n_naive})")
+    axB.bar(x + 0.19, allv, width=0.36, color="#c1272d",
+            label=f"all visits (n={n_all})")
+    for xi, v in zip(x - 0.19, naive):
+        axB.text(xi, v + 0.006, f"{v:.3f}", ha="center", fontsize=7.5)
+    for xi, v in zip(x + 0.19, allv):
+        axB.text(xi, v + 0.006, f"{v:.3f}", ha="center", fontsize=7.5)
+    axB.set_xticks(x)
+    axB.set_xticklabels([f"{lo}–{hi}" for lo, hi in zip(EDGES[:-1], EDGES[1:])],
+                        fontsize=8.5)
+    axB.set_xlabel("infection duration (days), all bins beyond $T^*$")
+    axB.set_ylabel("proportion test-recent")
+    axB.set_ylim(0, max(allv) * 1.18)
+    axB.legend(fontsize=8, frameon=False, loc="upper left")
+    axB.set_title("Raw tail: B.1 fails in both directions", fontsize=10)
+    for sp in ("top", "right"):
+        axB.spines[sp].set_visible(False)
+
+    for ax, ltr in ((axA, "A"), (axB, "B")):
+        ax.text(0.0, 1.06, ltr, transform=ax.transAxes, fontsize=11,
+                fontweight="bold", va="bottom", ha="left")
+
     p = FIGURES / "fig4_empirical_phi.png"
-    fig.savefig(p, dpi=200); print(f"  wrote {p.name}")
+    fig.savefig(p, dpi=200)
+    fig.savefig(p.with_suffix(".pdf"))
+    print(f"  wrote {p.name} and {p.with_suffix('.pdf').name}")
     return 0
 
 

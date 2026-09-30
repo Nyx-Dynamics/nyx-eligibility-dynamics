@@ -44,6 +44,13 @@ FIGURES = {
                  "simulator. (A) Census sampling, seven population scenarios. (B) "
                  "Composed with the screening and prior-testing stages. All 19 "
                  "comparisons agree within $|t|=2.20$ on 23 degrees of freedom."),
+    "Figure S2": ("fig4_empirical_phi", "3.2",
+                  "Empirical recency function from the CEPHIA public-use "
+                  "dataset. (A) The subtype-C fit against the two parametric "
+                  "bases. (B) Raw test-recent proportion by duration bin, all "
+                  "bins beyond $T^*$: among treatment-naive visits it declines "
+                  "to zero, across all visits it rises, so Gao \\& Bannick's "
+                  "Assumption B.1 fails in both directions."),
     "Figure S1": ("fig3_eta_surface", "4.5",
                   "Zero-bias boundary over the $(\\eta_J,\\eta_P)$ surface at "
                   "$q_J=3\\%$, $q_P=5\\%$, with the $r^\\star=1$ contour."),
@@ -59,6 +66,8 @@ TABLES = {
     "Table 3":   ("table3_frailty_mixture", "4.2",
                   "Cancellation under stationary frailty mixtures of increasing "
                   "skew in movement propensity."),
+    "Table S1":  ("tableS1_cephia_mdri", "3.2",
+                  "CEPHIA MDRI and shadow period by algorithm and subtype."),
     "Table S2":  ("tableS2_wang_comparator", "4.8",
                   "Covariate reweighting against the duration mechanism, three "
                   "target-population cases."),
@@ -75,10 +84,10 @@ TABLES = {
 
 # A trailing "*" on the section marks an item whose source data is not
 # redistributed, so that absence on a clean clone counts as expected rather than
-# as a failure. None are so marked now: the two CEPHIA-dependent items were cut
-# from §3.2 rather than carried as permanent placeholders, because a numbered
-# item that never appears is worse than no item. The mechanism is retained for
-# the next time one is needed.
+# a failure. Figure S2 and Table S1 are NOT so marked even though they need the
+# CEPHIA dataset: they are cited in §3.2 and must be present for the manuscript
+# to be complete, so `check-refs` should fail on a clone that lacks the data
+# rather than passing quietly. Retrieve it per data/README.md.
 SLUG = re.compile(r"[^a-z0-9]+")
 
 
