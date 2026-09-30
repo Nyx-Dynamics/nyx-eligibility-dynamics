@@ -7,7 +7,7 @@
 
 ## 3. Empirical parameterisation
 
-### 3.1 Scope, and what the parameterisation is for
+### 3.1 Empirical parameterisation strategy
 
 §2 is a structural result: it states when transient eligibility loss cancels and which asymmetries break the cancellation. Deciding whether those asymmetries are large enough to matter in a real deployment requires values. This section supplies them, and states for each whether it is **sourced** from published data, **derived** from sourced quantities, **assumed**, or **unidentified**.
 
@@ -93,7 +93,7 @@ More useful is that $\mu'$ does not matter. Sweeping it from 0.002 to 0.100 — 
 
 Condition (2) of Corollary 2 requires a demographically stationary observable susceptible pool, $g_E\equiv1$. Tempalski et al. (2013) report median PWID prevalence across US MSAs falling from 104.4 to 91.5 per 10,000 aged 15–64 between 1992 and 2007, and describe the period 2002–2007 as relatively stable. We take $\rho\approx0$ over a two-year recency window. A catchment with material growth or decline violates condition (2), and §4.1 shows that condition is not optional.
 
-### 3.9 Relative acquisition hazard — unidentified
+### 3.9 Relative acquisition hazard
 
 $\eta_k=\lambda_k/\lambda_E$ is **not sourced and cannot be identified** from available data, and it is the parameter to which the results are most sensitive. Identification would require acquisition compared during custody and during community person-time within the same population; state-level HIV surveillance cannot supply it.
 
@@ -101,7 +101,7 @@ The only directly relevant evidence is a meta-analysis of 36 predominantly prosp
 
 These establish that a non-zero custodial acquisition hazard substantially below community PWID incidence is empirically plausible. They do not identify a contemporary value. They are heterogeneous historical studies rather than matched PWID followed inside and outside custody; "continuously incarcerated" is not synonymous with PWID; and the literature speaks to prison rather than to short jail episodes. We therefore use them as an **overlay band, never as a fitted value**, and do not collapse $\eta_J$ and $\eta_P$ to a common $\eta$ except where a common value is reported explicitly as such.
 
-### 3.11 Summary, and what this parameterisation licenses
+### 3.10 Parameter summary and inferential scope
 
 | symbol | meaning | status | value used |
 |---|---|---|---|

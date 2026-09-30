@@ -82,7 +82,18 @@ Restricting to \(\mathcal{L}\) avoids any question of susceptible person-time in
 
 E.1 concerns memory structure; E.3 concerns whether infection alters the transition law. They are stated separately because they fail differently and because M3 in §2.6 requires E.3 to have an identity of its own.
 
-\textbf{Remark 2 (scope of E.1).} E.1 is not required for the cancellation result to survive unobserved heterogeneity in movement propensity: Corollary 3 permits arbitrary mixtures of stationary Markov strata, whose marginal process need not itself be Markov. A general semi-Markov or history-dependent treatment is beyond the present scope.
+\textbf{Remark 2 (E.1 is not needed for the cancellation).} E.1 is assumed for tractability, not for Corollary 2. Where \(\eta_k\equiv1\) and movement is infection-independent, the weight reduces by the law of total probability:
+
+\[
+s_t(u)=\frac{\sum_k \Pr\{Z(t-u)=k\}\,\Pr\{Z(t)=E\mid Z(t-u)=k\}}{\pi_E}
+=\frac{\Pr\{Z(t)=E\}}{\pi_E}=1,
+\]
+
+which uses only that the law of \(Z\) is stationary. No Markov property, no exponential sojourn and no restriction on history dependence enters. \textbf{Corollary 2 therefore holds for any stationary movement process}, including semi-Markov and fully history-dependent ones.
+
+This matters because carceral contact is recurrent and its hazard is highest immediately after release, which is the clearest way E.1 fails in the intended application. A simulation of an explicitly non-Markov recidivism process --- Weibull free periods with decreasing hazard, so re-incarceration is most likely soon after release, together with lognormal heterogeneity in propensity --- gives \(\hat\lambda/\lambda_E = 1.003 \pm 0.013\) at 12.5\% of person-time unobservable, with 12\% of infections acquired in custody (\texttt{tests/test\_recidivism.py}).
+
+What the cancellation does require is \textbf{stationarity}, and recidivism can break that in a way heterogeneity cannot: if individual propensity escalates over a lifetime so that the population's occupancy drifts across the recency window, condition (1) fails and the mechanism is M4b, not a failure of E.1. E.1 is retained in what follows because the closed forms of §2.4--2.5 and the numerical work of §4 are computed with matrix exponentials, which do need it.
 
 \subsection{2.3 The generalised recent-count identity}
 
@@ -300,7 +311,7 @@ Whenever \(\Omega_w<\Omega_{T^*}\) and \(K_w>0\), the boundary shifts upward, wi
 
 \textbf{Remark 6 (relation to covariate transport).} Wang, Duerr \& Gao (\emph{Stat Med} 2025) address a distinct mismatch --- differing distributions of baseline covariates \(X\) between sampled and target populations --- corrected by reweighting. When the movement-relevant covariate distribution is the same in the cross-sectional and target populations, reweighting leaves the within-stratum duration component of \(w_t\) unchanged. When those distributions differ, Wang-style weighting removes the compositional component while leaving the residual transition-duration component. The mechanisms are composable rather than competing.
 
-\subsection{2.8 Design implications}
+\subsection{2.8 Implications for study design}
 
 Three consequences follow, and they differ from what would follow from treating all eligibility loss as biasing.
 

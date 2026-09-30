@@ -16,7 +16,7 @@ What determines bias is not whether people leave but whether the flow is symmetr
 
 Two features of the existing formalism make the question easy to get wrong, and both are worth stating at the outset. First, the recency function used by Gao and Bannick conditions on eligibility at survey and therefore carries no eligibility-survival component, whereas Kassanjee's original formulation embeds one. Eligibility dynamics must consequently enter *once*, explicitly, through a population process — and a treatment that both models the transitions and deflates the recency window has counted the same mechanism twice. Second, the population process operates upstream of, and composes with rather than replaces, the survey-attendance and prior-testing selection formalised by Pan and colleagues. Collapsing custody, mortality, attendance and testing-based exclusion into a single structural hazard makes double-counting nearly unavoidable; we keep the stages separate as an explicit modelling rule.
 
-### Where this sits in the literature
+### Relation to existing methods
 
 The line from the Kassanjee estimator through Gao and Bannick's formalisation has been extended in three directions: prior-test information, covariate transport for population heterogeneity, and selection arising from survey attendance and prior-testing exclusion. Each of these takes eligibility at survey as a primitive — a time-indexed indicator whose value is given. We extend the same line by modelling the dynamics of that indicator.
 
@@ -24,7 +24,7 @@ The move is stated simply. Gao and Bannick define eligibility $A(t)$ as an indic
 
 We emphasise that the extension is in the formal treatment of eligibility, not in the assay calibration. The principal result holds for any admissible recency function, so no particular mean duration of recent infection is load-bearing; §3.2 records the calibration families the empirical evaluation spans and why they are not to be read as independent support for one another.
 
-### Contributions
+### Methodological contributions
 
 We refine the eligibility indicator rather than replace it, writing $A(t)=\mathbb{1}\{Z(t)=E\}$ for a process $Z$ on a finite state space comprising an observable state, temporarily unobservable living states permitting return, and an absorbing state. Within that refinement:
 
@@ -38,15 +38,12 @@ We refine the eligibility indicator rather than replace it, writing $A(t)=\mathb
 
 5. We parameterise each mechanism from published sources, verify the analytic results against an independently written generative simulator sharing no code with the derivation, and report the parameter that governs the answer as a sensitivity axis rather than a point estimate.
 
-### What this paper does not do
+### Scope of inference
 
 It does not assert that any published trial estimate is biased, or by how much. The relative acquisition hazard in unobservable states is the parameter that determines whether and in which direction bias arises, and it is not identifiable from the surveillance data ordinarily available; we therefore report the value it would have to take for cancellation to fail, rather than a correction. At empirically sourced rates the surviving effect is a few per cent, which we state plainly in §5.5 because an earlier version of this analysis claimed considerably more.
 
 The contribution is structural. It replaces a question that cannot be answered usefully — how much of the population is temporarily unobservable — with questions that can: whether acquisition differs across states, whether the catchment is demographically stationary, and how much loss is irreversible over the recency window.
 
-### Organisation
-
-§2 develops the state-space refinement, the general recent-count identity, the probability limit, the cancellation theorem and its corollaries, the failure modes, and the composition with screening-stage selection. §3 parameterises each quantity from published sources and states for each whether it is sourced, derived, assumed, or unidentified. §4 reports the numerical results, including recovery of the reference framework and the independent Monte Carlo validation. §5 discusses the implications for design and reporting, the limitations, and the relation to the superseded analysis from which this work derives.
 
 ---
 

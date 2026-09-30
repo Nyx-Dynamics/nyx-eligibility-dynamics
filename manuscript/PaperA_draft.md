@@ -36,7 +36,7 @@ What determines bias is not whether people leave but whether the flow is symmetr
 
 Two features of the existing formalism make the question easy to get wrong, and both are worth stating at the outset. First, the recency function used by Gao and Bannick conditions on eligibility at survey and therefore carries no eligibility-survival component, whereas Kassanjee's original formulation embeds one. Eligibility dynamics must consequently enter *once*, explicitly, through a population process — and a treatment that both models the transitions and deflates the recency window has counted the same mechanism twice. Second, the population process operates upstream of, and composes with rather than replaces, the survey-attendance and prior-testing selection formalised by Pan and colleagues. Collapsing custody, mortality, attendance and testing-based exclusion into a single structural hazard makes double-counting nearly unavoidable; we keep the stages separate as an explicit modelling rule.
 
-### Where this sits in the literature
+### Relation to existing methods
 
 The line from the Kassanjee estimator through Gao and Bannick's formalisation has been extended in three directions: prior-test information, covariate transport for population heterogeneity, and selection arising from survey attendance and prior-testing exclusion. Each of these takes eligibility at survey as a primitive — a time-indexed indicator whose value is given. We extend the same line by modelling the dynamics of that indicator.
 
@@ -44,7 +44,7 @@ The move is stated simply. Gao and Bannick define eligibility $A(t)$ as an indic
 
 We emphasise that the extension is in the formal treatment of eligibility, not in the assay calibration. The principal result holds for any admissible recency function, so no particular mean duration of recent infection is load-bearing; §3.2 records the calibration families the empirical evaluation spans and why they are not to be read as independent support for one another.
 
-### Contributions
+### Methodological contributions
 
 We refine the eligibility indicator rather than replace it, writing $A(t)=\mathbb{1}\{Z(t)=E\}$ for a process $Z$ on a finite state space comprising an observable state, temporarily unobservable living states permitting return, and an absorbing state. Within that refinement:
 
@@ -58,15 +58,12 @@ We refine the eligibility indicator rather than replace it, writing $A(t)=\mathb
 
 5. We parameterise each mechanism from published sources, verify the analytic results against an independently written generative simulator sharing no code with the derivation, and report the parameter that governs the answer as a sensitivity axis rather than a point estimate.
 
-### What this paper does not do
+### Scope of inference
 
 It does not assert that any published trial estimate is biased, or by how much. The relative acquisition hazard in unobservable states is the parameter that determines whether and in which direction bias arises, and it is not identifiable from the surveillance data ordinarily available; we therefore report the value it would have to take for cancellation to fail, rather than a correction. At empirically sourced rates the surviving effect is a few per cent, which we state plainly in §5.5 because an earlier version of this analysis claimed considerably more.
 
 The contribution is structural. It replaces a question that cannot be answered usefully — how much of the population is temporarily unobservable — with questions that can: whether acquisition differs across states, whether the catchment is demographically stationary, and how much loss is irreversible over the recency window.
 
-### Organisation
-
-§2 develops the state-space refinement, the general recent-count identity, the probability limit, the cancellation theorem and its corollaries, the failure modes, and the composition with screening-stage selection. §3 parameterises each quantity from published sources and states for each whether it is sourced, derived, assumed, or unidentified. §4 reports the numerical results, including recovery of the reference framework and the independent Monte Carlo validation. §5 discusses the implications for design and reporting, the limitations, and the relation to the superseded analysis from which this work derives.
 
 ---
 
@@ -152,7 +149,18 @@ Restricting to $\mathcal{L}$ avoids any question of susceptible person-time in t
 
 E.1 concerns memory structure; E.3 concerns whether infection alters the transition law. They are stated separately because they fail differently and because M3 in §2.6 requires E.3 to have an identity of its own.
 
-**Remark 2 (scope of E.1).** E.1 is not required for the cancellation result to survive unobserved heterogeneity in movement propensity: Corollary 3 permits arbitrary mixtures of stationary Markov strata, whose marginal process need not itself be Markov. A general semi-Markov or history-dependent treatment is beyond the present scope.
+**Remark 2 (E.1 is not needed for the cancellation).** E.1 is assumed for tractability, not for Corollary 2. Where $\eta_k\equiv1$ and movement is infection-independent, the weight reduces by the law of total probability:
+
+$$
+s_t(u)=\frac{\sum_k \Pr\{Z(t-u)=k\}\,\Pr\{Z(t)=E\mid Z(t-u)=k\}}{\pi_E}
+=\frac{\Pr\{Z(t)=E\}}{\pi_E}=1,
+$$
+
+which uses only that the law of $Z$ is stationary. No Markov property, no exponential sojourn and no restriction on history dependence enters. **Corollary 2 therefore holds for any stationary movement process**, including semi-Markov and fully history-dependent ones.
+
+This matters because carceral contact is recurrent and its hazard is highest immediately after release, which is the clearest way E.1 fails in the intended application. A simulation of an explicitly non-Markov recidivism process — Weibull free periods with decreasing hazard, so re-incarceration is most likely soon after release, together with lognormal heterogeneity in propensity — gives $\hat\lambda/\lambda_E = 1.003 \pm 0.013$ at 12.5% of person-time unobservable, with 12% of infections acquired in custody (`tests/test_recidivism.py`).
+
+What the cancellation does require is **stationarity**, and recidivism can break that in a way heterogeneity cannot: if individual propensity escalates over a lifetime so that the population's occupancy drifts across the recency window, condition (1) fails and the mechanism is M4b, not a failure of E.1. E.1 is retained in what follows because the closed forms of §2.4–2.5 and the numerical work of §4 are computed with matrix exponentials, which do need it.
 
 ### 2.3 The generalised recent-count identity
 
@@ -344,7 +352,7 @@ Whenever $\Omega_w<\Omega_{T^*}$ and $K_w>0$, the boundary shifts upward, wideni
 
 **Remark 6 (relation to covariate transport).** Wang, Duerr & Gao (*Stat Med* 2025) address a distinct mismatch — differing distributions of baseline covariates $X$ between sampled and target populations — corrected by reweighting. When the movement-relevant covariate distribution is the same in the cross-sectional and target populations, reweighting leaves the within-stratum duration component of $w_t$ unchanged. When those distributions differ, Wang-style weighting removes the compositional component while leaving the residual transition-duration component. The mechanisms are composable rather than competing.
 
-### 2.8 Design implications
+### 2.8 Implications for study design
 
 Three consequences follow, and they differ from what would follow from treating all eligibility loss as biasing.
 
@@ -356,7 +364,7 @@ Three consequences follow, and they differ from what would follow from treating 
 
 ## 3. Empirical parameterisation
 
-### 3.1 Scope, and what the parameterisation is for
+### 3.1 Empirical parameterisation strategy
 
 §2 is a structural result: it states when transient eligibility loss cancels and which asymmetries break the cancellation. Deciding whether those asymmetries are large enough to matter in a real deployment requires values. This section supplies them, and states for each whether it is **sourced** from published data, **derived** from sourced quantities, **assumed**, or **unidentified**.
 
@@ -442,7 +450,7 @@ More useful is that $\mu'$ does not matter. Sweeping it from 0.002 to 0.100 — 
 
 Condition (2) of Corollary 2 requires a demographically stationary observable susceptible pool, $g_E\equiv1$. Tempalski et al. (2013) report median PWID prevalence across US MSAs falling from 104.4 to 91.5 per 10,000 aged 15–64 between 1992 and 2007, and describe the period 2002–2007 as relatively stable. We take $\rho\approx0$ over a two-year recency window. A catchment with material growth or decline violates condition (2), and §4.1 shows that condition is not optional.
 
-### 3.9 Relative acquisition hazard — unidentified
+### 3.9 Relative acquisition hazard
 
 $\eta_k=\lambda_k/\lambda_E$ is **not sourced and cannot be identified** from available data, and it is the parameter to which the results are most sensitive. Identification would require acquisition compared during custody and during community person-time within the same population; state-level HIV surveillance cannot supply it.
 
@@ -450,7 +458,7 @@ The only directly relevant evidence is a meta-analysis of 36 predominantly prosp
 
 These establish that a non-zero custodial acquisition hazard substantially below community PWID incidence is empirically plausible. They do not identify a contemporary value. They are heterogeneous historical studies rather than matched PWID followed inside and outside custody; "continuously incarcerated" is not synonymous with PWID; and the literature speaks to prison rather than to short jail episodes. We therefore use them as an **overlay band, never as a fitted value**, and do not collapse $\eta_J$ and $\eta_P$ to a common $\eta$ except where a common value is reported explicitly as such.
 
-### 3.11 Summary, and what this parameterisation licenses
+### 3.10 Parameter summary and inferential scope
 
 | symbol | meaning | status | value used |
 |---|---|---|---|
@@ -482,13 +490,13 @@ All quantities are evaluated on the recency basis of Pan et al. unless stated ot
 
 Results are reported in the order the argument requires, and the order matters because the levels differ in what they establish. §4.1 checks that the framework is recovered where it should be. §4.2 gives the general result, which is exact and holds for any admissible recency function. §4.3 verifies it against an independent implementation. §4.4 and §4.5 quantify the two mechanisms that break it, sweeping each parameter over a plausible range rather than asserting a value. §4.6 tests what the conclusions depend on. Nothing after §4.3 is needed to establish the result; it is needed to say how large the departures are when the conditions fail.
 
-### 4.1 Recovery of the reference framework
+### 4.1 Recovery of existing estimator results
 
 Setting $w_t\equiv1$ reduces the composed expression of §2.7 to the limiting estimation error of Pan et al. Across all nine cells of their published table — three testing rates crossed with attendance ratios spanning $r=0$ to $r=1$ — the two agree to within $0.030\times10^{-3}$ on the log scale, the largest discrepancy occurring at $c=0$, $\theta=2$ (Table 1). The agreement is to the precision at which their values are published, and we treat it as exact recovery rather than as an independent result.
 
 The same limit reproduces Gao & Bannick's Theorem 2 when $\mathcal{L}=\{E\}$ and no transitions are present, provided the observable susceptible pool is demographically stationary. That proviso is not decorative: with a single living state and no transitions but a pool growing at rate $\rho$, $w_t(u)=e^{-\rho u}\not\equiv1$ and the estimator is biased. Corollary 1 therefore requires condition (2) of Corollary 2 explicitly.
 
-### 4.2 Exact cancellation
+### 4.2 Exact cancellation under transient movement
 
 Under the five conditions of Corollary 2, $\hat\lambda/\lambda_E=1$ to machine precision. Figure 1 shows the historical observability weight under each mechanism separately, and Figure 2 the resulting ratio across occupancy and sojourn. On a 4001-point quadrature grid the deviation is $0.0$; on the coarser 1201-point grid used during development it is $2.2\times10^{-16}$. The result held across nine combinations of stationary occupancy and mean sojourn, spanning $q\in\{0.01,0.03,0.15\}$ and sojourns from 32 d to 2.7 y, and across three recency functions of materially different shape. Cancellation is a property of the flow balance, not of the assay: Corollary 2 gives $\hat\lambda/\lambda_E=1$ for any admissible $\varphi$, and the numerical evaluation confirms rather than establishes it.
 
@@ -500,7 +508,7 @@ Two features of the result are worth isolating because each is a plausible objec
 
 The two stationarity conditions are not interchangeable. A pool whose composition is stable but whose size grows satisfies condition (1) and not (2), and is biased; the case is isolated as M4a.
 
-### 4.3 Independent Monte Carlo validation
+### 4.3 Monte Carlo verification
 
 The analytic limit was checked against an individual-level generative simulator built to the population construction of Pan et al. — constant prevalence and incidence giving a flat infection-duration density on $[0,U_{\max}]$ with $U_{\max}=p/\lambda(1-p)=3.62$ y, equilibrium renewal testing histories, and the stop-when-positive rule. The simulator admits acquisition in every living state, drawing the state at infection with probability proportional to $\pi_k\eta_k$. It imports no analytic expression, so the comparison is between two independent routes rather than a restatement of one.
 
@@ -508,7 +516,7 @@ Across seven population scenarios — the cancellation case, absorbing loss at $
 
 Two design points are load-bearing. Each cell uses a disjoint block of random seeds: $\eta$ and $r$ enter the estimator as deterministic weights, so a single shared population would suffice arithmetically, but it makes residuals perfectly correlated and reduces an agreement test to a sign test on one realisation. And the agreement statistic is referred to $t_{N-1}$ rather than to a normal, because the replicate standard error is itself estimated; at small replicate counts the two differ substantially.
 
-### 4.4 Magnitude of the first failure: absorbing loss
+### 4.4 Absorbing loss
 
 Absorbing loss is the only mechanism that admits no compensating return flow, and it is the one case with a closed form: Corollary 4 gives $w_t(u)=e^{-\mu u}$ exactly, so the ratio is the recency function's own Laplace transform normalised by $\Omega_{T^*}$. At empirically sourced rates its magnitude is modest. With $\mu_E=0.040\,\mathrm{y}^{-1}$ — all-cause mortality among adults who inject drugs, from the ALIVE cohort — the weight is $w_t(u)=e^{-\mu u}$ and
 
@@ -520,7 +528,7 @@ an attenuation of 2.1% (Table 2). At $\mu_E=0.10\,\mathrm{y}^{-1}$ the ratio is 
 
 Absorbing loss also displaces the composed zero-bias boundary of §2.7. Without dynamics that boundary is $r^\star=e^{-\theta c}=0.8098$; mortality raises it monotonically, to 0.8967 at $\mu_E=0.040$. The boundary reaches unity — the point at which the two selection mechanisms no longer cancel at equal attendance — at $\mu_{\mathrm{crit}}=0.0852\,\mathrm{y}^{-1}$, approximately 2.1 times the sourced rate. Susceptible mortality does not offset the effect: losses from the susceptible pool are replaced by entry, not by return.
 
-### 4.5 Magnitude of the second failure: state-dependent acquisition
+### 4.5 State-dependent acquisition
 
 State-dependent acquisition is the mechanism by which temporarily unobservable states re-enter as a bias source despite Corollary 2, and it is the parameter to which the composed boundary is most sensitive. Because $\eta$ is not identifiable from available data (§3.9), it is swept over its plausible range rather than fixed. Holding occupancy and sojourn at the values above and varying a common relative hazard $\eta$ in the unobservable states, the boundary falls monotonically from $r^\star=1.047$ at $\eta=0$ through 1.008 at $\eta=0.25$ to 0.894 at $\eta=1$ (Table S3a). Figure S1 separates the jail and prison hazards, showing the $r^\star=1$ contour over the $(\eta_J,\eta_P)$ surface; the two cannot be collapsed because their sojourns differ by a factor of thirty. The break-even value — the $\eta$ at which $r^\star$ crosses unity — lies between 0.25 and 0.50.
 
@@ -528,7 +536,7 @@ The direction of bias is set by $\eta$ and not by occupancy. Under the census li
 
 $\eta$ is the load-bearing unmeasured parameter of this analysis. It cannot be identified from state-level surveillance, which would require studies comparing acquisition during custody with acquisition during community person-time in the same population. The only directly relevant estimate we located is Gough et al. (2010), reporting HIV incidence of 0.08 per 100 person-years during continuous incarceration against 1.14–2.78 per 100 person-years in comparable community populations, implying $0<\eta\ll1$ for continuous custody. That estimate is old, is specific to continuous incarceration rather than to short jail stays, and no contemporary estimate specific to people who inject drugs exists. We therefore present $\eta$ as a sensitivity axis with any literature range overlaid rather than fitted, and make no claim about its value in any real population.
 
-### 4.6 What the conclusions depend on
+### 4.6 Sensitivity to recency and testing-process assumptions
 
 Substituting $w_t$ into the framework of Pan et al. moves the zero-bias boundary from $r^\star=e^{-\theta c}$ to
 
@@ -546,7 +554,7 @@ That exactness does not extend to other testing processes, and the distinction m
 
 ## 5. Discussion
 
-### 5.1 Principal finding
+### 5.1 Principal results
 
 Temporary loss of eligibility does not, by itself, bias cross-sectional HIV incidence estimation. Under stable living-state composition, a demographically stationary observable susceptible pool, state-invariant acquisition, infection-independent movement and no absorbing loss, the infections withheld from the recent count — acquired while observable, unobservable at survey — are offset exactly by the infections returned to it, acquired while unobservable and observable again by survey. The offset is an identity, not an approximation, and it holds independently of the recency function, of the occupancy of unobservable states, and of arbitrary heterogeneity in movement propensity.
 
@@ -554,7 +562,7 @@ This reverses the natural intuition, which is that people disappearing from an o
 
 The practical consequence is a change in the question to ask of a study population. "How much of the population is temporarily unobservable?" is close to uninformative; the cancellation holds at 15% occupancy as exactly as at 1%. The informative questions are whether acquisition differs between observable and unobservable states, whether the pool is demographically stationary, and how much irreversible loss occurs over the recency window.
 
-### 5.2 Relation to existing frameworks
+### 5.2 Relation to existing estimation frameworks
 
 The result refines rather than displaces the framework of Gao and Bannick, and the extension is in the formal treatment of eligibility rather than in assay calibration: the principal result holds for any admissible recency function, so no particular mean duration of recent infection is load-bearing. Their eligibility indicator is retained and given internal structure: $A(t)=\mathbb{1}\{Z(t)=E\}$ for a process on a finite state space. Their Assumption C — that restricted incidence and prevalence equal their unrestricted values over the window — is the point of contact. They state that it holds approximately when only a small proportion of subjects move in and out of the eligible population over a span of $c$, and hold it fixed throughout. Our results say something more specific: the small-proportion condition is sufficient but far from necessary, because at $\eta_k\equiv1$ and stationarity the proportion may be large and the estimator remains exact.
 
@@ -566,13 +574,13 @@ Prior-test-informed estimation likewise addresses an adjacent problem. It repair
 
 A methodological point falls out of holding these apart. It is tempting to merge custody, mortality, attendance, known-HIV avoidance and recent-testing exclusion into a single structural hazard. Resisting that, and keeping the staged notation — population availability, then attendance, then testing-based eligibility — caught two double-counting errors during this work: adding a prevalence to a rate, and age-standardising an exposure before applying an enrichment ratio that already contained the age effect. We state stage separation as an explicit modelling rule rather than a stylistic preference.
 
-### 5.3 The mechanism is already recognised in trial documentation
+### 5.3 Prior-testing selection in trial protocols
 
 One consequence of the composition in §2.7 is not novel to this paper, and it is worth saying so. The PURPOSE 2 statistical analysis plan states that although its eligibility criteria require no HIV testing in the three months before screening, testing in the preceding three to twelve months may still affect the counterfactual incidence estimate: people tested shortly before screening skew the screened set toward known HIV-negative status, because those recently diagnosed are excluded from screening, and the plan concludes that both a two-year and a one-year recency cutoff would *underestimate* the background rate.
 
 That is the prior-testing selection formalised by Pan and colleagues, identified in the protocol of a live trial and signed as to direction. What the protocol does not do is quantify it jointly with the population process that precedes it, which is what §2.7 supplies. The contribution here is therefore not the observation that the exclusion criterion matters — the trialists say so themselves — but a composed expression in which the eligibility process and the screening-stage selection can be evaluated together, and a statement of when the former contributes nothing.
 
-### 5.4 Implications for design and reporting
+### 5.4 Implications for study design and reporting
 
 Three consequences follow, and they differ from what would follow from treating all eligibility loss as biasing.
 
@@ -582,7 +590,7 @@ Three consequences follow, and they differ from what would follow from treating 
 
 **State-dependent acquisition is the parameter to elicit.** Occupancy and sojourn determine the magnitude of its effect once $\eta_k\ne1$, but they do not determine its direction or its existence. Because sojourn enters separately from occupancy, states with comparable occupancy but different sojourn distributions — a 32-day jail episode and a 2.7-year prison term — must be parameterised separately rather than pooled. Where $\eta_k$ cannot be estimated, the appropriate reporting form is a sensitivity surface with any literature-informed range overlaid rather than fitted.
 
-### 5.5 Magnitude
+### 5.5 Magnitude of bias under sourced parameters
 
 At empirically sourced rates the surviving effect is small. Absorbing loss at PWID all-cause mortality of 0.040 y$^{-1}$ attenuates the estimator by 2.1%, and moving the composed zero-bias boundary above unity requires roughly twice that rate. Against the sampling variability of any realistic cross-sectional survey, a 2% attenuation is not the dominant source of error.
 
@@ -590,7 +598,7 @@ We state this plainly because it is the honest reading and because the alternati
 
 The result that survives is structural rather than numerical. It states when a correction is needed and when it is not, and identifies which parameter governs the answer. A method that tells you a correction is unnecessary is worth having even when the correction it dispenses with would have been small, because the same reasoning identifies the conditions under which it would not be.
 
-### 5.6 The parameter that cannot be measured
+### 5.6 Identifiability of the relative acquisition hazard
 
 The relative acquisition hazard in temporarily unobservable states is the load-bearing unknown, and it is not identifiable from the data ordinarily available. State-level HIV surveillance cannot supply it: identification requires acquisition compared during custody and during community person-time within the same population, which is a narrow and separate literature.
 
@@ -610,7 +618,7 @@ The site-level analysis of §S2 is therefore presented as a break-even calculati
 
 **Scope.** The empirical illustration is US catchments of people who inject drugs with custody as the dominant unobservability mechanism, chosen because that is where occupancy and sojourn are published. Displacement, prolonged hospitalisation and institutional care fit the same state space but are not parameterised here, and nothing in this work establishes that custody dominates in any specific setting.
 
-### 5.8 Relation to a superseded analysis
+### 5.8 Relation to previous analysis
 
 This work derives from an analysis submitted elsewhere and declined after review, whose central empirical conclusion it withdraws. Two errors were found in post-review reanalysis. A jail-length return rate had been applied to combined jail-and-prison occupancy, conflating sojourn scales that differ by a factor of thirty. More consequentially, the expected recent-infection count had been derived under an implicit assumption that no acquisition occurs while an individual is temporarily unobservable — the special case $\eta_k=0$, which is empirically untenable. Generalising the numerator to admit acquisition in every living state is what produces the cancellation result, and what removes the empirical claim.
 
@@ -627,7 +635,7 @@ Eligibility loss should not be treated as inherently biasing in cross-sectional 
 ## Supplement
 
 
-### S1. Site-level geography
+### S1. Site-level carceral exposure parameters
 
 For the site-level sensitivity of §S2 we use the nine United States counties hosting PURPOSE 4 (NCT06101342), chosen because it is the cleanest available anchor for carceral geography in an HIV prevention trial. The registry record describes a phase 2, open-label, multicentre, randomised study of the pharmacokinetics and safety of twice-yearly subcutaneous lenacapavir for pre-exposure prophylaxis in people who inject drugs in the United States, with eligibility from 18 years and no upper bound, nine locations, and **181 participants enrolled**; it began in December 2023 and reached actual primary completion in July 2026.
 
@@ -641,7 +649,7 @@ Incarceration rates are published against total or 15–64 populations while tri
 
 ---
 
-### S2. Break-even acquisition hazard by site
+### S2. Site-specific break-even relative acquisition hazards
 
 To indicate the range of $\eta$ at which the composed boundary would cross unity in real catchments, we evaluated nine United States counties with published jail and prison occupancy, using county-specific age denominators (Table S3b). Break-even $\eta$ ranged from 0.04 (San Diego) to 0.55 (Baltimore City); in two counties, Bronx and Miami-Dade, the boundary never crosses unity for any $\eta\in[0,1]$.
 
@@ -649,7 +657,7 @@ The trial enrolled 181 participants across those nine sites, so roughly twenty e
 
 ---
 
-### S3. Comparison with covariate reweighting
+### S3. Comparison with covariate-reweighting methods
 
 Covariate transport by reweighting — matching the survey population to the trial-eligible population on measured covariates — addresses a different failure and does not remove this one. In a population where the observable and target covariate distributions coincide, which is the counterfactual-placebo case of interest, reweighting removes 0% of the bias: the naive and reweighted estimates are identical at 0.0387 against a truth of 0.0400, both attenuated by 3.3% (Table S2). Where the distributions differ, reweighting performs as designed, removing 91.3% and 96.8% of a much larger composition-driven bias in the two enriched cases.
 
