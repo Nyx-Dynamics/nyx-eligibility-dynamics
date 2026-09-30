@@ -92,13 +92,12 @@ draft: check-env
 tex: check-env
 	@cd $(ANALYSIS) && $(PY) build_floats.py
 	@cd $(ANALYSIS) && $(PY) build_tex.py
-	@cd manuscript && pdflatex -interaction=nonstopmode PaperA.tex >/dev/null \
-	  && pdflatex -interaction=nonstopmode PaperA.tex >/dev/null || true
+	@cd manuscript && for d in PaperA Supplement; do \
+	  pdflatex -interaction=nonstopmode $$d.tex >/dev/null 2>&1; \
+	  pdflatex -interaction=nonstopmode $$d.tex >/dev/null 2>&1; \
+	done; true
 	@cd manuscript && $(PY) -c "from pathlib import Path; \
-	  L=Path('PaperA.log').read_text(encoding='utf8',errors='replace').split(chr(10)); \
-	  e=[l for l in L if l.startswith('!')]; \
-	  o=[l for l in L if 'Output written' in l]; \
-	  print('  errors:', len(e)); print(' ', o[0] if o else 'NO PDF')"
+	  [print(f'  {d:<11} errors', len([l for l in Path(d+'.log').read_text(encoding='utf8',errors='replace').split(chr(10)) if l.startswith('!')]), '  ', ([l.strip() for l in Path(d+'.log').read_text(encoding='utf8',errors='replace').split(chr(10)) if 'Output written' in l] or ['NO PDF'])[0]) for d in ('PaperA','Supplement')]"
 
 # Copies only. Depends on nothing so the ordering stays explicit: run figures,
 # manuscript and tex first, or the package will be built from stale artifacts.

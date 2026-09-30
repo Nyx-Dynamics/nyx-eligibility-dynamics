@@ -316,14 +316,17 @@ def main():
 \\input{{tex/backmatter}}
 
 \\clearpage
-\\input{{tex/supplement}}
-
-\\clearpage
 \\input{{tex/references}}
 
 \\end{{document}}
 """
     (M / "PaperA.tex").write_text(main_tex)
+    # The supplement is its own document. An earlier revision added the back
+    # matter without removing this input, so the supplement was typeset into
+    # both and nothing complained. Checked after the write, on what was written.
+    if "tex/supplement" in main_tex:
+        raise SystemExit("PaperA.tex inputs tex/supplement: the supplement "
+                         "would appear in both documents")
     print("\n  wrote manuscript/PaperA.tex")
     print("  compile with:  cd manuscript && pdflatex PaperA.tex")
     return 0
