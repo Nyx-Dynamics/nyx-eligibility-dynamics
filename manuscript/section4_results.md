@@ -74,7 +74,7 @@ That exactness does not extend to other testing processes, and the distinction m
 
 To indicate the range of $\eta$ at which the composed boundary would cross unity in real catchments, we evaluated nine United States counties with published jail and prison occupancy, using county-specific age denominators (Table S3b). Break-even $\eta$ ranged from 0.04 (San Diego) to 0.55 (Baltimore City); in two counties, Bronx and Miami-Dade, the boundary never crosses unity for any $\eta\in[0,1]$.
 
-**This is a sensitivity range, not an epidemiologic claim about any site.** It states the value $\eta$ would have to take for the two selection mechanisms to stop cancelling, given that county's carceral occupancy. It does not assert that $\eta$ takes that value anywhere, and no trial estimate is corrected on its basis. Its purpose is to show that the break-even value lies inside the plausible interval implied by the only available incidence comparison, so the question is empirical rather than hypothetical.
+The trial enrolled 181 participants across those nine sites, so roughly twenty each; no site-level empirical claim would be supportable from it even in principle. **This is a sensitivity range, not an epidemiologic claim about any site.** It states the value $\eta$ would have to take for the two selection mechanisms to stop cancelling, given that county's carceral occupancy. It does not assert that $\eta$ takes that value anywhere, and no trial estimate is corrected on its basis. Its purpose is to show that the break-even value lies inside the plausible interval implied by the only available incidence comparison, so the question is empirical rather than hypothetical.
 
 ### 4.8 Comparison with covariate reweighting
 

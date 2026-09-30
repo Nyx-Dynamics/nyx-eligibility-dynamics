@@ -94,7 +94,7 @@ discrepancies surfaced and are recorded at the end.
 27. **Parkin N, Gao F, Grebe E, et al.** Facilitating next-generation pre-exposure prophylaxis clinical trials using HIV recent infection assays: a consensus statement from the Forum HIV Prevention Trial Design Project. *Clinical Pharmacology and Therapeutics* 2023;114(1):29–40. doi:[10.1002/cpt.2830](https://doi.org/10.1002/cpt.2830)
     *The RAWG recommendations from which the T = 2 y default derives.*
 
-28. **ClinicalTrials.gov.** PURPOSE 4: NCT06101342. *§3.10 and §4.7: the nine US site counties and the ≥18 age frame. A phase 2 pharmacokinetics and safety trial; no efficacy estimate is corrected or commented on.*
+28. **ClinicalTrials.gov.** PURPOSE 4: NCT06101342. Study of lenacapavir and emtricitabine/tenofovir disoproxil fumarate for pre-exposure prophylaxis in people who inject drugs. *§3.10 and §4.7. Phase 2, open-label, multicentre, randomised; pharmacokinetics and safety; eligibility 18 years and older with no upper bound; nine US locations; 181 participants enrolled; start December 2023, actual primary completion July 2026. Registry record consulted 29 September 2026. No efficacy estimate is corrected or commented on; the trial reports none.*
 
 29. **Demidont AC.** Software repository for *Calibration-to-deployment mismatch in HIV prevention trials*. Zenodo 2026. doi:[10.5281/zenodo.20344293](https://doi.org/10.5281/zenodo.20344293)
     *The superseded predecessor analysis. Cited for provenance; its central empirical conclusions are not carried forward. Disclosed under prior publication.*
