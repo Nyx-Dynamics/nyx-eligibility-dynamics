@@ -37,7 +37,11 @@ The two families differ systematically, and the criterion rather than the panel 
 
 §4 evaluates the cancellation across six recency bases spanning $\Omega_{T^*}$ from 94 d to 251 d, a range encompassing the principal LAg calibration regimes considered here. The claim is not that the families independently estimate a common truth; it is that the result survives both, and substantially more.
 
-**$\beta_{T^*}=0$ is a simplification, not a claim about the assay.** Duong's proportion false-recent of 1.6% at the working cutoff is the empirical scale of the parameter Theorem 1 sets to zero; a non-zero false-recency rate enters the adjusted estimator by the route Gao & Bannick already specify.
+**The trial this work is motivated by sits in the CEPHIA family, and our re-estimate reproduces its parameter.** The PURPOSE 2 statistical analysis plan adopts MDRI 184 d (relative standard error 7%) and false-recency rate 1.5% (rSE 70%) for the Sedia LAg-EIA at $T=2$ y, citing Kassanjee et al. (2016) and classifying an infection as recent when ODn $\le1.5$ **and** HIV-1 RNA exceeds 75 copies/mL. That is the same assay, the same cutoff pair and the same source as our own re-estimate, which gives 182.4 d — a difference of 1.6 d. We report this as a reproduction check on the CEPHIA lineage, not as independent support: it establishes that the parameter a live trial is using is recoverable from the public data, which is a different and more useful claim.
+
+The same protocol records that the Sedia LAg-EIA package insert carries MDRI 130 d (95% CI 118–142) — numerically Duong's value — for a $T=1$ y cutoff with a viral-load threshold of 1000 copies/mL. The two-family structure described above is therefore visible inside the trial's own documentation, and the gap between an insert value and an adopted value is a difference of algorithm and cutoff rather than of evidence quality.
+
+**$\beta_{T^*}=0$ is a simplification, not a claim about the assay.** Duong's proportion false-recent of 1.6% at the working cutoff, and PURPOSE 2's adopted 1.5%, are the empirical scale of the parameter Theorem 1 sets to zero; a non-zero false-recency rate enters the adjusted estimator by the route Gao & Bannick already specify.
 
 **A methodological observation on the calibration base.** Gao and Bannick's simulation studies repurpose the longitudinal sampling structure of the Duong dataset while defining synthetic recency tests of their own, whereas later applied analyses in this line use CEPHIA-derived parameters. The empirical calibration base underlying the methodological literature is therefore narrower than the number of papers suggests. That is an argument for reporting across recency-function families rather than for treating agreement with any single calibration as external validation.
 
@@ -109,7 +113,7 @@ Incarceration rates are published against total or 15–64 populations while tri
 |---|---|---|---|
 | $\Omega_{T^*}$ | mean duration of recent infection | sourced | 151 d (gamma 163/260); CEPHIA re-estimate 182.4 d (161–213) |
 | $\theta$ | background HIV testing rate | sourced | 0.844 y$^{-1}$ (Poisson) |
-| $c$ | testing-based exclusion cutoff | design | 0.25 y |
+| $c$ | testing-based exclusion cutoff | **sourced** | 0.25 y = 3 months, per protocol |
 | $\mu_E$ | absorbing loss from $E$ | sourced (mortality only) | 0.040 y$^{-1}$; range 0.037–0.045; evaluated to 0.10 |
 | migration | permanent exit | **not sourced** | omitted; $\mu_E$ is therefore a lower bound |
 | $q$ | unobservable occupancy | derived, three routes | 6–8%; $q_J=0.03$, $q_P=0.05$ |
@@ -135,6 +139,6 @@ Incarceration rates are published against total or 15–64 populations while tri
 
 **Do not import the audit record's scenario conclusions.** Appendices A.3, G.1 and I.3 report zero-bias boundaries and "crosses" verdicts computed under the restricted model with $\eta_k=0$, before the cancellation theorem. Those are now the $\eta=0$ corner of the sensitivity surface, not conclusions. §4 reports the surface; §3 must not smuggle the corner back in as a headline.
 
-**Unresolved.** $c$ is coded as 0.25 y (91.3 d) while PURPOSE specifies 90 d; the table above states the coded value. Out-migration is unsourced and should either be retrieved from ACS or explicitly scoped out in the limitations.
+**Resolved.** $c$ was flagged as possibly discrepant on the belief that PURPOSE specifies 90 days. The protocol specifies **three months** — "HIV-1 status unknown at screening and no prior HIV-1 testing within the last 3 months" — so $c=0.25$ y is exact rather than an approximation, and the "90 d" gloss was the error. Out-migration remains unsourced and should either be retrieved from ACS or explicitly scoped out in the limitations.
 
 **Possible relocation.** §3.2's CEPHIA re-estimate is arguably a result rather than an input. It is placed here because §4 treats $\varphi$ as given; move it if the empirical fit is to carry weight of its own.

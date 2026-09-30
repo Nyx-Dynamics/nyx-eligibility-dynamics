@@ -24,7 +24,13 @@ Prior-test-informed estimation likewise addresses an adjacent problem. It repair
 
 A methodological point falls out of holding these apart. It is tempting to merge custody, mortality, attendance, known-HIV avoidance and recent-testing exclusion into a single structural hazard. Resisting that, and keeping the staged notation — population availability, then attendance, then testing-based eligibility — caught two double-counting errors during this work: adding a prevalence to a rate, and age-standardising an exposure before applying an enrichment ratio that already contained the age effect. We state stage separation as an explicit modelling rule rather than a stylistic preference.
 
-### 5.3 Implications for design and reporting
+### 5.3 The mechanism is already recognised in trial documentation
+
+One consequence of the composition in §2.7 is not novel to this paper, and it is worth saying so. The PURPOSE 2 statistical analysis plan states that although its eligibility criteria require no HIV testing in the three months before screening, testing in the preceding three to twelve months may still affect the counterfactual incidence estimate: people tested shortly before screening skew the screened set toward known HIV-negative status, because those recently diagnosed are excluded from screening, and the plan concludes that both a two-year and a one-year recency cutoff would *underestimate* the background rate.
+
+That is the prior-testing selection formalised by Pan and colleagues, identified in the protocol of a live trial and signed as to direction. What the protocol does not do is quantify it jointly with the population process that precedes it, which is what §2.7 supplies. The contribution here is therefore not the observation that the exclusion criterion matters — the trialists say so themselves — but a composed expression in which the eligibility process and the screening-stage selection can be evaluated together, and a statement of when the former contributes nothing.
+
+### 5.4 Implications for design and reporting
 
 Three consequences follow, and they differ from what would follow from treating all eligibility loss as biasing.
 
@@ -34,7 +40,7 @@ Three consequences follow, and they differ from what would follow from treating 
 
 **State-dependent acquisition is the parameter to elicit.** Occupancy and sojourn determine the magnitude of its effect once $\eta_k\ne1$, but they do not determine its direction or its existence. Because sojourn enters separately from occupancy, states with comparable occupancy but different sojourn distributions — a 32-day jail episode and a 2.7-year prison term — must be parameterised separately rather than pooled. Where $\eta_k$ cannot be estimated, the appropriate reporting form is a sensitivity surface with any literature-informed range overlaid rather than fitted.
 
-### 5.4 Magnitude
+### 5.5 Magnitude
 
 At empirically sourced rates the surviving effect is small. Absorbing loss at PWID all-cause mortality of 0.040 y$^{-1}$ attenuates the estimator by 2.1%, and moving the composed zero-bias boundary above unity requires roughly twice that rate. Against the sampling variability of any realistic cross-sectional survey, a 2% attenuation is not the dominant source of error.
 
@@ -42,7 +48,7 @@ We state this plainly because it is the honest reading and because the alternati
 
 The result that survives is structural rather than numerical. It states when a correction is needed and when it is not, and identifies which parameter governs the answer. A method that tells you a correction is unnecessary is worth having even when the correction it dispenses with would have been small, because the same reasoning identifies the conditions under which it would not be.
 
-### 5.5 The parameter that cannot be measured
+### 5.6 The parameter that cannot be measured
 
 The relative acquisition hazard in temporarily unobservable states is the load-bearing unknown, and it is not identifiable from the data ordinarily available. State-level HIV surveillance cannot supply it: identification requires acquisition compared during custody and during community person-time within the same population, which is a narrow and separate literature.
 
@@ -50,7 +56,7 @@ The best available evidence — a meta-analysis of 36 predominantly prospective 
 
 The site-level analysis of §4.7 is therefore presented as a break-even calculation rather than a correction: it reports the value $\eta$ would have to take for the two selection mechanisms to stop cancelling in a given catchment, given that catchment's carceral occupancy. Across nine counties that value ranges from 0.04 to 0.55, and in two it is never reached. What makes this worth reporting is not the individual numbers but that the range overlaps the interval the available incidence comparison suggests — so the question is empirical rather than hypothetical, and a study designed to answer it would resolve the matter.
 
-### 5.6 Limitations
+### 5.7 Limitations
 
 **Assumptions we do not make** are worth naming because their absence is easy to miss. The cancellation requires stationarity, not reversibility or detailed balance, and describing it as requiring reversible movement understates it. It does not require exponential sojourns: arbitrary mixtures of stationary strata inherit it, and the marginal movement process of such a mixture need not be Markov. It does not require $\eta_k\le1$; acquisition may be higher in an unobservable state, which inflates rather than attenuates. And it requires no differential hazard between infected and uninfected individuals — in a demographically stationary catchment none is needed, which inverts an argument made in the superseded analysis.
 
@@ -62,13 +68,13 @@ The site-level analysis of §4.7 is therefore presented as a break-even calculat
 
 **Scope.** The empirical illustration is US catchments of people who inject drugs with custody as the dominant unobservability mechanism, chosen because that is where occupancy and sojourn are published. Displacement, prolonged hospitalisation and institutional care fit the same state space but are not parameterised here, and nothing in this work establishes that custody dominates in any specific setting.
 
-### 5.7 Relation to a superseded analysis
+### 5.8 Relation to a superseded analysis
 
 This work derives from an analysis submitted elsewhere and declined after review, whose central empirical conclusion it withdraws. Two errors were found in post-review reanalysis. A jail-length return rate had been applied to combined jail-and-prison occupancy, conflating sojourn scales that differ by a factor of thirty. More consequentially, the expected recent-infection count had been derived under an implicit assumption that no acquisition occurs while an individual is temporarily unobservable — the special case $\eta_k=0$, which is empirically untenable. Generalising the numerator to admit acquisition in every living state is what produces the cancellation result, and what removes the empirical claim.
 
 We describe this because the superseded analysis is publicly archived and because the reasoning is instructive: the error was not in any calculation but in an assumption that was never stated, and it was invisible until the numerator was written in a form general enough for the assumption to appear as a parameter value. That is an argument for stating the acquisition hazard explicitly in this class of model, which is what $\eta_k$ does.
 
-### 5.8 Conclusion
+### 5.9 Conclusion
 
 Eligibility loss should not be treated as inherently biasing in cross-sectional HIV incidence estimation. Temporary, bidirectional movement cancels exactly under identifiable symmetry conditions, and correction is warranted only where a named condition fails. Absorbing and temporary loss are therefore not interchangeable, and state-specific acquisition — not the occupancy of unobservable states — is the parameter that determines whether and in which direction an estimate is biased. Occupancy alone cannot establish that an estimate is wrong.
 
@@ -78,7 +84,7 @@ Eligibility loss should not be treated as inherently biasing in cross-sectional 
 
 **Deliberately absent**, per the constraints set during the reanalysis: no claim that any named trial's estimate is biased or by how much; no point estimate of $\eta$; no replacement empirical assertion of comparable ambition to the withdrawn one; no claim of boundary exactness beyond the Poisson inter-test case.
 
-**§5.7 placement.** Some journals prefer a prior-work disclosure in Methods or a cover letter rather than in Discussion. The material is written to move intact if so. It should not be cut: the predecessor is publicly archived and cited in the reference list, and a reader who finds it independently should find it already addressed.
+**§5.8 placement.** Some journals prefer a prior-work disclosure in Methods or a cover letter rather than in Discussion. The material is written to move intact if so. It should not be cut: the predecessor is publicly archived and cited in the reference list, and a reader who finds it independently should find it already addressed.
 
 **Reviewer 1 of the predecessor** objected that eligibility dynamics act on numerator and denominator alike and would largely cancel. That objection was correct, and §5.1 concedes it by proving it. Consider whether to say so explicitly — it is a strong move in a cover letter and a weak one in a Discussion.
 

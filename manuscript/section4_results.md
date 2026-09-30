@@ -8,7 +8,7 @@
 
 ## 4. Results
 
-All quantities are evaluated on the recency basis of Pan et al. unless stated otherwise: a gamma $\varphi$ with window parameter 163 d and shadow 260 d, giving $\Omega_{T^*}=151$ d over $T^*=2$ y. The background HIV testing rate is $\theta=0.844\,\mathrm{y}^{-1}$, from the NHBS estimate that 57% of people who inject drugs report testing within 12 months under a Poisson inter-test process. The testing-based exclusion cutoff is $c=0.25$ y. Carceral occupancies and sojourns, where used, are $q_J=0.03$ with mean stay 32 d and $q_P=0.05$ with mean time served 2.7 y.
+All quantities are evaluated on the recency basis of Pan et al. unless stated otherwise: a gamma $\varphi$ with window parameter 163 d and shadow 260 d, giving $\Omega_{T^*}=151$ d over $T^*=2$ y. The background HIV testing rate is $\theta=0.844\,\mathrm{y}^{-1}$, from the NHBS estimate that 57% of people who inject drugs report testing within 12 months under a Poisson inter-test process. The testing-based exclusion cutoff is $c=0.25$ y, which is the three-month criterion specified in the PURPOSE 2 protocol rather than a rounded ninety days. Carceral occupancies and sojourns, where used, are $q_J=0.03$ with mean stay 32 d and $q_P=0.05$ with mean time served 2.7 y.
 
 ### 4.1 Recovery of the reference framework
 
@@ -90,7 +90,7 @@ The reason is structural. Reweighting corrects the *composition* of the sampled 
 
 **Table and figure numbers are provisional.** Current mapping: Table 1 = Pan recovery; Table 2 = mortality threshold; Table 3 = frailty mixtures; Table S2 = Wang comparison; Table S3a = common-$\eta$ boundary; Table S3b = site sensitivity; Table S4 = inter-test process. Figure 1 = $w_t(u)$ by mechanism; Figure 2 = analytic vs Monte Carlo; Figure 3 = $(\eta_J,\eta_P)$ surface.
 
-**Unresolved before submission.** The exclusion cutoff is coded as $c=0.25$ y (91.3 d) while PURPOSE specifies a 90-day window. The two differ by 0.3% in $r^\star$ (0.8098 against 0.8122). §4 currently states the coded value. Decide which is intended and make the constant, the text and every plotted boundary agree.
+**Resolved.** The exclusion cutoff was flagged as possibly discrepant against a supposed 90-day PURPOSE window. The protocol specifies **three months**, so $c=0.25$ y is exact and $r^\star=e^{-\theta c}=0.8098$ stands. No constant, figure or boundary changes.
 
 **Deliberately absent.** No claim that any published trial estimate is biased or by how much. No value asserted for $\eta$. No claim that cancellation requires reversibility — stationarity suffices. No claim of boundary exactness beyond the Poisson inter-test case.
 

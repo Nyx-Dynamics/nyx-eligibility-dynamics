@@ -40,7 +40,7 @@ We refine the eligibility indicator rather than replace it, writing $A(t)=\mathb
 
 ### What this paper does not do
 
-It does not assert that any published trial estimate is biased, or by how much. The relative acquisition hazard in unobservable states is the parameter that determines whether and in which direction bias arises, and it is not identifiable from the surveillance data ordinarily available; we therefore report the value it would have to take for cancellation to fail, rather than a correction. At empirically sourced rates the surviving effect is a few per cent, which we state plainly in §5.4 because an earlier version of this analysis claimed considerably more.
+It does not assert that any published trial estimate is biased, or by how much. The relative acquisition hazard in unobservable states is the parameter that determines whether and in which direction bias arises, and it is not identifiable from the surveillance data ordinarily available; we therefore report the value it would have to take for cancellation to fail, rather than a correction. At empirically sourced rates the surviving effect is a few per cent, which we state plainly in §5.5 because an earlier version of this analysis claimed considerably more.
 
 The contribution is structural. It replaces a question that cannot be answered usefully — how much of the population is temporarily unobservable — with questions that can: whether acquisition differs across states, whether the catchment is demographically stationary, and how much loss is irreversible over the recency window.
 
@@ -58,6 +58,6 @@ The contribution is structural. It replaces a question that cannot be answered u
 
 **Trial citations to add.** PURPOSE 1 (NCT04994509) and PURPOSE 2 (NCT04925752) with their primary reports, if the motivating paragraph is to name them as the predecessor did. PURPOSE 4 (NCT06101342) is already cited in §3.10 and §4.7; note that it is phase 2 and is used only as a carceral-geography anchor.
 
-**Prior-work disclosure.** §5.7 carries it. A single forward-reference in §1 is an option — "an earlier version of this analysis" in the penultimate paragraph is currently the only signal — but most journals prefer it later or in a cover letter.
+**Prior-work disclosure.** §5.8 carries it. A single forward-reference in §1 is an option — "an earlier version of this analysis" in the penultimate paragraph is currently the only signal — but most journals prefer it later or in a cover letter.
 
 **Length** ~1,050 words. If compressed, the paragraph on the two notational traps and the "what this paper does not do" section should survive; the contributions list can become prose.
