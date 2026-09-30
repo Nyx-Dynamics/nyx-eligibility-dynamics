@@ -60,7 +60,9 @@ def figure3(phi, qJ=0.03, qP=0.05):
                  "heavy contour: $r^\\star=1$")
     fig.tight_layout()
     p = FIGURES / "fig3_eta_surface.png"
-    fig.savefig(p, dpi=200); print(f"  wrote {p.name}")
+    fig.savefig(p, dpi=200)
+    fig.savefig(p.with_suffix(".pdf"))
+    print(f"  wrote {p.name} and {p.with_suffix('.pdf').name}")
 
 
 def main():

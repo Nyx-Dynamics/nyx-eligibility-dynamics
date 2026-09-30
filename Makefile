@@ -7,6 +7,8 @@
 #   make figure-redraw rebuild the two-panel validation/poster figure (seconds)
 #   make submission-fig the CROI submitted graphic, panel A only, 4x4in PNG
 #   make docx          compile the CROI submission packet to a single .docx
+#   make manuscript    assemble Paper A figures/tables under final numbers
+#   make check-refs    verify every figure and table is present and cited
 #   make all           verify + figures
 #   make clean         remove generated outputs
 
@@ -19,7 +21,8 @@ OFFLINE := reproduce_pan mortality_threshold validate_theorems frailty_mixture \
            wang_comparator eta_surface inter_test_process
 DATADEP := empirical_phi
 
-.PHONY: all verify verify-fast figures figures-full croi-figure figure-redraw submission-fig docx clean check-env \
+.PHONY: all verify verify-fast figures figures-full croi-figure figure-redraw submission-fig docx manuscript check-refs \
+        clean check-env \
         $(OFFLINE) $(DATADEP)
 
 all: verify figures
@@ -68,6 +71,16 @@ submission-fig: check-env
 docx: figure-redraw submission-fig
 	@$(PY) -c "import docx" || { echo "pip install python-docx"; exit 1; }
 	@$(PY) manuscript/croi2027/build_docx.py
+
+# Copies rather than regenerates: run `figures` first. The source scripts name
+# outputs after what they compute; this maps those to final manuscript numbers,
+# which live in one place so a renumbering is a single edit.
+manuscript: check-env
+	@cd $(ANALYSIS) && $(PY) assemble_manuscript.py
+
+# Non-zero exit if any numbered item is missing or uncited. Suitable for CI.
+check-refs: check-env
+	@cd $(ANALYSIS) && $(PY) assemble_manuscript.py --check
 
 eta-sites: check-env
 	@cd $(ANALYSIS) && $(PY) eta_surface.py --sites

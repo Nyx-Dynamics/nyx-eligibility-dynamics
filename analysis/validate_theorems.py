@@ -45,7 +45,9 @@ def figure1(phi):
     ax.legend(fontsize=8, frameon=False)
     fig.tight_layout()
     p = FIGURES / "fig1_weight_by_mechanism.png"
-    fig.savefig(p, dpi=200); print(f"  wrote {p.name}")
+    fig.savefig(p, dpi=200)
+    fig.savefig(p.with_suffix(".pdf"))
+    print(f"  wrote {p.name} and {p.with_suffix('.pdf').name}")
 
 
 def figure2(phi):
@@ -69,7 +71,9 @@ def figure2(phi):
     ax.legend(fontsize=8, frameon=False)
     fig.tight_layout()
     p = FIGURES / "fig2_cancellation.png"
-    fig.savefig(p, dpi=200); print(f"  wrote {p.name}")
+    fig.savefig(p, dpi=200)
+    fig.savefig(p.with_suffix(".pdf"))
+    print(f"  wrote {p.name} and {p.with_suffix('.pdf').name}")
 
 
 def main():
