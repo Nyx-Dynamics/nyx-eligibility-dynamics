@@ -28,17 +28,26 @@
 \DeclareUnicodeCharacter{00B9}{\ensuremath{^{1}}}
 \DeclareUnicodeCharacter{00B7}{\textperiodcentered}
 \DeclareUnicodeCharacter{00D7}{\ensuremath{\times}}
-\usepackage{booktabs,longtable,array}
+
+\usepackage{booktabs,longtable,array,calc}
 % pandoc's longtable column specs use \real{} from calc; without it every
-% table raises "Missing number", "Illegal unit of measure" and "Undefined
-% control sequence", and the tables typeset at zero width.
-\usepackage{calc}
+% table raises "Missing number" and typesets at zero width.
 \usepackage{caption}
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
 \usepackage{graphicx}
 \usepackage[hidelinks]{hyperref}
 \usepackage{csquotes}
 
-\newtheorem{theorem}{Theorem}[section]
+% The section files carry their own numbers in the heading text ("3.2 The
+% recency function"), so LaTeX's automatic numbering produced "0.4.2 3.2 ...".
+% Suppress it and let the prose numbering stand, which is what every
+% cross-reference in the text refers to.
+\setcounter{secnumdepth}{-2}
+
+\newtheorem{theorem}{Theorem}
 \newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{remark}[theorem]{Remark}
 
@@ -48,7 +57,7 @@
 \title{Temporary Loss of Eligibility and Bias in\\
 Cross-Sectional HIV Incidence Estimation}
 \author{A.~C. Demidont\\ \small Nyx Dynamics LLC \\ ORCID 0000-0002-9216-8569}
-\date{\today}
+\date{Version 2 \\ \small 30 September 2026}
 
 \begin{document}
 \maketitle

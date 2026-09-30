@@ -2,6 +2,8 @@
 
 *A. C. Demidont, Nyx Dynamics LLC. ORCID 0000-0002-9216-8569.*
 
+**Version 2** · 30 September 2026
+
 
 > Assembled draft. Regenerate with `python3 analysis/assemble_draft.py`; edit the section files, not this.
 

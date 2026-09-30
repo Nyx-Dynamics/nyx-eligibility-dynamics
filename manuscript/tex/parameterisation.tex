@@ -1,6 +1,6 @@
-\subsection{3. Empirical parameterisation}
+\section{3. Empirical parameterisation}
 
-\subsubsection{3.1 Scope, and what the parameterisation is for}
+\subsection{3.1 Scope, and what the parameterisation is for}
 
 §2 is a structural result: it states when transient eligibility loss cancels and which asymmetries break the cancellation. Deciding whether those asymmetries are large enough to matter in a real deployment requires values. This section supplies them, and states for each whether it is \textbf{sourced} from published data, \textbf{derived} from sourced quantities, \textbf{assumed}, or \textbf{unidentified}.
 
@@ -8,7 +8,7 @@ The purpose is a sensitivity analysis, not a fitted model. No parameter is estim
 
 The illustrative setting throughout is cross-sectional incidence estimation among people who inject drugs (PWID) in United States catchments, with temporary unobservability arising predominantly from custody. That choice is driven by data availability: carceral occupancy and sojourn are published at national, state and county level, whereas displacement and prolonged hospitalisation are not. It is not a claim that custody is the only or the dominant mechanism.
 
-\subsubsection{3.2 The recency function}
+\subsection{3.2 The recency function}
 
 Two recency bases are used. For reproducing published quantities we adopt the gamma form of Pan et al., with window parameter 163 d and shadow 260 d; integrated over \(T^*=2\) y this gives \(\Omega_{T^*}=151\) d.~The window parameter and \(\Omega_{T^*}\) are distinct quantities and are easily conflated, so both are reported wherever the basis is named.
 
@@ -48,19 +48,19 @@ The same protocol records that the Sedia LAg-EIA package insert carries MDRI 130
 
 The same data show that Gao \& Bannick's Assumption B.1 --- a constant false-recency rate beyond \(T^*\) --- does not hold, and that the direction of the violation depends on who is counted. Among treatment-naive, non-elite-controller visits the raw test-recent proportion declines from 4.6\% at 730--1095 d to 3.3\% at 1095--1825 d to zero beyond (\(n=1{,}603\)). Across all visits in the same frame it instead \textbf{rises} in the final bin --- 19.4\%, 16.9\%, 30.8\% (\(n=1{,}886\)) --- because antiretroviral treatment drives LAg ODn back down, so treated individuals re-enter the recent category at long infection duration. Neither tail is flat (Figure S2B). We record this rather than assume it away, and it is a further reason the viral-load criterion matters: it is what removes the treated from the recent category. §4 evaluates the cancellation across recency functions of materially different shape for the same reason.
 
-\subsubsection{3.3 Background testing rate}
+\subsection{3.3 Background testing rate}
 
 \(\theta\) enters only through the screening-stage composition of §2.7. NHBS 2018 across 23 metropolitan statistical areas reports that 57\% of PWID tested for HIV in the preceding 12 months. Under a Poisson inter-test process this implies \(\theta=-\ln(0.43)=0.844\ \mathrm{y}^{-1}\), a mean inter-test interval of 1.18 y.
 
 The Poisson assumption is not innocuous and is retained deliberately. Calibrating a uniform inter-test distribution to the same observation gives gaps \(\mathrm{Unif}[0,2.905]\), a mean interval of 1.45 y, and a systematically more favourable zero-bias boundary. Poisson is therefore the conservative choice as well as the one Pan's main analysis uses. §4.6 reports what changes under the uniform variant.
 
-\subsubsection{3.4 Absorbing loss}
+\subsection{3.4 Absorbing loss}
 
 \(\mu_E\) is all-cause mortality in the observable susceptible pool. The ALIVE cohort of PWID in Baltimore reports 37.2 deaths per 1,000 person-years for 2015 to February 2020 and 39.6 per 1,000 in 2020; age-standardised rates rose from 23 to 45 per 1,000 person-years between 1988 and 2018. We adopt \(\mu_E=0.040\ \mathrm{y}^{-1}\) as the central value with 0.037--0.045 as the sourced range, and evaluate to 0.10 to bracket a more severe fentanyl-era cohort than ALIVE observed.
 
 Permanent out-migration from the catchment enters \(X\) identically to death and is \textbf{not sourced}. Different-county mover rates from the American Community Survey are the obvious anchor and were not retrieved. Any non-zero migration adds to \(\mu_E\), so the values used are a lower bound on absorbing loss, and §4.4 should be read accordingly.
 
-\subsubsection{3.5 Occupancy of unobservable states}
+\subsection{3.5 Occupancy of unobservable states}
 
 \(q\) is the stationary share of person-time spent temporarily unobservable. It was derived by three routes that do not share inputs.
 
@@ -74,7 +74,7 @@ Routes B and C agree to 0.04 percentage points despite sharing no data source, a
 
 One construction was rejected. Jail incarceration peaks at ages 25--34 (480 per 100,000) and 35--44 (426), the bands PWID predominantly occupy, and age-standardising to a PWID structure gives a 1.40× uplift. Applying that uplift \emph{and} the injection enrichment double-counts, because part of the enrichment ratio exists precisely because PWID occupy high-incarceration age bands. The age correction is therefore applied to denominators only (§S1), never layered on the enrichment.
 
-\subsubsection{3.6 Return rates}
+\subsection{3.6 Return rates}
 
 \(\beta_k\) is the rate of return from unobservable state \(k\) to \(E\), the reciprocal of mean sojourn. BJS \emph{Jail Inmates in 2023} gives a mean 32 d in custody for July 2022--June 2023 (36 d male, 19 d female; 43 d in jails with average daily population \(\ge 2{,}500\)), so \(\beta_J=365.25/32=11.4\ \mathrm{y}^{-1}\). BJS \emph{Time Served in State Prison, 2018} gives mean time served from initial admission to initial release of 2.7 y, so \(\beta_P=0.37\ \mathrm{y}^{-1}\).
 
@@ -84,17 +84,17 @@ The two differ by a factor of 31 and cannot be collapsed. A 32-day sojourn is sh
 
 Entry rates are not specified independently. Given occupancy and sojourn, \(\alpha_k=\beta_kq_k/q_E\) follows, which is the identification used throughout: a long sojourn at fixed occupancy implies a \emph{small} entry rate.
 
-\subsubsection{3.7 In-custody mortality}
+\subsection{3.7 In-custody mortality}
 
 \(\mu'\) is mortality in unobservable states. BJS gives 167 per 100,000 in local jails, 330 in state prisons and 259 in federal prisons for 2019 --- 0.0017 to 0.0033 y\(^{-1}\), an order of magnitude below community PWID mortality. Custody is a mortality refuge during the stay.
 
 More useful is that \(\mu'\) does not matter. Sweeping it from 0.002 to 0.100 --- a fiftyfold change --- moves the composed zero-bias boundary by 0.007, because at 4--8\% of person-time the death rate in that state has almost no leverage. \(\mu'\) can be fixed anywhere reasonable without affecting any conclusion and needs no further sourcing. This is a negative result that reduces the sourcing burden rather than shifting the answer, and it confirms that death in custody is not a material removal channel: removal during custody is the transient mechanism, not mortality.
 
-\subsubsection{3.8 Demographic stability of the catchment}
+\subsection{3.8 Demographic stability of the catchment}
 
 Condition (2) of Corollary 2 requires a demographically stationary observable susceptible pool, \(g_E\equiv1\). Tempalski et al.~(2013) report median PWID prevalence across US MSAs falling from 104.4 to 91.5 per 10,000 aged 15--64 between 1992 and 2007, and describe the period 2002--2007 as relatively stable. We take \(\rho\approx0\) over a two-year recency window. A catchment with material growth or decline violates condition (2), and §4.1 shows that condition is not optional.
 
-\subsubsection{3.9 Relative acquisition hazard --- unidentified}
+\subsection{3.9 Relative acquisition hazard --- unidentified}
 
 \(\eta_k=\lambda_k/\lambda_E\) is \textbf{not sourced and cannot be identified} from available data, and it is the parameter to which the results are most sensitive. Identification would require acquisition compared during custody and during community person-time within the same population; state-level HIV surveillance cannot supply it.
 
@@ -102,7 +102,7 @@ The only directly relevant evidence is a meta-analysis of 36 predominantly prosp
 
 These establish that a non-zero custodial acquisition hazard substantially below community PWID incidence is empirically plausible. They do not identify a contemporary value. They are heterogeneous historical studies rather than matched PWID followed inside and outside custody; ``continuously incarcerated'' is not synonymous with PWID; and the literature speaks to prison rather than to short jail episodes. We therefore use them as an \textbf{overlay band, never as a fitted value}, and do not collapse \(\eta_J\) and \(\eta_P\) to a common \(\eta\) except where a common value is reported explicitly as such.
 
-\subsubsection{3.11 Summary, and what this parameterisation licenses}
+\subsection{3.11 Summary, and what this parameterisation licenses}
 
 {%
 \begin{longtable}[]{@{}

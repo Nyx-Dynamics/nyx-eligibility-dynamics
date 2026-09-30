@@ -22,6 +22,8 @@ OUT_MD = M / "PaperA_draft.md"
 TITLE = ("Temporary Loss of Eligibility and Bias in "
          "Cross-Sectional HIV Incidence Estimation")
 AUTHOR = "A. C. Demidont, Nyx Dynamics LLC. ORCID 0000-0002-9216-8569."
+VERSION = "Version 2"
+DATE = "30 September 2026"
 
 ORDER = [
     ("section0_abstract.md",        None),
@@ -86,7 +88,8 @@ def strip_preamble(text: str) -> str:
 
 def main():
     parts, notes = [], []
-    parts.append(f"# {TITLE}\n\n*{AUTHOR}*\n")
+    parts.append(f"# {TITLE}\n\n*{AUTHOR}*\n\n"
+                 f"**{VERSION}** · {DATE}\n")
     parts.append(f"> Assembled draft. Regenerate with `python3 "
                  f"analysis/assemble_draft.py`; edit the section files, not this.\n")
 

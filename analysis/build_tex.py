@@ -42,6 +42,8 @@ TITLE = ("Temporary Loss of Eligibility and Bias in\\\\\n"
          "Cross-Sectional HIV Incidence Estimation")
 AUTHOR = "A.~C. Demidont"
 AFFIL = "Nyx Dynamics LLC \\\\ ORCID 0000-0002-9216-8569"
+VERSION = "Version 2"
+DATE = "30 September 2026"
 
 NOTE_HEAD = re.compile(r"^#+\s*Drafting notes.*$", re.M)
 LIFT_ABSTRACT = [r"^##\s*Title\s*$", r"^##\s*Structured variant\s*$"]
@@ -97,7 +99,11 @@ HEADLABEL = re.compile(r"(\\(?:sub)*section\{[^}]*\})\\label\{[^}]*\}")
 def to_tex(md: str) -> str:
     r = subprocess.run(
         ["pandoc", "--from", "markdown+tex_math_dollars+pipe_tables",
-         "--to", "latex", "--wrap=preserve"],
+         "--to", "latex", "--wrap=preserve",
+         # The per-file "# Paper A — Section n" banner is stripped before this
+         # runs, so pandoc's top level is "##". Without the shift it emits
+         # \subsection for what is a section and the PDF numbers them 0.x.
+         "--shift-heading-level-by=-1"],
         input=md, capture_output=True, text=True)
     if r.returncode:
         raise SystemExit(f"pandoc failed: {r.stderr[:400]}")
@@ -160,17 +166,26 @@ def main():
 \\DeclareUnicodeCharacter{{00B9}}{{\\ensuremath{{^{{1}}}}}}
 \\DeclareUnicodeCharacter{{00B7}}{{\\textperiodcentered}}
 \\DeclareUnicodeCharacter{{00D7}}{{\\ensuremath{{\\times}}}}
-\\usepackage{{booktabs,longtable,array}}
+
+\\usepackage{{booktabs,longtable,array,calc}}
 % pandoc's longtable column specs use \\real{{}} from calc; without it every
-% table raises "Missing number", "Illegal unit of measure" and "Undefined
-% control sequence", and the tables typeset at zero width.
-\\usepackage{{calc}}
+% table raises "Missing number" and typesets at zero width.
 \\usepackage{{caption}}
+\\usepackage{{etoolbox}}
+\\makeatletter
+\\patchcmd\\longtable{{\\par}}{{\\if@noskipsec\\mbox{{}}\\fi\\par}}{{}}{{}}
+\\makeatother
 \\usepackage{{graphicx}}
 \\usepackage[hidelinks]{{hyperref}}
 \\usepackage{{csquotes}}
 
-\\newtheorem{{theorem}}{{Theorem}}[section]
+% The section files carry their own numbers in the heading text ("3.2 The
+% recency function"), so LaTeX's automatic numbering produced "0.4.2 3.2 ...".
+% Suppress it and let the prose numbering stand, which is what every
+% cross-reference in the text refers to.
+\\setcounter{{secnumdepth}}{{-2}}
+
+\\newtheorem{{theorem}}{{Theorem}}
 \\newtheorem{{corollary}}[theorem]{{Corollary}}
 \\newtheorem{{remark}}[theorem]{{Remark}}
 
@@ -179,7 +194,7 @@ def main():
 
 \\title{{{TITLE}}}
 \\author{{{AUTHOR}\\\\ \\small {AFFIL}}}
-\\date{{\\today}}
+\\date{{{VERSION} \\\\ \\small {DATE}}}
 
 \\begin{{document}}
 \\maketitle
@@ -194,8 +209,8 @@ def main():
 \\input{{tex/results}}
 \\input{{tex/discussion}}
 
-\clearpage
-\input{{tex/supplement}}
+\\clearpage
+\\input{{tex/supplement}}
 
 \\clearpage
 \\input{{tex/captions}}
@@ -206,7 +221,7 @@ def main():
 \\end{{document}}
 """
     (M / "PaperA.tex").write_text(main_tex)
-    print(f"\n  wrote manuscript/PaperA.tex")
+    print("\n  wrote manuscript/PaperA.tex")
     print("  compile with:  cd manuscript && pdflatex PaperA.tex")
     return 0
 

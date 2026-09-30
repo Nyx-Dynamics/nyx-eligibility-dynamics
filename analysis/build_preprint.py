@@ -28,6 +28,8 @@ OUT = ROOT / "preprint"
 
 TITLE = ("Temporary Loss of Eligibility and Bias in "
          "Cross-Sectional HIV Incidence Estimation")
+VERSION = "Version 2"
+DATE = "30 September 2026"
 
 
 def head(n=12):
@@ -82,7 +84,8 @@ def main():
     # paste-ready metadata for the submission form
     abstract, keywords = abstract_and_keywords()
     (OUT / "abstract.txt").write_text(
-        f"{TITLE}\n\n{abstract}\n\nKeywords: {keywords}\n")
+        f"{TITLE}\n{VERSION}, {DATE}\n\n{abstract}\n\n"
+        f"Keywords: {keywords}\n")
     copied.append("abstract.txt")
 
     def pretty(stem: str) -> str:
@@ -99,8 +102,7 @@ def main():
     fig_lines = "\n".join(f"{f + '.pdf / .png':<24}{pretty(f)}, vector and raster"
                            for f in figs)
     tab_lines = "\n".join(f"{t + '.csv':<24}{pretty(t)}" for t in tabs)
-    readme = f"""PREPRINT PACKAGE
-{TITLE}
+    readme = f"""PREPRINT PACKAGE  --  {VERSION}\n{TITLE}
 
 A. C. Demidont, Nyx Dynamics LLC. ORCID 0000-0002-9216-8569.
 

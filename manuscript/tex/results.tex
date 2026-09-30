@@ -1,16 +1,16 @@
-\subsection{4. Results}
+\section{4. Results}
 
 All quantities are evaluated on the recency basis of Pan et al.~unless stated otherwise: a gamma \(\varphi\) with window parameter 163 d and shadow 260 d, giving \(\Omega_{T^*}=151\) d over \(T^*=2\) y. The background HIV testing rate is \(\theta=0.844\,\mathrm{y}^{-1}\), from the NHBS estimate that 57\% of people who inject drugs report testing within 12 months under a Poisson inter-test process. The testing-based exclusion cutoff is \(c=0.25\) y, which is the three-month criterion specified in the PURPOSE 2 protocol rather than a rounded ninety days. Carceral occupancies and sojourns, where used, are \(q_J=0.03\) with mean stay 32 d and \(q_P=0.05\) with mean time served 2.7 y.
 
 Results are reported in the order the argument requires, and the order matters because the levels differ in what they establish. §4.1 checks that the framework is recovered where it should be. §4.2 gives the general result, which is exact and holds for any admissible recency function. §4.3 verifies it against an independent implementation. §4.4 and §4.5 quantify the two mechanisms that break it, sweeping each parameter over a plausible range rather than asserting a value. §4.6 tests what the conclusions depend on. Nothing after §4.3 is needed to establish the result; it is needed to say how large the departures are when the conditions fail.
 
-\subsubsection{4.1 Recovery of the reference framework}
+\subsection{4.1 Recovery of the reference framework}
 
 Setting \(w_t\equiv1\) reduces the composed expression of §2.7 to the limiting estimation error of Pan et al.~Across all nine cells of their published table --- three testing rates crossed with attendance ratios spanning \(r=0\) to \(r=1\) --- the two agree to within \(0.030\times10^{-3}\) on the log scale, the largest discrepancy occurring at \(c=0\), \(\theta=2\) (Table 1). The agreement is to the precision at which their values are published, and we treat it as exact recovery rather than as an independent result.
 
 The same limit reproduces Gao \& Bannick's Theorem 2 when \(\mathcal{L}=\{E\}\) and no transitions are present, provided the observable susceptible pool is demographically stationary. That proviso is not decorative: with a single living state and no transitions but a pool growing at rate \(\rho\), \(w_t(u)=e^{-\rho u}\not\equiv1\) and the estimator is biased. Corollary 1 therefore requires condition (2) of Corollary 2 explicitly.
 
-\subsubsection{4.2 Exact cancellation}
+\subsection{4.2 Exact cancellation}
 
 Under the five conditions of Corollary 2, \(\hat\lambda/\lambda_E=1\) to machine precision. Figure 1 shows the historical observability weight under each mechanism separately, and Figure 2 the resulting ratio across occupancy and sojourn. On a 4001-point quadrature grid the deviation is \(0.0\); on the coarser 1201-point grid used during development it is \(2.2\times10^{-16}\). The result held across nine combinations of stationary occupancy and mean sojourn, spanning \(q\in\{0.01,0.03,0.15\}\) and sojourns from 32 d to 2.7 y, and across three recency functions of materially different shape. Cancellation is a property of the flow balance, not of the assay: Corollary 2 gives \(\hat\lambda/\lambda_E=1\) for any admissible \(\varphi\), and the numerical evaluation confirms rather than establishes it.
 
@@ -22,7 +22,7 @@ Two features of the result are worth isolating because each is a plausible objec
 
 The two stationarity conditions are not interchangeable. A pool whose composition is stable but whose size grows satisfies condition (1) and not (2), and is biased; the case is isolated as M4a.
 
-\subsubsection{4.3 Independent Monte Carlo validation}
+\subsection{4.3 Independent Monte Carlo validation}
 
 The analytic limit was checked against an individual-level generative simulator built to the population construction of Pan et al.~--- constant prevalence and incidence giving a flat infection-duration density on \([0,U_{\max}]\) with \(U_{\max}=p/\lambda(1-p)=3.62\) y, equilibrium renewal testing histories, and the stop-when-positive rule. The simulator admits acquisition in every living state, drawing the state at infection with probability proportional to \(\pi_k\eta_k\). It imports no analytic expression, so the comparison is between two independent routes rather than a restatement of one.
 
@@ -30,7 +30,7 @@ Across seven population scenarios --- the cancellation case, absorbing loss at \
 
 Two design points are load-bearing. Each cell uses a disjoint block of random seeds: \(\eta\) and \(r\) enter the estimator as deterministic weights, so a single shared population would suffice arithmetically, but it makes residuals perfectly correlated and reduces an agreement test to a sign test on one realisation. And the agreement statistic is referred to \(t_{N-1}\) rather than to a normal, because the replicate standard error is itself estimated; at small replicate counts the two differ substantially.
 
-\subsubsection{4.4 Magnitude of the first failure: absorbing loss}
+\subsection{4.4 Magnitude of the first failure: absorbing loss}
 
 Absorbing loss is the only mechanism that admits no compensating return flow, and it is the one case with a closed form: Corollary 4 gives \(w_t(u)=e^{-\mu u}\) exactly, so the ratio is the recency function's own Laplace transform normalised by \(\Omega_{T^*}\). At empirically sourced rates its magnitude is modest. With \(\mu_E=0.040\,\mathrm{y}^{-1}\) --- all-cause mortality among adults who inject drugs, from the ALIVE cohort --- the weight is \(w_t(u)=e^{-\mu u}\) and
 
@@ -42,7 +42,7 @@ an attenuation of 2.1\% (Table 2). At \(\mu_E=0.10\,\mathrm{y}^{-1}\) the ratio 
 
 Absorbing loss also displaces the composed zero-bias boundary of §2.7. Without dynamics that boundary is \(r^\star=e^{-\theta c}=0.8098\); mortality raises it monotonically, to 0.8967 at \(\mu_E=0.040\). The boundary reaches unity --- the point at which the two selection mechanisms no longer cancel at equal attendance --- at \(\mu_{\mathrm{crit}}=0.0852\,\mathrm{y}^{-1}\), approximately 2.1 times the sourced rate. Susceptible mortality does not offset the effect: losses from the susceptible pool are replaced by entry, not by return.
 
-\subsubsection{4.5 Magnitude of the second failure: state-dependent acquisition}
+\subsection{4.5 Magnitude of the second failure: state-dependent acquisition}
 
 State-dependent acquisition is the mechanism by which temporarily unobservable states re-enter as a bias source despite Corollary 2, and it is the parameter to which the composed boundary is most sensitive. Because \(\eta\) is not identifiable from available data (§3.9), it is swept over its plausible range rather than fixed. Holding occupancy and sojourn at the values above and varying a common relative hazard \(\eta\) in the unobservable states, the boundary falls monotonically from \(r^\star=1.047\) at \(\eta=0\) through 1.008 at \(\eta=0.25\) to 0.894 at \(\eta=1\) (Table S3a). Figure S1 separates the jail and prison hazards, showing the \(r^\star=1\) contour over the \((\eta_J,\eta_P)\) surface; the two cannot be collapsed because their sojourns differ by a factor of thirty. The break-even value --- the \(\eta\) at which \(r^\star\) crosses unity --- lies between 0.25 and 0.50.
 
@@ -50,7 +50,7 @@ The direction of bias is set by \(\eta\) and not by occupancy. Under the census 
 
 \(\eta\) is the load-bearing unmeasured parameter of this analysis. It cannot be identified from state-level surveillance, which would require studies comparing acquisition during custody with acquisition during community person-time in the same population. The only directly relevant estimate we located is Gough et al.~(2010), reporting HIV incidence of 0.08 per 100 person-years during continuous incarceration against 1.14--2.78 per 100 person-years in comparable community populations, implying \(0<\eta\ll1\) for continuous custody. That estimate is old, is specific to continuous incarceration rather than to short jail stays, and no contemporary estimate specific to people who inject drugs exists. We therefore present \(\eta\) as a sensitivity axis with any literature range overlaid rather than fitted, and make no claim about its value in any real population.
 
-\subsubsection{4.6 What the conclusions depend on}
+\subsection{4.6 What the conclusions depend on}
 
 Substituting \(w_t\) into the framework of Pan et al.~moves the zero-bias boundary from \(r^\star=e^{-\theta c}\) to
 

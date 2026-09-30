@@ -1,6 +1,6 @@
-\subsection{2. Theory}
+\section{2. Theory}
 
-\subsubsection{2.1 Notation, state space, and estimand}
+\subsection{2.1 Notation, state space, and estimand}
 
 Let \(T\) be the calendar time of HIV infection and \(t\) the calendar time of cross-sectional sampling, and write \(U = t-T\) for infection duration. Following Gao \& Bannick, let \(A(t)\) indicate eligibility at \(t\) --- whether the individual would be eligible for inclusion in a cross-sectional survey of the target population, a minimum requirement being that they are alive.
 
@@ -54,7 +54,7 @@ Gao \& Bannick's \(\lambda(t)\) under the refinement above, and the quantity a c
 \eta_k(\tau) = \lambda_k(\tau)/\lambda_E(\tau), \qquad \eta_E\equiv 1 .
 \]
 
-\subsubsection{2.2 The eligibility-transition process}
+\subsection{2.2 The eligibility-transition process}
 
 Let \(Q_0,Q_1\) be the generators of \(Z(\cdot)\) before and after infection, each on \(\mathcal{S}\) with \(X\) absorbing, and let \(P_1(u)=\exp(Q_1u)\). Define the \textbf{return vector} restricted to living states,
 
@@ -84,7 +84,7 @@ E.1 concerns memory structure; E.3 concerns whether infection alters the transit
 
 \textbf{Remark 2 (scope of E.1).} E.1 is not required for the cancellation result to survive unobserved heterogeneity in movement propensity: Corollary 3 permits arbitrary mixtures of stationary Markov strata, whose marginal process need not itself be Markov. A general semi-Markov or history-dependent treatment is beyond the present scope.
 
-\subsubsection{2.3 The generalised recent-count identity}
+\subsection{2.3 The generalised recent-count identity}
 
 \textbf{Theorem 1.} \emph{Under E.1--E.2, neutral cross-sectional sampling with inclusion probability \(\kappa_t\) common to observable HIV-positive and HIV-negative individuals, and \(\beta_{T^*}=0\) so that \(\varphi(u)=0\) for \(u>T^*\),}
 
@@ -120,7 +120,7 @@ so the observed recent count receives contributions from infections acquired in 
 
 \textbf{Remark 4 (both sides of the population process).} Theorem 1 addresses the objection that eligibility dynamics act on the HIV-negative denominator as well as on recent positives. Both appear explicitly: the numerator integrates \(\mathbf{n}_0(t-u)\) across the recency window, the denominator evaluates \(n_{0E}\) at \(t\). No cancellation is assumed; whether one occurs is settled in §2.5.
 
-\subsubsection{2.4 Probability limit of the adjusted estimator}
+\subsection{2.4 Probability limit of the adjusted estimator}
 
 Define the \textbf{transition--acquisition weight} and the \textbf{source-evolution factor}
 
@@ -165,7 +165,7 @@ Substituting \(N_0(t-u)=n_{0E}(t-u)/\pi_E(t-u)\) gives \(N_0(t-u)\sum_k(\cdot) =
 
 This is the form used in the empirical sections. The general statement is retained in Theorem 2 because composition drift is itself one of the bias mechanisms (M4), and factorising \(\pi\) at \(t\) would assume it away.
 
-\subsubsection{2.5 Corollaries}
+\subsection{2.5 Corollaries}
 
 \textbf{Corollary 1 (Gao--Bannick recovery).} If \(\mathcal{L}=\{E\}\) and \(Q_1\) has no transitions, then \(s_t(u)\equiv1\) and \(w_t(u)=g_E(u;t)\). If in addition the observable susceptible pool is demographically stationary, \(g_E\equiv1\), then \(w_t\equiv1\) and \(\hat\lambda\to\lambda_E\), recovering Gao \& Bannick's Theorem 2 under their Assumption C --- which supplies the equivalent stability condition.
 
@@ -234,7 +234,7 @@ In a demographically stationary catchment \(\rho=0\) and attenuation is governed
 
 \textbf{Corollary 5 (transient and absorbing transitions jointly).} With both \(E\leftrightarrow O_j\) and \(E,O_j\to X\) present, \(s_t(u)\) contains a fast component associated with redistribution among living states and a slower component associated with irreversible loss to \(X\); the two are separated by the spectrum of \(Q_1\). States whose mean sojourn is short relative to \(T^*\) approach their within-living-state equilibrium rapidly and contribute approximately a level shift over most of the recency window, whereas states whose mean sojourn is comparable with \(T^*\) retain substantial memory of the initial state and behave as quasi-absorbing over the window. Sojourn length therefore matters independently of occupancy: two states with identical stationary occupancy but \(\beta_jT^*\gg1\) versus \(\beta_jT^*\sim1\) contribute differently to \(w_t\).
 
-\subsubsection{2.6 Failure modes}
+\subsection{2.6 Failure modes}
 
 Within the eligibility-transition model, four distinct mechanisms break the conditions of Corollary 2. Consistency can also fail through assumptions outside that model --- E.2 (path-dependent assay response), Gao \& Bannick's epidemic assumptions, local constancy of \(\lambda_E\), FRR behaviour under the selection processes of §2.7, or misspecification of the state space itself. E.2 in particular is not academic: if time spent in a custodial or institutional state alters ART exposure, viral suppression, or the biomarker process, then \(\varphi(u\mid\text{path})\ne\varphi(u)\) and the estimator departs from Theorem 2 by a route the table below does not cover.
 
@@ -265,7 +265,7 @@ Direction
 
 M1 is the only mechanism that cannot in principle be offset by a compensating flow, because \(X\nrightarrow E\). M2 is how temporarily unobservable states re-enter as a bias source despite Corollary 2: the cancellation is a statement about symmetry of flow \emph{at equal acquisition hazard}, and a state in which acquisition is suppressed returns fewer infections than it withholds. M4b is why Theorem 2 retains \(\boldsymbol\pi(t-u)\) rather than \(\boldsymbol\pi(t)\): factorising the composition at \(t\) would assume the mechanism away.
 
-\subsubsection{2.7 Composition with screening-stage selection}
+\subsection{2.7 Composition with screening-stage selection}
 
 The process above operates \textbf{upstream} of the selection mechanisms formalised by Pan, Bannick \& Gao (\emph{Am J Epidemiol} 2026), whose framework begins with individuals present in the source population at \(t\) and asks whether they attend screening (\(Q\)) and satisfy a testing-based criterion (\(C=\mathbb{1}\{S>c\}\), \(S\) being time since most recent HIV test). The stages compose:
 
@@ -300,7 +300,7 @@ Whenever \(\Omega_w<\Omega_{T^*}\) and \(K_w>0\), the boundary shifts upward, wi
 
 \textbf{Remark 6 (relation to covariate transport).} Wang, Duerr \& Gao (\emph{Stat Med} 2025) address a distinct mismatch --- differing distributions of baseline covariates \(X\) between sampled and target populations --- corrected by reweighting. When the movement-relevant covariate distribution is the same in the cross-sectional and target populations, reweighting leaves the within-stratum duration component of \(w_t\) unchanged. When those distributions differ, Wang-style weighting removes the compositional component while leaving the residual transition-duration component. The mechanisms are composable rather than competing.
 
-\subsubsection{2.8 Design implications}
+\subsection{2.8 Design implications}
 
 Three consequences follow, and they differ from what would follow from treating all eligibility loss as biasing.
 
