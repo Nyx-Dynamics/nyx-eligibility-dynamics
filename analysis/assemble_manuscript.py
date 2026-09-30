@@ -47,10 +47,6 @@ FIGURES = {
     "Figure S1": ("fig3_eta_surface", "4.5",
                   "Zero-bias boundary over the $(\\eta_J,\\eta_P)$ surface at "
                   "$q_J=3\\%$, $q_P=5\\%$, with the $r^\\star=1$ contour."),
-    "Figure S2": ("fig4_empirical_phi", "3.2*",
-                  "Empirical recency function from the CEPHIA public-use dataset "
-                  "against the parametric bases. Requires data not redistributed "
-                  "here; see data/README.md."),
 }
 
 TABLES = {
@@ -63,9 +59,6 @@ TABLES = {
     "Table 3":   ("table3_frailty_mixture", "4.2",
                   "Cancellation under stationary frailty mixtures of increasing "
                   "skew in movement propensity."),
-    "Table S1":  ("cephia_mdri", "3.2*",
-                  "CEPHIA MDRI by algorithm and subtype. Requires data not "
-                  "redistributed here."),
     "Table S2":  ("tableS2_wang_comparator", "4.8",
                   "Covariate reweighting against the duration mechanism, three "
                   "target-population cases."),
@@ -80,9 +73,12 @@ TABLES = {
                   "process."),
 }
 
-# Items whose source data is not redistributed. Absent on a clean clone is the
-# EXPECTED state for these, not a failure: a gate that always fires is a gate
-# people learn to ignore. Marked by a trailing "*" on the section above.
+# A trailing "*" on the section marks an item whose source data is not
+# redistributed, so that absence on a clean clone counts as expected rather than
+# as a failure. None are so marked now: the two CEPHIA-dependent items were cut
+# from §3.2 rather than carried as permanent placeholders, because a numbered
+# item that never appears is worse than no item. The mechanism is retained for
+# the next time one is needed.
 SLUG = re.compile(r"[^a-z0-9]+")
 
 

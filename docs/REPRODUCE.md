@@ -150,11 +150,11 @@ make figures-full    # everything, including CEPHIA-dependent outputs
 | Fig. 1 — $s(u)$ by mechanism (absorbing / transient / mixed) | `analysis/validate_theorems.py` | no | ✅ |
 | Fig. 2 — cancellation across occupancy and sojourn | `analysis/validate_theorems.py` | no | ✅ |
 | Fig. 3 — $(\eta_J,\eta_P)$ surface with the $r^\star=1$ contour | `analysis/eta_surface.py` | no | ✅ |
-| Fig. 4 — empirical vs parametric $\varphi$ | `analysis/empirical_phi.py` | CEPHIA | ✅ |
+| empirical vs parametric $\varphi$ — *not a manuscript figure* | `analysis/empirical_phi.py` | CEPHIA | ✅ |
 | Table 1 — Pan recovery, 9 cells | `analysis/reproduce_pan.py` | no | ✅ |
 | Table 2 — $\mu_{\mathrm{crit}}$ vs sourced mortality | `analysis/mortality_threshold.py` | no | ✅ |
 | Table 3 — frailty mixtures | `analysis/frailty_mixture.py` | no | ✅ |
-| Table S1 — CEPHIA MDRI by algorithm and subtype | `analysis/empirical_phi.py` | CEPHIA | ✅ |
+| CEPHIA MDRI by algorithm and subtype — *not a manuscript table* | `analysis/empirical_phi.py` | CEPHIA | ✅ |
 | Table S2 — Wang reweighting comparison | `analysis/wang_comparator.py` | no | ✅ |
 | Table S3 — site sensitivity, illustrative | `analysis/eta_surface.py --sites` | fixtures only | ✅ |
 | Table S4 — inter-test process vs assay basis | `analysis/inter_test_process.py` | no | ✅ |
@@ -165,7 +165,14 @@ writes its own observation to `outputs/cephia_recomputed.json`. It does not over
 fixture: the fixture is the frozen claim, and a script that rewrites its own expectation
 turns the regression test into a tautology.
 
-Everything except Figure 4 and Table S1 runs with no external downloads.
+Everything in the manuscript runs with no external downloads. The two CEPHIA-dependent outputs
+are **no longer numbered manuscript items**: they were cited in §3.2 as Figure S2 and Table S1
+and were cut, because a numbered item that cannot be produced from a clean clone is worse than
+no item. The script still produces them, and §3.2 still reports the MDRI they establish
+(182.4 d, 95% CI 161–213); only the figure and table callouts are gone.
+
+Manuscript numbering is fixed in `analysis/assemble_manuscript.py` and gated by
+`make check-refs`, which exits non-zero if a numbered item is missing or uncited.
 
 ---
 
@@ -176,7 +183,7 @@ aggregate derived files sufficient for the offline suite.
 
 | source | needed for | identifier |
 |---|---|---|
-| CEPHIA public-use dataset | empirical $\varphi$, Fig. 4, Table S1 | Zenodo 10.5281/zenodo.4900634 |
+| CEPHIA public-use dataset | the empirical $\varphi$ fit and its MDRI table, neither now a numbered manuscript item | Zenodo 10.5281/zenodo.4900634 |
 | Vera Incarceration Trends | illustrative site occupancy | `incarceration_trends_county.csv`, `main` |
 | BJS Prisoners / Jail Inmates | custody rates and sojourn lengths | bjs.ojp.gov statistical-tables series |
 | Census PEP vintage 2019 | county age denominators | `cc-est2019-alldata-<STATE>.csv` |

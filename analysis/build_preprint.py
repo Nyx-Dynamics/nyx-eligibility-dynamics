@@ -130,9 +130,7 @@ DISCLOSURES.md is complete: AI use, prior publication, CRediT contributions,
 funding (none), competing interests and data availability. Nothing in it is
 left for you to fill in. Paste each section into the corresponding field.
 
-Two figures and one table are absent because they need the CEPHIA dataset, which
-is not redistributed. They are Figure S2 and Table S1, cited in §3.2. Either
-retrieve the dataset and rebuild, or cut those citations before posting.
+Every numbered figure and table is present; `make check-refs` verifies it.
 
 
 REPRODUCING
