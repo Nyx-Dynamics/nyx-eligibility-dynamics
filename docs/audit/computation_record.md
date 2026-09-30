@@ -151,7 +151,7 @@ They also supply a mechanism §3 omits: people stop testing after diagnosis, so 
 ### 2.3 Structural findings in the other three
 
 - **Gao & Bannick 2022 §2.1**: eligibility `A(t)` explicitly includes being alive; `λ(t) = Pr(T=t | T≥t, A(t)=1)`; `φ(u,t) = Pr(M∈ℛ | T=t−u, A(t)=1)` — conditional on observability. **Remark 1**: Kassanjee's original `P_R(u) = Pr(A(t)=1, M∈ℛ | T=t−u, A(t−u)=1)` contains an eligibility-survival component; Gao–Bannick condition it away. **Remark 2 / §3.6**: calibration-vs-deployment mismatch already established for β (FRR).
-- **Wang 2025**: motivating paragraph is the manuscript's thesis; weighting estimators for internal and external target populations; footnote assumes X captures all effect modifiers and is time-independent; discussion names time-dependent factors as the open problem. Funded in part by Gilead ISR-US-20-10990.
+- **Wang 2025**: motivating paragraph is the manuscript's thesis; weighting estimators for internal and external target populations; footnote assumes X captures all effect modifiers and is time-independent; discussion names time-dependent factors as the open problem. Funding verified at source 30 Sep 2026: NIH R01AI177078, R01DA032106, R37AI029168 **and** Gilead ISR-US-20-10990 — NIH-plus-industry, not industry alone, which the earlier note implied by omission. Wang, not Pan; Pan's paper is separately funded.
 - **Bannick 2024**: PT-RITA repairs *misclassification*, not selection. Assumption 4 `(Q,T) ⊥ U` is flagged as violated by stop-when-positive testing and studied in simulation. Discussion defers *awareness-based* sample non-entry to future work — not removal after infection.
 
 ---
