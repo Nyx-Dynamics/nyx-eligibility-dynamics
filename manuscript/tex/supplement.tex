@@ -16,6 +16,28 @@ Incarceration rates are published against total or 15--64 populations while tria
 
 To indicate the range of \(\eta\) at which the composed boundary would cross unity in real catchments, we evaluated nine United States counties with published jail and prison occupancy, using county-specific age denominators (Table S3b). Break-even \(\eta\) ranged from 0.04 (San Diego) to 0.55 (Baltimore City); in two counties, Bronx and Miami-Dade, the boundary never crosses unity for any \(\eta\in[0,1]\).
 
+\begin{table}[htbp]
+  \centering
+  \small
+  \caption*{\textbf{Table S3b.} Break-even $\eta$ by site county. Illustrative; not an epidemiologic claim about any county.}
+  \label{tab:table_s3b}
+  \begin{tabular}{lrrrrrr}
+    \toprule
+    site county & $q_J$ & $q_P$ & $r^\star$ at $\eta=0$ & $r^\star$ at $\eta=0.25$ & $r^\star$ at $\eta=0.5$ & break-even $\eta$ \\
+    \midrule
+    Bronx, NY & 0.0188 & 0.0262 & 0.9833 & 0.9607 & 0.9385 & never \\
+    San Diego, CA & 0.0231 & 0.0318 & 1.0042 & 0.9760 & 0.9484 & 0.037 \\
+    Miami-Dade, FL & 0.0185 & 0.0300 & 0.9857 & 0.9625 & 0.9396 & never \\
+    Los Angeles, CA & 0.0206 & 0.0490 & 1.0098 & 0.9801 & 0.9510 & 0.082 \\
+    Harris (Houston), TX & 0.0248 & 0.0586 & 1.0351 & 0.9986 & 0.9629 & 0.240 \\
+    Monongalia, WV & 0.0294 & 0.0260 & 1.0229 & 0.9898 & 0.9573 & 0.172 \\
+    Essex (Newark), NJ & 0.0318 & 0.0526 & 1.0569 & 1.0145 & 0.9731 & 0.337 \\
+    Philadelphia, PA & 0.0363 & 0.0886 & 1.1124 & 1.0544 & 0.9985 & 0.493 \\
+    Baltimore City, MD & 0.0385 & 0.1067 & 1.1426 & 1.0760 & 1.0121 & 0.549 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
 The trial enrolled 181 participants across those nine sites, so roughly twenty each; no site-level empirical claim would be supportable from it even in principle. \textbf{This is a sensitivity range, not an epidemiologic claim about any site.} It states the value \(\eta\) would have to take for the two selection mechanisms to stop cancelling, given that county's carceral occupancy. It does not assert that \(\eta\) takes that value anywhere, and no trial estimate is corrected on its basis. Its purpose is to show that the break-even value lies inside the plausible interval implied by the only available incidence comparison, so the question is empirical rather than hypothetical.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
@@ -23,5 +45,21 @@ The trial enrolled 181 participants across those nine sites, so roughly twenty e
 \section{S3. Comparison with covariate-reweighting methods}
 
 Covariate transport by reweighting --- matching the survey population to the trial-eligible population on measured covariates --- addresses a different failure and does not remove this one. The comparison uses the structure of their estimator as implemented in their own released code at commit \texttt{0581bb6} rather than as inferred from the paper: the weight is a logistic-regression predicted probability of trial membership fitted among the HIV-negative, and it multiplies numerator and denominator alike, so it cancels wherever it is constant and acts only between covariate strata. In a population where the observable and target covariate distributions coincide, which is the counterfactual-placebo case of interest, reweighting removes 0\% of the bias: the naive and reweighted estimates are identical at 0.0387 against a truth of 0.0400, both attenuated by 3.3\% (Table S2). Where the distributions differ, reweighting performs as designed, removing 91.3\% and 96.8\% of a much larger composition-driven bias in the two enriched cases.
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \caption*{\textbf{Table S2.} Covariate reweighting against the duration mechanism, three target-population cases.}
+  \label{tab:table_s2}
+  \begin{tabular}{lrrrrrr}
+    \toprule
+    case & truth & naive & reweighted & naive bias & reweighted bias & bias removed (\%) \\
+    \midrule
+    same X distribution (counterfactual-placebo case) & 0.04000 & 0.03868 & 0.03868 & -0.0329 & -0.0329 & 0.0 \\
+    target enriched for high-removal & 0.04800 & 0.02741 & 0.04620 & -0.4290 & -0.0375 & 91.3 \\
+    target enriched for low-removal & 0.02800 & 0.04620 & 0.02741 & +0.6501 & -0.0211 & 96.8 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
 
 The reason is structural. Reweighting corrects the \emph{composition} of the sampled population; it cannot correct the within-stratum duration component, which is below unity in every stratum, so any weighted average of within-stratum factors remains below unity. The two methods are complementary rather than alternative: reweighting for covariate imbalance, the weight \(w_t\) for eligibility dynamics.

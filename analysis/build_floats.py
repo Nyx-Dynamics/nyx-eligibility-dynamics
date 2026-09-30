@@ -120,13 +120,53 @@ def tables_tex() -> str:
     return "\n".join(out)
 
 
+def environments() -> dict:
+    """
+    {label: LaTeX environment}, for injection at the point of first citation.
+
+    Floats collected at the end of a document force the reader to leaf back and
+    forth; a figure belongs next to the sentence that argues from it. build_tex.py
+    places each of these after the paragraph that first cites it.
+    """
+    out = {}
+    for label in order(FIGURES):
+        stem = final_name(label)
+        src = NUMBERED / f"{stem}.pdf"
+        if not src.exists():
+            continue
+        out[label] = "\n".join([
+            r"\begin{figure}[htbp]", r"  \centering",
+            rf"  \includegraphics[width=\textwidth]{{{src.name}}}",
+            rf"  \caption*{{\textbf{{{label}.}} {FIGURES[label][2]}}}",
+            rf"  \label{{fig:{stem}}}", r"\end{figure}", ""])
+    for label in order(TABLES):
+        stem = final_name(label)
+        src = NUMBERED / f"{stem}.csv"
+        if not src.exists():
+            continue
+        rows = [r for r in csv.reader(src.open()) if r]
+        head, body = rows[0], rows[1:]
+        ncol = len(head)
+        lines = [r"\begin{table}[htbp]", r"  \centering", r"  \small",
+                 rf"  \caption*{{\textbf{{{label}.}} {TABLES[label][2]}}}",
+                 rf"  \label{{tab:{stem}}}",
+                 rf"  \begin{{tabular}}{{{'l' + 'r' * (ncol - 1)}}}",
+                 r"    \toprule",
+                 "    " + " & ".join(HEADER.get(h, esc(h)) for h in head) + r" \\",
+                 r"    \midrule"]
+        for r in body:
+            r = (r + [""] * ncol)[:ncol]
+            lines.append("    " + " & ".join(esc(c) for c in r) + r" \\")
+        lines += [r"    \bottomrule", r"  \end{tabular}", r"\end{table}", ""]
+        out[label] = "\n".join(lines)
+    return out
+
+
 def main():
-    TEX.mkdir(parents=True, exist_ok=True)
-    f, t = figures_tex(), tables_tex()
-    (TEX / "figures.tex").write_text(f)
-    (TEX / "tables.tex").write_text(t)
-    print(f"  wrote tex/figures.tex ({f.count('includegraphics')} figures)")
-    print(f"  wrote tex/tables.tex ({t.count('begin{table}')} tables)")
+    env = environments()
+    figs = sum(1 for k in env if k.startswith("Figure"))
+    print(f"  {figs} figure and {len(env) - figs} table environments available")
+    print("  placed inline by build_tex.py at first citation")
     return 0
 
 

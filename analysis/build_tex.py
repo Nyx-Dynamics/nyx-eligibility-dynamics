@@ -46,6 +46,53 @@ VERSION = "Version 2"
 DATE = "30 September 2026"
 
 NOTE_HEAD = re.compile(r"^#+\s*Drafting notes.*$", re.M)
+
+# "Figure 3", "Table S3a", "Figure S2A". The suffix is ambiguous and the two
+# cases must not be conflated: a LOWERCASE letter is part of the label itself
+# (Table S3a and Table S3b are different tables), while an UPPERCASE letter is a
+# panel reference within one figure (Figure S2A is panel A of Figure S2). Only
+# the lowercase form is kept when resolving to a label.
+CITE = re.compile(r"\b(Figure|Table)\s+(S?\d+)([a-zA-Z])?\b")
+
+
+def _label(m) -> str:
+    suffix = m.group(3) or ""
+    if suffix.isupper():
+        suffix = ""                     # panel reference, not part of the label
+    return f"{m.group(1)} {m.group(2)}{suffix}"
+
+
+def place_floats(tex: str, pending: dict) -> str:
+    """
+    Insert each float after the paragraph that first cites it.
+
+    Collecting floats at the end makes a reader leaf back and forth; a figure
+    belongs beside the sentence that argues from it. Paragraphs in pandoc's
+    output are blank-line separated, so the insertion point is the first blank
+    line after the citation. Anything still pending when a section ends stays
+    pending and is placed by a later section, or reported.
+    """
+    if not pending:
+        return tex
+    out, pos = [], 0
+    for m in CITE.finditer(tex):
+        label = _label(m)
+        if label not in pending:
+            continue
+        # do not fire on the float's own caption
+        if tex.rfind(r"egin{figure}", 0, m.start()) > tex.rfind(r"\end{figure}", 0, m.start()):
+            continue
+        if tex.rfind(r"egin{table}", 0, m.start()) > tex.rfind(r"\end{table}", 0, m.start()):
+            continue
+        brk = tex.find("\n\n", m.end())
+        brk = len(tex) if brk < 0 else brk + 2
+        if brk < pos:
+            continue
+        out.append(tex[pos:brk])
+        out.append(pending.pop(label) + "\n")
+        pos = brk
+    out.append(tex[pos:])
+    return "".join(out)
 LIFT_ABSTRACT = [r"^##\s*Title\s*$", r"^##\s*Structured variant\s*$"]
 
 
@@ -114,6 +161,15 @@ def main():
     if not shutil.which("pandoc"):
         raise SystemExit("pandoc not found")
     TEX.mkdir(parents=True, exist_ok=True)
+    # Floats used to be emitted as figures.tex/tables.tex and appended at the end.
+    # They are now placed inline, so those files are orphans; left on disk they
+    # look like current output and were picked up by a verification pass.
+    for orphan in ("figures.tex", "tables.tex", "captions.tex"):
+        (TEX / orphan).unlink(missing_ok=True)
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from build_floats import environments
+    pending = environments()
+    n_total = len(pending)
 
     for fname, stem in SECTIONS:
         p = M / fname
@@ -124,11 +180,17 @@ def main():
             md = lift(md, LIFT_ABSTRACT)
         md = strip_banner(md)
         tex = to_tex(md)
+        tex = place_floats(tex, pending)
         # the abstract is an environment, not a section
         if stem == "abstract":
             tex = re.sub(r"\\section\{Abstract\}\s*", "", tex)
         (TEX / f"{stem}.tex").write_text(tex)
         print(f"  {fname:<32} -> tex/{stem}.tex  ({len(tex.splitlines())} lines)")
+
+    if pending:
+        print(f"  NOT PLACED: {', '.join(sorted(pending))} — cited nowhere in the "
+              f"section bodies")
+    print(f"  {n_total - len(pending)} of {n_total} floats placed at first citation")
 
     for src, dst in [("references.md", "references")]:
         p = M / src
@@ -215,12 +277,6 @@ def main():
 
 \\clearpage
 \\input{{tex/supplement}}
-
-\\clearpage
-\\input{{tex/figures}}
-
-\\clearpage
-\\input{{tex/tables}}
 
 \\clearpage
 \\input{{tex/references}}

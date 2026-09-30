@@ -8,17 +8,70 @@ Results are reported in the order the argument requires, and the order matters b
 
 Setting \(w_t\equiv1\) reduces the composed expression of §2.7 to the limiting estimation error of Pan et al.~Across all nine cells of their published table --- three testing rates crossed with attendance ratios spanning \(r=0\) to \(r=1\) --- the two agree to within \(0.030\times10^{-3}\) on the log scale, the largest discrepancy occurring at \(c=0\), \(\theta=2\) (Table 1). The agreement is to the precision at which their values are published, and we treat it as exact recovery rather than as an independent result.
 
+\begin{table}[htbp]
+  \centering
+  \small
+  \caption*{\textbf{Table 1.} Recovery of the published limiting estimation error at $w_t\equiv1$, all nine cells.}
+  \label{tab:table_1}
+  \begin{tabular}{lrrrrr}
+    \toprule
+    $c$ (y) & $\theta$ (y$^{-1}$) & $r$ & computed ($\times10^{-3}$) & published ($\times10^{-3}$) & difference \\
+    \midrule
+    0.0 & 1.0 & 0.0 & -9.967 & -9.95 & -0.0172 \\
+    0.0 & 1.0 & 0.6 & -3.987 & -3.98 & -0.0069 \\
+    0.0 & 2.0 & 0.0 & -15.060 & -15.03 & -0.0303 \\
+    0.25 & 1.0 & 0.0 & -5.941 & -5.93 & -0.0109 \\
+    0.25 & 1.0 & 0.6 & -1.364 & -1.36 & -0.0039 \\
+    0.25 & 1.0 & 1.0 & 1.687 & 1.68 & 0.0074 \\
+    0.25 & 2.0 & 0.0 & -8.984 & -8.97 & -0.0140 \\
+    0.25 & 2.0 & 0.6 & -0.097 & -0.1 & 0.0033 \\
+    0.25 & 2.0 & 1.0 & 5.828 & 5.82 & 0.0081 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
 The same limit reproduces Gao \& Bannick's Theorem 2 when \(\mathcal{L}=\{E\}\) and no transitions are present, provided the observable susceptible pool is demographically stationary. That proviso is not decorative: with a single living state and no transitions but a pool growing at rate \(\rho\), \(w_t(u)=e^{-\rho u}\not\equiv1\) and the estimator is biased. Corollary 1 therefore requires condition (2) of Corollary 2 explicitly.
 
 \subsection{4.2 Exact cancellation under transient movement}
 
 Under the five conditions of Corollary 2, \(\hat\lambda/\lambda_E=1\) to machine precision. Figure 1 shows the historical observability weight under each mechanism separately, and Figure 2 the resulting ratio across occupancy and sojourn. On a 4001-point quadrature grid the deviation is \(0.0\); on the coarser 1201-point grid used during development it is \(2.2\times10^{-16}\). The result held across nine combinations of stationary occupancy and mean sojourn, spanning \(q\in\{0.01,0.03,0.15\}\) and sojourns from 32 d to 2.7 y, and across three recency functions of materially different shape. Cancellation is a property of the flow balance, not of the assay: Corollary 2 gives \(\hat\lambda/\lambda_E=1\) for any admissible \(\varphi\), and the numerical evaluation confirms rather than establishes it.
 
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{figure_1.pdf}
+  \caption*{\textbf{Figure 1.} Historical observability weight $w_t(u)$ by mechanism: absorbing loss, transient movement, and the two combined. Transient movement alone leaves $w_t\equiv1$.}
+  \label{fig:figure_1}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{figure_2.pdf}
+  \caption*{\textbf{Figure 2.} Exact cancellation is invariant to occupancy and sojourn. $\hat\lambda/\lambda_E$ against the share of person-time spent unobservable, across sojourn lengths, under the five conditions of Corollary 2.}
+  \label{fig:figure_2}
+\end{figure}
+
 Two features of the result are worth isolating because each is a plausible objection that does not hold.
 
 \textbf{Occupancy does not bound the effect.} Raising unobservable occupancy to \(q_J=0.15\) leaves the cancellation exact. What breaks it is asymmetry, not volume.
 
 \textbf{Concentration of movement does not break it.} Under Corollary 3, cancellation holds within each stationary stratum and therefore under arbitrary mixing. Evaluated over four stratifications of increasing skew --- homogeneous; 20\% of the population at three times mean occupancy; 10\% at six times; and a three-stratum mixture at eight, two and residual times mean --- the cancellation is \(1.000000000\) in every case (Table 3). This matters because carceral contact and residential instability are strongly recurrent, and a natural objection is that a high-propensity minority accounts for most unobservable person-time. It does, and the estimator is unaffected. The marginal movement process of such a mixture need not be Markov.
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \caption*{\textbf{Table 3.} Cancellation under stationary frailty mixtures of increasing skew in movement propensity.}
+  \label{tab:table_3}
+  \begin{tabular}{lrrr}
+    \toprule
+    stratification & $\hat\lambda/\lambda_E$ & $\eta=0$, with $\mu$ & $\eta=1$, with $\mu$ \\
+    \midrule
+    homogeneous & 1.000000000 & 0.9442 & 0.9793 \\
+    20\% at 3x mean & 1.000000000 & 0.9457 & 0.9792 \\
+    10\% at 6x mean & 1.000000000 & 0.9491 & 0.9792 \\
+    5\%/15\%/80\% at 8x/2x/resid & 1.000000000 & 0.9500 & 0.9792 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
 
 The two stationarity conditions are not interchangeable. A pool whose composition is stable but whose size grows satisfies condition (1) and not (2), and is biased; the case is isolated as M4a.
 
@@ -27,6 +80,13 @@ The two stationarity conditions are not interchangeable. A pool whose compositio
 The analytic limit was checked against an individual-level generative simulator built to the population construction of Pan et al.~--- constant prevalence and incidence giving a flat infection-duration density on \([0,U_{\max}]\) with \(U_{\max}=p/\lambda(1-p)=3.62\) y, equilibrium renewal testing histories, and the stop-when-positive rule. The simulator admits acquisition in every living state, drawing the state at infection with probability proportional to \(\pi_k\eta_k\). It imports no analytic expression, so the comparison is between two independent routes rather than a restatement of one.
 
 Across seven population scenarios --- the cancellation case, absorbing loss at \(\mu_E=0.04\) and \(0.10\,\mathrm{y}^{-1}\), acquisition at \(\eta\in\{0,0.3,1.8\}\), and the \(q_J=0.15\) stress test --- the simulated ratio agrees with Theorem 2 within \(|t|\le1.22\) on 23 degrees of freedom, over 24 independent replicates of \(1.5\times10^{7}\) individuals per cell (Figure 3). Across twelve screening configurations the composed limiting estimation error agrees within \(|t|\le2.20\).
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{figure_3.pdf}
+  \caption*{\textbf{Figure 3.} Analytic predictions against an independently written generative simulator. (A) Census sampling, seven population scenarios. (B) Composed with the screening and prior-testing stages. All 19 comparisons agree within $|t|=2.20$ on 23 degrees of freedom.}
+  \label{fig:figure_3}
+\end{figure}
 
 Two design points are load-bearing. Each cell uses a disjoint block of random seeds: \(\eta\) and \(r\) enter the estimator as deterministic weights, so a single shared population would suffice arithmetically, but it makes residuals perfectly correlated and reduces an agreement test to a sign test on one realisation. And the agreement statistic is referred to \(t_{N-1}\) rather than to a normal, because the replicate standard error is itself estimated; at small replicate counts the two differ substantially.
 
@@ -40,11 +100,59 @@ Absorbing loss is the only mechanism that admits no compensating return flow, an
 
 an attenuation of 2.1\% (Table 2). At \(\mu_E=0.10\,\mathrm{y}^{-1}\) the ratio is 0.9479.
 
+\begin{table}[htbp]
+  \centering
+  \small
+  \caption*{\textbf{Table 2.} Attenuation and the composed zero-bias boundary against absorbing loss $\mu$.}
+  \label{tab:table_2}
+  \begin{tabular}{lrrr}
+    \toprule
+    $\mu$ (y$^{-1}$) & $\Omega_\mu/\Omega_{T^*}$ & $r^\star$ & $r^\star>1$ \\
+    \midrule
+    0.0000 & 1.0000 & 0.8098 & 0 \\
+    0.0100 & 0.9946 & 0.8311 & 0 \\
+    0.0200 & 0.9892 & 0.8527 & 0 \\
+    0.0400 & 0.9786 & 0.8967 & 0 \\
+    0.0600 & 0.9682 & 0.9418 & 0 \\
+    0.0850 & 0.9554 & 0.9995 & 0 \\
+    0.1000 & 0.9479 & 1.0350 & 1 \\
+    0.1500 & 0.9237 & 1.1578 & 1 \\
+    0.2000 & 0.9006 & 1.2877 & 1 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
 Absorbing loss also displaces the composed zero-bias boundary of §2.7. Without dynamics that boundary is \(r^\star=e^{-\theta c}=0.8098\); mortality raises it monotonically, to 0.8967 at \(\mu_E=0.040\). The boundary reaches unity --- the point at which the two selection mechanisms no longer cancel at equal attendance --- at \(\mu_{\mathrm{crit}}=0.0852\,\mathrm{y}^{-1}\), approximately 2.1 times the sourced rate. Susceptible mortality does not offset the effect: losses from the susceptible pool are replaced by entry, not by return.
 
 \subsection{4.5 State-dependent acquisition}
 
 State-dependent acquisition is the mechanism by which temporarily unobservable states re-enter as a bias source despite Corollary 2, and it is the parameter to which the composed boundary is most sensitive. Because \(\eta\) is not identifiable from available data (§3.9), it is swept over its plausible range rather than fixed. Holding occupancy and sojourn at the values above and varying a common relative hazard \(\eta\) in the unobservable states, the boundary falls monotonically from \(r^\star=1.047\) at \(\eta=0\) through 1.008 at \(\eta=0.25\) to 0.894 at \(\eta=1\) (Table S3a). Figure S1 separates the jail and prison hazards, showing the \(r^\star=1\) contour over the \((\eta_J,\eta_P)\) surface; the two cannot be collapsed because their sojourns differ by a factor of thirty. The break-even value --- the \(\eta\) at which \(r^\star\) crosses unity --- lies between 0.25 and 0.50.
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \caption*{\textbf{Table S3a.} Zero-bias boundary against a common relative acquisition hazard $\eta$.}
+  \label{tab:table_s3a}
+  \begin{tabular}{lrr}
+    \toprule
+    $\eta$ & $r^\star$ & $r^\star>1$ \\
+    \midrule
+    0.00 & 1.0474 & 1 \\
+    0.05 & 1.0393 & 1 \\
+    0.25 & 1.0075 & 1 \\
+    0.50 & 0.9686 & 0 \\
+    0.75 & 0.9307 & 0 \\
+    1.00 & 0.8937 & 0 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{figure_s1.pdf}
+  \caption*{\textbf{Figure S1.} Zero-bias boundary over the $(\eta_J,\eta_P)$ surface at $q_J=3\%$, $q_P=5\%$, with the $r^\star=1$ contour.}
+  \label{fig:figure_s1}
+\end{figure}
 
 The direction of bias is set by \(\eta\) and not by occupancy. Under the census limit with mortality, \(\hat\lambda/\lambda_E=0.944\) at \(\eta=0\), \(0.955\) at \(\eta=0.3\), and \(1.007\) at \(\eta=1.8\): acquisition suppressed relative to the observable state attenuates the estimate, acquisition elevated inflates it. Reporting occupancy alone therefore cannot establish that an estimate is biased, or in which direction.
 
@@ -61,6 +169,23 @@ r^\star_w = e^{-\theta c}\Big[1+(\Omega_{T^*}-\Omega_w)/K_w\Big] ,
 and setting \(w_t\equiv1\) recovers their expression exactly (§4.1). The composed boundary is therefore an eligibility-dynamics correction to a quantity they derived, not a replacement for it.
 
 Under a Poisson inter-test process the no-dynamics boundary is exactly free of the recency function. Evaluated over six gamma bases spanning \(\Omega_{T^*}\) from 94 d to 251 d --- a range encompassing the principal LAg calibration regimes considered here, both the Duong-type algorithms without a viral-load criterion and the CEPHIA-derived algorithms with one (§3.2) --- \(r^\star\) is \(0.8098\) on every basis, with spread \(0.0\) (Table S4). The invariance is provable and follows from memorylessness rather than from any property of the estimator.
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \caption*{\textbf{Table S4.} Boundary invariance across recency bases, by inter-test process.}
+  \label{tab:table_s4}
+  \begin{tabular}{lrrrrrr}
+    \toprule
+    inter-test model & $P_0$ & $r^\star$ min & $r^\star$ max & spread & relative spread & invariance \\
+    \midrule
+    Exponential, theta=1 & 0.7788 & 0.7788 & 0.7788 & 0.00000 & 0.00000 & exact (provable) \\
+    Exponential, theta=0.844 (NHBS) & 0.8098 & 0.8098 & 0.8098 & 0.00000 & 0.00000 & exact (provable) \\
+    Uniform[0,3] & 0.8403 & 0.9002 & 0.9035 & 0.00332 & 0.00369 & approximate, 0.37\% \\
+    Uniform[0,4] & 0.8789 & 0.9287 & 0.9304 & 0.00171 & 0.00184 & approximate, 0.18\% \\
+    \bottomrule
+  \end{tabular}
+\end{table}
 
 That exactness does not extend to other testing processes, and the distinction matters because a \emph{rectangular recency window} is a property of the assay while a \emph{uniform inter-test distribution} is a property of testing behaviour. Under the uniform variant of Pan et al., invariance survives only approximately: relative spread across the same six bases is 0.37\% for gaps \(\mathrm{Unif}[0,3]\) and 0.18\% for \(\mathrm{Unif}[0,4]\). Two generalisations fail outright. The identity \(r^\star=\Pr(S>c)\) is specific to the Poisson case: under \(\mathrm{Unif}[0,3]\), \(P_0=0.8403\) while \(r^\star\approx0.902\). And matching the mean gap does not recover the boundary --- the mean-matched Poisson rate \(\theta=2/b\) gives \(r^\star=0.847\) against the uniform process's 0.902.
 

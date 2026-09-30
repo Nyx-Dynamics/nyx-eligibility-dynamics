@@ -14,6 +14,29 @@ Two recency bases are used. For reproducing published quantities we adopt the ga
 
 Independently, we re-estimated \(\varphi\) from the CEPHIA public-use dataset (Zenodo 10.5281/zenodo.4900634) following the \texttt{XSRecency} procedure: Evaluation Panel, LAg-Sedia consolidated final result, subtypes A1/B/C/D, logit polynomial in years since estimated date of detectable infection, fitted by GEE clustered on participant with an independence working correlation. For subtype C with ODn \(\le1.5\) and viral load \(>75\) copies/mL, MDRI is 182.4 d (95\% CI 161--213, 194 participants); Table S1 reports every algorithm fitted, and Figure S2A the resulting curve against the parametric bases. Pan's published 163 d falls inside that interval, and the estimate is stable across polynomial degree and fit horizon.
 
+\begin{table}[htbp]
+  \centering
+  \small
+  \caption*{\textbf{Table S1.} CEPHIA MDRI and shadow period by algorithm and subtype.}
+  \label{tab:table_s1}
+  \begin{tabular}{lrrrr}
+    \toprule
+    subtype & VL threshold (copies/mL) & MDRI (d) & shadow (d) & participants \\
+    \midrule
+    C & 75 & 182.4 & 142.1 & 194 \\
+    C & 1000 & 154.3 & 123.9 & 194 \\
+    B & 75 & 171.3 & 138.4 & 229 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{figure_s2.pdf}
+  \caption*{\textbf{Figure S2.} Empirical recency function from the CEPHIA public-use dataset. (A) The subtype-C fit against the two parametric bases. (B) Raw test-recent proportion by duration bin, all bins beyond $T^*$: among treatment-naive visits it declines to zero, across all visits it rises, so Gao \& Bannick's Assumption B.1 fails in both directions.}
+  \label{fig:figure_s2}
+\end{figure}
+
 \textbf{The assay basis is not load-bearing for the principal result.} Corollary 2 states that \(w_t\equiv1\) implies \(\hat\lambda/\lambda_E=1\) for \emph{any} admissible \(\varphi\), so nothing in §2 depends on which recency calibration is adopted. What follows therefore establishes a robustness envelope for the empirical evaluation, not a validation of any particular MDRI.
 
 \textbf{Methodological lineage is not calibration lineage, and the values below are not independent estimates of a common quantity.} Pan's 163 d is stated as relevant for subtype C using the LAg-EIA assay \emph{and viral load}, and traces to Kassanjee et al.~(2016), in which the CEPHIA consortium optimised viral-load criteria and thresholds across more than 2,000 candidate algorithms. Our re-estimate uses the CEPHIA public-use data with the same assay-plus-viral-load construction, so it is a replication within that lineage: it shows the published basis is reproducible from source, and Pan's value falls inside our interval, but both descend from the same consortium panel.
