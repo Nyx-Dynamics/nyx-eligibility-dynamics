@@ -68,13 +68,13 @@ TABLES = {
                   "skew in movement propensity."),
     "Table S1":  ("tableS1_cephia_mdri", "3.2",
                   "CEPHIA MDRI and shadow period by algorithm and subtype."),
-    "Table S2":  ("tableS2_wang_comparator", "4.8",
+    "Table S2":  ("tableS2_wang_comparator", "S3",
                   "Covariate reweighting against the duration mechanism, three "
                   "target-population cases."),
     "Table S3a": ("tableS3a_eta_common", "4.5",
                   "Zero-bias boundary against a common relative acquisition "
                   "hazard $\\eta$."),
-    "Table S3b": ("tableS3b_eta_sites", "4.7",
+    "Table S3b": ("tableS3b_eta_sites", "S2",
                   "Break-even $\\eta$ by site county. Illustrative; not an "
                   "epidemiologic claim about any county."),
     "Table S4":  ("tableS4_inter_test_process", "4.6",
@@ -115,6 +115,8 @@ def collect():
 def cited_in_text():
     """Labels actually cited in the manuscript body, excluding drafting notes."""
     found = set()
+    # the supplement is section6_*.md and carries three tables of its own;
+    # omitting it here would report them as uncited and fail the gate
     for f in sorted(MANUSCRIPT.glob("section*.md")):
         body = f.read_text().split("## Drafting notes")[0]
         found |= set(re.findall(r"\b(?:Figure|Table)\s+S?\d+[a-z]?", body))

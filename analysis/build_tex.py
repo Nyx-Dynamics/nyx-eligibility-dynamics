@@ -35,6 +35,7 @@ SECTIONS = [
     ("section3_parameterisation.md", "parameterisation"),
     ("section4_results.md", "results"),
     ("section5_discussion.md", "discussion"),
+    ("section6_supplement.md", "supplement"),
 ]
 
 TITLE = ("Temporary Loss of Eligibility and Bias in\\\\\n"
@@ -192,6 +193,9 @@ def main():
 \\input{{tex/parameterisation}}
 \\input{{tex/results}}
 \\input{{tex/discussion}}
+
+\clearpage
+\input{{tex/supplement}}
 
 \\clearpage
 \\input{{tex/captions}}

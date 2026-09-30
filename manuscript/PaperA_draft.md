@@ -418,7 +418,7 @@ $q$ is the stationary share of person-time spent temporarily unobservable. It wa
 
 Routes B and C agree to 0.04 percentage points despite sharing no data source, and the jail multiplier is independently validated: BJS jail (253 per 100,000 adults) plus prison (453) is 706, against 698 from the multiplier construction, accurate to 1%. We adopt $q\approx6\text{–}8\%$ nationally, and where the two custody types are separated, $q_J=0.03$ and $q_P=0.05$.
 
-One construction was rejected. Jail incarceration peaks at ages 25–34 (480 per 100,000) and 35–44 (426), the bands PWID predominantly occupy, and age-standardising to a PWID structure gives a 1.40× uplift. Applying that uplift *and* the injection enrichment double-counts, because part of the enrichment ratio exists precisely because PWID occupy high-incarceration age bands. The age correction is therefore applied to denominators only (§3.10), never layered on the enrichment.
+One construction was rejected. Jail incarceration peaks at ages 25–34 (480 per 100,000) and 35–44 (426), the bands PWID predominantly occupy, and age-standardising to a PWID structure gives a 1.40× uplift. Applying that uplift *and* the injection enrichment double-counts, because part of the enrichment ratio exists precisely because PWID occupy high-incarceration age bands. The age correction is therefore applied to denominators only (§S1), never layered on the enrichment.
 
 ### 3.6 Return rates
 
@@ -447,18 +447,6 @@ $\eta_k=\lambda_k/\lambda_E$ is **not sourced and cannot be identified** from av
 The only directly relevant evidence is a meta-analysis of 36 predominantly prospective cohort studies (Gough et al. 2010) giving pooled HIV incidence of 0.08 per 100 person-years among the continuously incarcerated against 1.14 per 100 among PWID recruited from treatment and 2.78 among street-recruited PWID — crude cross-study ratios of 0.03 to 0.07. Separately, a Georgia prison investigation documented 88 known seroconversions during incarceration with genetic evidence of within-prison transmission, establishing $\eta_P>0$.
 
 These establish that a non-zero custodial acquisition hazard substantially below community PWID incidence is empirically plausible. They do not identify a contemporary value. They are heterogeneous historical studies rather than matched PWID followed inside and outside custody; "continuously incarcerated" is not synonymous with PWID; and the literature speaks to prison rather than to short jail episodes. We therefore use them as an **overlay band, never as a fitted value**, and do not collapse $\eta_J$ and $\eta_P$ to a common $\eta$ except where a common value is reported explicitly as such.
-
-### 3.10 Site-level geography
-
-For the site-level sensitivity of §4.7 we use the nine United States counties hosting PURPOSE 4 (NCT06101342), chosen because it is the cleanest available anchor for carceral geography in an HIV prevention trial. The registry record describes a phase 2, open-label, multicentre, randomised study of the pharmacokinetics and safety of twice-yearly subcutaneous lenacapavir for pre-exposure prophylaxis in people who inject drugs in the United States, with eligibility from 18 years and no upper bound, nine locations, and **181 participants enrolled**; it began in December 2023 and reached actual primary completion in July 2026.
-
-Two things follow. The ≥18 frame is why adult PWID mortality from ALIVE is the appropriate source in §3.4 rather than a younger-cohort estimate. And at 181 participants across nine sites — roughly twenty each — **no site-level empirical claim would be supportable from this trial even in principle**, which is part of why §4.7 is a break-even calculation rather than a correction. **No efficacy estimate from this trial is corrected or commented on**; it is a phase 2 pharmacokinetics and safety study and reports none.
-
-The nine registry locations map to counties as follows, and the mapping is one-to-one: Los Angeles and San Diego, California; Miami, Florida (Miami-Dade); Baltimore, Maryland (Baltimore City); Newark, New Jersey (Essex); The Bronx, New York; Philadelphia, Pennsylvania; Houston, Texas (Harris); and Morgantown, West Virginia (Monongalia).
-
-Jail and prison counts are taken at county level for 2019, the last year with harmonized county-level estimates across all nine counties. **2019 is a fixed pre-pandemic structural anchor and is not assumed to be conservative** — the data disprove that reading. Post-2019 jail trajectories are heterogeneous in both magnitude and direction: relative to 2019, jail populations stand at 0.46 in the Bronx and 0.70 in San Diego, but 1.02 in Miami-Dade, 1.05 in Monongalia and 1.09 in Essex. Four of nine counties are at or above their 2019 level, so a single national multiplier would have been wrong in direction for them. A secondary analysis updates the jail component with the most recent local data while retaining the 2019 prison component, county-level post-2019 prison counts being unavailable.
-
-Incarceration rates are published against total or 15–64 populations while trial eligibility is 18+, so a denominator conversion is required. A national 15–64 to 18+ ratio of 0.8333 was replaced with county-specific ratios from Census Population Estimates 2019, which range from 0.834 (Miami-Dade) to 0.908 (Harris). The national factor systematically understated exposure in counties with younger adult age structures, by up to 12.4%. Consistent with §3.5, the correction is applied to the denominator only.
 
 ### 3.11 Summary, and what this parameterisation licenses
 
@@ -490,6 +478,8 @@ Incarceration rates are published against total or 15–64 populations while tri
 
 All quantities are evaluated on the recency basis of Pan et al. unless stated otherwise: a gamma $\varphi$ with window parameter 163 d and shadow 260 d, giving $\Omega_{T^*}=151$ d over $T^*=2$ y. The background HIV testing rate is $\theta=0.844\,\mathrm{y}^{-1}$, from the NHBS estimate that 57% of people who inject drugs report testing within 12 months under a Poisson inter-test process. The testing-based exclusion cutoff is $c=0.25$ y, which is the three-month criterion specified in the PURPOSE 2 protocol rather than a rounded ninety days. Carceral occupancies and sojourns, where used, are $q_J=0.03$ with mean stay 32 d and $q_P=0.05$ with mean time served 2.7 y.
 
+Results are reported in the order the argument requires, and the order matters because the levels differ in what they establish. §4.1 checks that the framework is recovered where it should be. §4.2 gives the general result, which is exact and holds for any admissible recency function. §4.3 verifies it against an independent implementation. §4.4 and §4.5 quantify the two mechanisms that break it, sweeping each parameter over a plausible range rather than asserting a value. §4.6 tests what the conclusions depend on. Nothing after §4.3 is needed to establish the result; it is needed to say how large the departures are when the conditions fail.
+
 ### 4.1 Recovery of the reference framework
 
 Setting $w_t\equiv1$ reduces the composed expression of §2.7 to the limiting estimation error of Pan et al. Across all nine cells of their published table — three testing rates crossed with attendance ratios spanning $r=0$ to $r=1$ — the two agree to within $0.030\times10^{-3}$ on the log scale, the largest discrepancy occurring at $c=0$, $\theta=2$ (Table 1). The agreement is to the precision at which their values are published, and we treat it as exact recovery rather than as an independent result.
@@ -516,9 +506,9 @@ Across seven population scenarios — the cancellation case, absorbing loss at $
 
 Two design points are load-bearing. Each cell uses a disjoint block of random seeds: $\eta$ and $r$ enter the estimator as deterministic weights, so a single shared population would suffice arithmetically, but it makes residuals perfectly correlated and reduces an agreement test to a sign test on one realisation. And the agreement statistic is referred to $t_{N-1}$ rather than to a normal, because the replicate standard error is itself estimated; at small replicate counts the two differ substantially.
 
-### 4.4 Absorbing loss
+### 4.4 Magnitude of the first failure: absorbing loss
 
-Absorbing loss is the only mechanism that admits no compensating return flow, and at empirically sourced rates its magnitude is modest. With $\mu_E=0.040\,\mathrm{y}^{-1}$ — all-cause mortality among adults who inject drugs, from the ALIVE cohort — the weight is $w_t(u)=e^{-\mu u}$ and
+Absorbing loss is the only mechanism that admits no compensating return flow, and it is the one case with a closed form: Corollary 4 gives $w_t(u)=e^{-\mu u}$ exactly, so the ratio is the recency function's own Laplace transform normalised by $\Omega_{T^*}$. At empirically sourced rates its magnitude is modest. With $\mu_E=0.040\,\mathrm{y}^{-1}$ — all-cause mortality among adults who inject drugs, from the ALIVE cohort — the weight is $w_t(u)=e^{-\mu u}$ and
 
 $$
 \hat\lambda/\lambda_E \to \Omega_\mu/\Omega_{T^*} = 0.9786 ,
@@ -528,15 +518,15 @@ an attenuation of 2.1% (Table 2). At $\mu_E=0.10\,\mathrm{y}^{-1}$ the ratio is 
 
 Absorbing loss also displaces the composed zero-bias boundary of §2.7. Without dynamics that boundary is $r^\star=e^{-\theta c}=0.8098$; mortality raises it monotonically, to 0.8967 at $\mu_E=0.040$. The boundary reaches unity — the point at which the two selection mechanisms no longer cancel at equal attendance — at $\mu_{\mathrm{crit}}=0.0852\,\mathrm{y}^{-1}$, approximately 2.1 times the sourced rate. Susceptible mortality does not offset the effect: losses from the susceptible pool are replaced by entry, not by return.
 
-### 4.5 State-dependent acquisition
+### 4.5 Magnitude of the second failure: state-dependent acquisition
 
-State-dependent acquisition is the mechanism by which temporarily unobservable states re-enter as a bias source despite Corollary 2, and it is the parameter to which the composed boundary is most sensitive. Holding occupancy and sojourn at the values above and varying a common relative hazard $\eta$ in the unobservable states, the boundary falls monotonically from $r^\star=1.047$ at $\eta=0$ through 1.008 at $\eta=0.25$ to 0.894 at $\eta=1$ (Table S3a). Figure S1 separates the jail and prison hazards, showing the $r^\star=1$ contour over the $(\eta_J,\eta_P)$ surface; the two cannot be collapsed because their sojourns differ by a factor of thirty. The break-even value — the $\eta$ at which $r^\star$ crosses unity — lies between 0.25 and 0.50.
+State-dependent acquisition is the mechanism by which temporarily unobservable states re-enter as a bias source despite Corollary 2, and it is the parameter to which the composed boundary is most sensitive. Because $\eta$ is not identifiable from available data (§3.9), it is swept over its plausible range rather than fixed. Holding occupancy and sojourn at the values above and varying a common relative hazard $\eta$ in the unobservable states, the boundary falls monotonically from $r^\star=1.047$ at $\eta=0$ through 1.008 at $\eta=0.25$ to 0.894 at $\eta=1$ (Table S3a). Figure S1 separates the jail and prison hazards, showing the $r^\star=1$ contour over the $(\eta_J,\eta_P)$ surface; the two cannot be collapsed because their sojourns differ by a factor of thirty. The break-even value — the $\eta$ at which $r^\star$ crosses unity — lies between 0.25 and 0.50.
 
 The direction of bias is set by $\eta$ and not by occupancy. Under the census limit with mortality, $\hat\lambda/\lambda_E=0.944$ at $\eta=0$, $0.955$ at $\eta=0.3$, and $1.007$ at $\eta=1.8$: acquisition suppressed relative to the observable state attenuates the estimate, acquisition elevated inflates it. Reporting occupancy alone therefore cannot establish that an estimate is biased, or in which direction.
 
 $\eta$ is the load-bearing unmeasured parameter of this analysis. It cannot be identified from state-level surveillance, which would require studies comparing acquisition during custody with acquisition during community person-time in the same population. The only directly relevant estimate we located is Gough et al. (2010), reporting HIV incidence of 0.08 per 100 person-years during continuous incarceration against 1.14–2.78 per 100 person-years in comparable community populations, implying $0<\eta\ll1$ for continuous custody. That estimate is old, is specific to continuous incarceration rather than to short jail stays, and no contemporary estimate specific to people who inject drugs exists. We therefore present $\eta$ as a sensitivity axis with any literature range overlaid rather than fitted, and make no claim about its value in any real population.
 
-### 4.6 Composition with screening-stage selection
+### 4.6 What the conclusions depend on
 
 Substituting $w_t$ into the framework of Pan et al. moves the zero-bias boundary from $r^\star=e^{-\theta c}$ to
 
@@ -549,18 +539,6 @@ and setting $w_t\equiv1$ recovers their expression exactly (§4.1). The composed
 Under a Poisson inter-test process the no-dynamics boundary is exactly free of the recency function. Evaluated over six gamma bases spanning $\Omega_{T^*}$ from 94 d to 251 d — a range encompassing the principal LAg calibration regimes considered here, both the Duong-type algorithms without a viral-load criterion and the CEPHIA-derived algorithms with one (§3.2) — $r^\star$ is $0.8098$ on every basis, with spread $0.0$ (Table S4). The invariance is provable and follows from memorylessness rather than from any property of the estimator.
 
 That exactness does not extend to other testing processes, and the distinction matters because a *rectangular recency window* is a property of the assay while a *uniform inter-test distribution* is a property of testing behaviour. Under the uniform variant of Pan et al., invariance survives only approximately: relative spread across the same six bases is 0.37% for gaps $\mathrm{Unif}[0,3]$ and 0.18% for $\mathrm{Unif}[0,4]$. Two generalisations fail outright. The identity $r^\star=\Pr(S>c)$ is specific to the Poisson case: under $\mathrm{Unif}[0,3]$, $P_0=0.8403$ while $r^\star\approx0.902$. And matching the mean gap does not recover the boundary — the mean-matched Poisson rate $\theta=2/b$ gives $r^\star=0.847$ against the uniform process's 0.902.
-
-### 4.7 Illustrative site-level sensitivity
-
-To indicate the range of $\eta$ at which the composed boundary would cross unity in real catchments, we evaluated nine United States counties with published jail and prison occupancy, using county-specific age denominators (Table S3b). Break-even $\eta$ ranged from 0.04 (San Diego) to 0.55 (Baltimore City); in two counties, Bronx and Miami-Dade, the boundary never crosses unity for any $\eta\in[0,1]$.
-
-The trial enrolled 181 participants across those nine sites, so roughly twenty each; no site-level empirical claim would be supportable from it even in principle. **This is a sensitivity range, not an epidemiologic claim about any site.** It states the value $\eta$ would have to take for the two selection mechanisms to stop cancelling, given that county's carceral occupancy. It does not assert that $\eta$ takes that value anywhere, and no trial estimate is corrected on its basis. Its purpose is to show that the break-even value lies inside the plausible interval implied by the only available incidence comparison, so the question is empirical rather than hypothetical.
-
-### 4.8 Comparison with covariate reweighting
-
-Covariate transport by reweighting — matching the survey population to the trial-eligible population on measured covariates — addresses a different failure and does not remove this one. In a population where the observable and target covariate distributions coincide, which is the counterfactual-placebo case of interest, reweighting removes 0% of the bias: the naive and reweighted estimates are identical at 0.0387 against a truth of 0.0400, both attenuated by 3.3% (Table S2). Where the distributions differ, reweighting performs as designed, removing 91.3% and 96.8% of a much larger composition-driven bias in the two enriched cases.
-
-The reason is structural. Reweighting corrects the *composition* of the sampled population; it cannot correct the within-stratum duration component, which is below unity in every stratum, so any weighted average of within-stratum factors remains below unity. The two methods are complementary rather than alternative: reweighting for covariate imbalance, the weight $w_t$ for eligibility dynamics.
 
 ---
 
@@ -580,7 +558,7 @@ The result refines rather than displaces the framework of Gao and Bannick, and t
 
 Composition with Pan and colleagues is a nesting rather than a competition, and the nesting condition is worth stating precisely. Their framework is recovered when $w_t\equiv1$, which requires *both* that the living-state process contributes nothing, $s_t\equiv1$, and that the pool is demographically stationary, $g_E\equiv1$. Eligibility stability alone is insufficient: a stationary catchment with non-zero mortality still has $s_t<1$. Of the two halves, $\rho=0$ is empirically defensible and $s_t\equiv1$ is the half that fails, which is why the composed boundary differs from theirs at realistic mortality.
 
-Covariate transport by reweighting addresses a different failure and the two are complementary rather than alternative. Reweighting corrects the composition of the sampled population with respect to measured covariates. It cannot correct a within-stratum duration effect, which is below unity in every stratum, so no weighted average of such factors escapes it. In the counterfactual-placebo setting the target population *is* the trial population, drawn from the same screened pool, so the covariate distributions coincide and reweighting removes exactly none of this bias — as §4.8 shows. That is not a deficiency of the method but a statement that the two problems are orthogonal, and the composed expression carries both mechanisms simultaneously.
+Covariate transport by reweighting addresses a different failure and the two are complementary rather than alternative. Reweighting corrects the composition of the sampled population with respect to measured covariates. It cannot correct a within-stratum duration effect, which is below unity in every stratum, so no weighted average of such factors escapes it. In the counterfactual-placebo setting the target population *is* the trial population, drawn from the same screened pool, so the covariate distributions coincide and reweighting removes exactly none of this bias — as §S3 shows. That is not a deficiency of the method but a statement that the two problems are orthogonal, and the composed expression carries both mechanisms simultaneously.
 
 Prior-test-informed estimation likewise addresses an adjacent problem. It repairs misclassification of recency using prior test results rather than selection into the sample, and its own assumption that attendance and infection time are independent of duration is flagged there as violated by stop-when-positive testing. The awareness-driven non-entry it defers to future work is not the same as removal from observability after acquisition, which is the mechanism here.
 
@@ -616,7 +594,7 @@ The relative acquisition hazard in temporarily unobservable states is the load-b
 
 The best available evidence — a meta-analysis of 36 predominantly prospective cohorts reporting 0.08 HIV infections per 100 person-years among the continuously incarcerated against 1.14 to 2.78 in comparable community populations — establishes that a non-zero hazard substantially below community incidence is plausible, and a documented prison outbreak establishes that it is not zero. It does not identify a contemporary value, it concerns continuous incarceration rather than short jail episodes, and "continuously incarcerated" is not synonymous with people who inject drugs. Using it as a point estimate would manufacture precision that does not exist.
 
-The site-level analysis of §4.7 is therefore presented as a break-even calculation rather than a correction: it reports the value $\eta$ would have to take for the two selection mechanisms to stop cancelling in a given catchment, given that catchment's carceral occupancy. Across nine counties that value ranges from 0.04 to 0.55, and in two it is never reached. What makes this worth reporting is not the individual numbers but that the range overlaps the interval the available incidence comparison suggests — so the question is empirical rather than hypothetical, and a study designed to answer it would resolve the matter.
+The site-level analysis of §S2 is therefore presented as a break-even calculation rather than a correction: it reports the value $\eta$ would have to take for the two selection mechanisms to stop cancelling in a given catchment, given that catchment's carceral occupancy. Across nine counties that value ranges from 0.04 to 0.55, and in two it is never reached. What makes this worth reporting is not the individual numbers but that the range overlaps the interval the available incidence comparison suggests — so the question is empirical rather than hypothetical, and a study designed to answer it would resolve the matter.
 
 ### 5.7 Limitations
 
@@ -641,6 +619,39 @@ We describe this because the superseded analysis is publicly archived and becaus
 Eligibility loss should not be treated as inherently biasing in cross-sectional HIV incidence estimation. Temporary, bidirectional movement cancels exactly under identifiable symmetry conditions, and correction is warranted only where a named condition fails. Absorbing and temporary loss are therefore not interchangeable, and state-specific acquisition — not the occupancy of unobservable states — is the parameter that determines whether and in which direction an estimate is biased. Occupancy alone cannot establish that an estimate is wrong.
 
 ---
+
+---
+
+## Supplement
+
+
+### S1. Site-level geography
+
+For the site-level sensitivity of §S2 we use the nine United States counties hosting PURPOSE 4 (NCT06101342), chosen because it is the cleanest available anchor for carceral geography in an HIV prevention trial. The registry record describes a phase 2, open-label, multicentre, randomised study of the pharmacokinetics and safety of twice-yearly subcutaneous lenacapavir for pre-exposure prophylaxis in people who inject drugs in the United States, with eligibility from 18 years and no upper bound, nine locations, and **181 participants enrolled**; it began in December 2023 and reached actual primary completion in July 2026.
+
+Two things follow. The ≥18 frame is why adult PWID mortality from ALIVE is the appropriate source in §3.4 rather than a younger-cohort estimate. And at 181 participants across nine sites — roughly twenty each — **no site-level empirical claim would be supportable from this trial even in principle**, which is part of why §S2 is a break-even calculation rather than a correction. **No efficacy estimate from this trial is corrected or commented on**; it is a phase 2 pharmacokinetics and safety study and reports none.
+
+The nine registry locations map to counties as follows, and the mapping is one-to-one: Los Angeles and San Diego, California; Miami, Florida (Miami-Dade); Baltimore, Maryland (Baltimore City); Newark, New Jersey (Essex); The Bronx, New York; Philadelphia, Pennsylvania; Houston, Texas (Harris); and Morgantown, West Virginia (Monongalia).
+
+Jail and prison counts are taken at county level for 2019, the last year with harmonized county-level estimates across all nine counties. **2019 is a fixed pre-pandemic structural anchor and is not assumed to be conservative** — the data disprove that reading. Post-2019 jail trajectories are heterogeneous in both magnitude and direction: relative to 2019, jail populations stand at 0.46 in the Bronx and 0.70 in San Diego, but 1.02 in Miami-Dade, 1.05 in Monongalia and 1.09 in Essex. Four of nine counties are at or above their 2019 level, so a single national multiplier would have been wrong in direction for them. A secondary analysis updates the jail component with the most recent local data while retaining the 2019 prison component, county-level post-2019 prison counts being unavailable.
+
+Incarceration rates are published against total or 15–64 populations while trial eligibility is 18+, so a denominator conversion is required. A national 15–64 to 18+ ratio of 0.8333 was replaced with county-specific ratios from Census Population Estimates 2019, which range from 0.834 (Miami-Dade) to 0.908 (Harris). The national factor systematically understated exposure in counties with younger adult age structures, by up to 12.4%. Consistent with §3.5, the correction is applied to the denominator only.
+
+---
+
+### S2. Break-even acquisition hazard by site
+
+To indicate the range of $\eta$ at which the composed boundary would cross unity in real catchments, we evaluated nine United States counties with published jail and prison occupancy, using county-specific age denominators (Table S3b). Break-even $\eta$ ranged from 0.04 (San Diego) to 0.55 (Baltimore City); in two counties, Bronx and Miami-Dade, the boundary never crosses unity for any $\eta\in[0,1]$.
+
+The trial enrolled 181 participants across those nine sites, so roughly twenty each; no site-level empirical claim would be supportable from it even in principle. **This is a sensitivity range, not an epidemiologic claim about any site.** It states the value $\eta$ would have to take for the two selection mechanisms to stop cancelling, given that county's carceral occupancy. It does not assert that $\eta$ takes that value anywhere, and no trial estimate is corrected on its basis. Its purpose is to show that the break-even value lies inside the plausible interval implied by the only available incidence comparison, so the question is empirical rather than hypothetical.
+
+---
+
+### S3. Comparison with covariate reweighting
+
+Covariate transport by reweighting — matching the survey population to the trial-eligible population on measured covariates — addresses a different failure and does not remove this one. In a population where the observable and target covariate distributions coincide, which is the counterfactual-placebo case of interest, reweighting removes 0% of the bias: the naive and reweighted estimates are identical at 0.0387 against a truth of 0.0400, both attenuated by 3.3% (Table S2). Where the distributions differ, reweighting performs as designed, removing 91.3% and 96.8% of a much larger composition-driven bias in the two enriched cases.
+
+The reason is structural. Reweighting corrects the *composition* of the sampled population; it cannot correct the within-stratum duration component, which is below unity in every stratum, so any weighted average of within-stratum factors remains below unity. The two methods are complementary rather than alternative: reweighting for covariate imbalance, the weight $w_t$ for eligibility dynamics.
 
 ---
 
@@ -671,11 +682,11 @@ Generated by `analysis/assemble_manuscript.py`. Numbering follows order of first
 
 **Table S1.** CEPHIA MDRI and shadow period by algorithm and subtype. First cited §3.2.
 
-**Table S2.** Covariate reweighting against the duration mechanism, three target-population cases. First cited §4.8.
+**Table S2.** Covariate reweighting against the duration mechanism, three target-population cases. First cited §S3.
 
 **Table S3a.** Zero-bias boundary against a common relative acquisition hazard $\eta$. First cited §4.5.
 
-**Table S3b.** Break-even $\eta$ by site county. Illustrative; not an epidemiologic claim about any county. First cited §4.7.
+**Table S3b.** Break-even $\eta$ by site county. Illustrative; not an epidemiologic claim about any county. First cited §S2.
 
 **Table S4.** Boundary invariance across recency bases, by inter-test process. First cited §4.6.
 
@@ -901,6 +912,8 @@ Proofs are written for Theorems 1–2 and Corollaries 2–3. Corollaries 1, 4 an
 **Deliberately absent.** No claim that any published trial estimate is biased or by how much. No value asserted for $\eta$. No claim that cancellation requires reversibility — stationarity suffices. No claim of boundary exactness beyond the Poisson inter-test case.
 
 **Not yet drafted.** A subsection reporting the empirical $\varphi$ fit (CEPHIA MDRI 182.4 d, 95% CI 161–213, subtype C) and the observed violation of Gao & Bannick's Assumption B.1 — the test-recent proportion falls 9.9% → 5.8% → 0 across 730–1095, 1095–1825 and >1825 d. This belongs either here or in §3 depending on whether the fit is treated as input or as result.
+
+Two further analyses are reported in the supplement because they demonstrate rather than establish. §S2 evaluates the break-even $\eta$ at which the composed boundary crosses unity in nine real catchments, using the site geography parameterised in §S1; §S3 compares the mechanism with covariate transport by reweighting, which addresses a different failure and removes none of this one in the case of interest.
 
 ### From `section5_discussion.md`
 

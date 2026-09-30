@@ -30,6 +30,7 @@ ORDER = [
     ("section3_parameterisation.md", None),
     ("section4_results.md",         None),
     ("section5_discussion.md",      None),
+    ("section6_supplement.md",      "Supplement"),
     ("captions.md",                 "Figures and tables"),
     ("references.md",               "References"),
 ]
