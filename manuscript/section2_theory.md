@@ -1,4 +1,4 @@
-# Paper A — Section 2: Theory (rev. 5)
+# Paper A — Section 2: Theory — Version 2
 
 **Title:** Temporary Loss of Eligibility and Bias in Cross-Sectional HIV Incidence Estimation
 

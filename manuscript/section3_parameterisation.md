@@ -1,4 +1,4 @@
-# Paper A — Section 3: Empirical parameterisation (draft rev. 1)
+# Paper A — Section 3: Empirical parameterisation — Version 2
 
 > Supplies every quantity §4 evaluates. Provenance for each is in
 > `docs/audit/computation_record.md`, appendices noted inline.
@@ -135,4 +135,4 @@ These establish that a non-zero custodial acquisition hazard substantially below
 
 **Resolved.** $c$ was flagged as possibly discrepant on the belief that PURPOSE specifies 90 days. The protocol specifies **three months** — "HIV-1 status unknown at screening and no prior HIV-1 testing within the last 3 months" — so $c=0.25$ y is exact rather than an approximation, and the "90 d" gloss was the error. Out-migration remains unsourced and should either be retrieved from ACS or explicitly scoped out in the limitations.
 
-**Possible relocation.** §3.2's CEPHIA re-estimate is arguably a result rather than an input. It is placed here because §4 treats $\varphi$ as given; move it if the empirical fit is to carry weight of its own.
+**Left in §3, deliberately.** The CEPHIA re-estimate is arguably a result, but §4 treats $\varphi$ as given and the narrowing put magnitude and sensitivity there. Moving it would reopen the boundary the narrowing drew.

@@ -1,4 +1,4 @@
-# Paper A — Supplement (draft rev. 1)
+# Paper A — Supplement — Version 2
 
 > Material moved out of the main text at the narrowing. None of it establishes
 > the central result; each item demonstrates, parameterises or stress-tests it.

@@ -1,4 +1,4 @@
-# Paper A — Section 5: Discussion (draft rev. 1)
+# Paper A — Section 5: Discussion — Version 2
 
 ---
 

@@ -1,4 +1,4 @@
-# Paper A — Section 1: Introduction (draft rev. 1)
+# Paper A — Section 1: Introduction — Version 2
 
 ---
 
@@ -53,8 +53,8 @@ The contribution is structural. It replaces a question that cannot be answered u
 
 **One inherited error worth not repeating.** The predecessor's introduction wrote the window as $\int_0^T P_R(t)\,dt$ and then described it as assuming every individual infected within the window is observable at screening. That conflates the two formulations: Kassanjee's $P_R$ *contains* an eligibility-survival component, which is exactly what Gao and Bannick's $\varphi$ conditions away. The paragraph beginning "Two features of the existing formalism" exists to forestall that confusion, and it should not be cut for length.
 
-**Trial citations to add.** PURPOSE 1 (NCT04994509) and PURPOSE 2 (NCT04925752) with their primary reports, if the motivating paragraph is to name them as the predecessor did. PURPOSE 4 (NCT06101342) is already cited in §3.10 and §4.7; note that it is phase 2 and is used only as a carceral-geography anchor.
+**Decided: §1 names no trial.** The motivating paragraph stays general. Naming specific trials in the opening invites the reader to expect a correction to those trials, which the paper does not offer. Kelley 2025 (PURPOSE 2) and the PURPOSE 4 registry record are cited where they do work — §3.2, §3.3, §5.3 and the supplement.
 
-**Prior-work disclosure.** §5.8 carries it. A single forward-reference in §1 is an option — "an earlier version of this analysis" in the penultimate paragraph is currently the only signal — but most journals prefer it later or in a cover letter.
+**Decided: one forward-reference only.** "An earlier version of this analysis" in the penultimate paragraph. §5.8 carries the account; a preprint needs no more in the Introduction.
 
 **Length** ~1,050 words. If compressed, the paragraph on the two notational traps and the "what this paper does not do" section should survive; the contributions list can become prose.
