@@ -30,7 +30,7 @@ We refine the eligibility indicator rather than replace it, writing $A(t)=\mathb
 
 1. We derive the expected recent-infection count allowing HIV acquisition in **every** living state, not only while observable, and obtain the probability limit of the adjusted estimator as an integral of the recency function against a historical observability weight.
 
-2. We show that under stable living-state composition, a demographically stationary observable susceptible pool, state-invariant acquisition, infection-independent movement and no absorbing loss, temporary losses and returns cancel **exactly**. The cancellation is independent of the recency function and of the occupancy of unobservable states, and it survives arbitrary heterogeneity in movement propensity — so concentration of carceral contact in a high-propensity minority, which is the empirical reality, does not by itself generate bias.
+2. We show that under stable living-state composition, a demographically stationary observable susceptible pool, state-invariant acquisition, infection-independent movement and no absorbing loss, temporary losses and returns cancel **exactly**. The cancellation is independent of the recency function and of the occupancy of unobservable states, and it requires stationarity of the movement process but not the Markov property, so it survives recurrent, history-dependent movement concentrated in a high-propensity minority — which is the empirical reality of carceral contact.
 
 3. We characterise the four mechanisms that break the cancellation — absorbing loss, state-dependent acquisition, infection-dependent movement, and non-stationarity — and give the direction of bias each produces.
 
