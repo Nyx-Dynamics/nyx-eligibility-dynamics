@@ -78,7 +78,9 @@ discrepancies surfaced and are recorded at the end.
 
 20. **Zeng Z.** *Jail Inmates in 2023 – Statistical Tables.* Bureau of Justice Statistics, US Department of Justice; April 2025. NCJ 309965. *§3.5–3.6: mean 32 d in custody July 2022–June 2023; adult jail incarceration rate by age; all-adult rate 253 per 100,000.*
 
-21. **Bureau of Justice Statistics.** *Prisoners* series. US Department of Justice. *§3.5–3.6: adult imprisonment rate 453 per 100,000; mean time served ≈2.7 y.*
+21. **Kaeble D.** *Time Served in State Prison, 2018.* Bureau of Justice Statistics; March 2021. NCJ 255662. *§3.6: mean time served from initial admission to initial release 2.7 y (median 1.3 y), giving β_P = 0.37/y.*
+
+**Bureau of Justice Statistics.** *Prisoners* series. US Department of Justice. *§3.5 Route C only: adult imprisonment rate 453 per 100,000. **Edition not yet pinned** — the series is not among the tables committed under `data/bjs/`, and the 2020 edition reports a COVID-depressed 358 per 100,000, so the figure belongs to a different year. Route C is one of three routes to q and agrees with the BJS-free Route B to 0.04 percentage points, so no conclusion rests on it alone.*
 
 22. **Carson EA.** *Mortality in Local Jails, 2000–2019 – Statistical Tables.* Bureau of Justice Statistics; December 2021. NCJ 301368. And *Mortality in State and Federal Prisons, 2001–2019 – Statistical Tables.* Bureau of Justice Statistics; December 2021. NCJ 300953. *§3.7: 167, 330 and 259 deaths per 100,000. Source tables are committed under `data/bjs/`.*
 
