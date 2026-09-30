@@ -10,6 +10,7 @@
 #   make manuscript    assemble Paper A figures/tables under final numbers
 #   make draft         concatenate the sections into one readable draft
 #   make tex           convert the sections to LaTeX and build PaperA.pdf
+#   make preprint      gather everything needed to post, into preprint/
 #   make check-refs    verify every figure and table is present and cited
 #   make all           verify + figures
 #   make clean         remove generated outputs
@@ -23,7 +24,8 @@ OFFLINE := reproduce_pan mortality_threshold validate_theorems frailty_mixture \
            wang_comparator eta_surface inter_test_process
 DATADEP := empirical_phi
 
-.PHONY: all verify verify-fast figures figures-full croi-figure figure-redraw submission-fig docx manuscript draft tex check-refs \
+.PHONY: all verify verify-fast figures figures-full croi-figure figure-redraw submission-fig docx manuscript draft tex preprint \
+        check-refs \
         clean check-env \
         $(OFFLINE) $(DATADEP)
 
@@ -96,6 +98,11 @@ tex: check-env
 	  e=[l for l in L if l.startswith('!')]; \
 	  o=[l for l in L if 'Output written' in l]; \
 	  print('  errors:', len(e)); print(' ', o[0] if o else 'NO PDF')"
+
+# Copies only. Depends on nothing so the ordering stays explicit: run figures,
+# manuscript and tex first, or the package will be built from stale artifacts.
+preprint: check-env
+	@cd $(ANALYSIS) && $(PY) build_preprint.py
 
 # Non-zero exit if any numbered item is missing or uncited. Suitable for CI.
 check-refs: check-env

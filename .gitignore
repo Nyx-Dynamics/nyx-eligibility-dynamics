@@ -25,3 +25,6 @@ manuscript/*.aux
 manuscript/*.log
 manuscript/*.out
 manuscript/PaperA.pdf
+
+# Generated deliverable: every file has a tracked source.
+preprint/
